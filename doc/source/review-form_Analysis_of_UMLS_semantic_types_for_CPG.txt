@@ -1,0 +1,130 @@
+======================================================================
+REVIEW FORM for the paper Analysis of UMLS Semantic Types relevant for Clinical Practice Guidelines
+======================================================================
+
+----------------------------------------------------------------------
+(+) Summary of the paper's contribution
+Please outline briefly the main contribution of this submission.
+
+The paper is dealing with information extraction out of clinical practice guidelines. In more detail with the automation of the representation and execution of activities contained in clinical practice guidelines. Respectively, UMLS Semantic Types has to be identified. Therefore several techniques for text processing in the biomedical domain were analyzed. To be more specific word sense disambiguation techniques and natural language processing techniques were analyzed.
+The rule-based approach of automatic extraction of semantic relations between medical entities showed main error causes because of the extraction of medical entities, the patterns of treatment relations and the sentences that contain possible source and target entities. Using external segmentation tools resulted with improvements compared to the direct use of MetaMep. A prerequisite of the rule-based approach is a knowledge base that contains the semantic relations in question.
+The pattern-based approach had the disadvantage of high costs for getting the recall. Using association rule mining did not deliver good results.
+The learning-based approach had the weakness of supervised machine-learning-based methods. The text had to include manually disambiguated instances of ambiguous words, but the results showed that the technique is successful and effective in the disambiguation task.
+
+----------------------------------------------------------------------
+(+) Utility, Importance (relevance in general):
+Does the paper provide a relevant, needed contribution? Is there a potential that this paper could become an important reference for future work? Is the paper relevant for important applications?
+3 - Addresses clear need
+2 - Possibly useful
+1 - Case for utility not compelling
+
+2 – Possibly useful.
+Though the paper contains a relevant contribution, it is not sure that it contains important references for future work, because there are existing papers that contain the information in more detail. It could be relevant for future application that has the aim of “activity (semantic type) extraction” of clinical practice guidelines, using this paper as a reference to several other information sources.
+
+----------------------------------------------------------------------
+(+) Soundness (technical soundness, soundness of approach):
+Is paper technically sound (when this question is applicable)? Is the chosen approach sound/correct? Is the presented research methodology sound?
+3 - Approach is (technically) correct and well justified
+2 - Some concerns on correctness, some choices questionable
+1 - Fundamentally unsound (technical) approach
+
+3 – Approach is (technically) correct and well justified.
+Though the approaches contained in the papers are explained cursorily, they sound correct. The research methodology also sounds correct.
+
+----------------------------------------------------------------------
+(+) Reproducability:
+3 - Everything critical is discussed
+2 - Many issues discussed, but some important details left out
+1 - Work cannot be replicated because too many critical aspects remain murky
+
+2 – Many issues discussed, but some important details left out.
+In my opinion the papers lacks a bit on detail, therefore I do not think that every containing issue is discussed completely.
+
+----------------------------------------------------------------------
+(+) Presentation Quality:
+5 - Excellent: exposition is clear and writing flows well
+4 - Good: only minor typos and grammar problems
+3 - Fair: some structural changes or some wordsmithing needed
+2 - Poor: major structural changes or extensive wordsmithing needed
+1 - Unpublishable: too difficult to understand
+
+4 - Good: only minor typos and grammar problems.
+Besides some minor typos, there are maybe some word orders to change. 
+
+----------------------------------------------------------------------
+(+) References:
+3 - At large, all important references are included
+2 - Some important references are missing
+1 - Major areas of previous work ignored
+
+3 – At large, all important references are included.
+
+----------------------------------------------------------------------
+(+) Strengths of the paper (at least 3)
+Point out the major strengths of the submitted contribution.
+
+-	it contains a well done research
+-	the key information is well structured
+-	it points out actual existing approaches for the aim well
+
+----------------------------------------------------------------------
+(+) Weaknesses of the paper (at least 3)
+Point out the major weaknesses of the submitted contribution.
+
+-	it lacks a little bit detail
+-	I could not get out the main advantages of the different approaches
+-	a comparison in numbers of the different approaches’ results would be nice
+
+----------------------------------------------------------------------
+(+) Comments and suggestions
+Explain your reasons for the numeric rating above, addressing for example the following questions. Please also provide suggestions for improvement and use an objective and constructive writing style.
+
+Is relevant previous work adequately referenced? If not, what citations should be added?
+Are any important details or analyses missing?
+Is the paper technically sound? 
+Could it be reproduced by a skilled graduate student?
+Is the exposition clear? How could the structure or style of the presentation be improved? 
+Should anything be deleted or condensed from the writeup? Are the figures as informative as possible? 
+Are the figures as informative as possible?
+Is the (optional) supplementary material helpful (if provided)?
+
+BE THOROUGH -- your explanation will be of highest importance for any discussion of the paper and will be used by the authors to improve their work.
+
+BE FAIR -- the authors spent a lot of effort to prepare their submission.
+
+BE SPECIFIC -- the emphasis of our reviews should be to help the authors on how to improve their work.
+
+BE HELPFUL -- point out the potential positive aspects. Be encouraging.
+
+BE TACTFUL -- belittling or sarcastic comments may help display oneâ€™s wit, but they are unnecessary in the reviewing process.
+
+VGTC Ethics Guidelines: http://vgtc.org/wpmu/techcom/conferences/ethics-guidelines
+
+All together it is a well-structured paper containing important information in the discussed field. The approaches are explained and compared well, but it could include some more detail to the different approaches with their pros and cons. The related work and the research literature are well used. Except some smaller parts, the paper sounds technically good. In my opinion it can be reproduced by another student. Structure and style is nice and the contained figure is clear.
+
+
+----------------------------------------------------------------------
+(+) Overall Rating:
+Provide your overall rating of the paper. 
+5 - Definite accept: I would argue strongly for accepting this paper.
+4 - Probably accept: I would argue for accepting this paper.
+3 - Borderline: the strengths and weaknesses balance for this paper.
+2 - Probably reject: I would argue for rejecting this paper.
+1 - Definite reject: I would argue strongly for rejecting this paper.
+
+4 – 3.
+All together a good paper, but as mentioned before it could contain more detailed information.
+
+----------------------------------------------------------------------
+(+) Expertise:
+Provide your expertise in the topic area of this paper.
+4 - Expert
+3 - Knowledgeable
+2 - Passing Knowledge
+1 - No Knowledge
+
+3 – Knowledge.
+
+----------------------------------------------------------------------
+(+) Internal comments
+These comments are only for program committee (PC) members and will not be passed on to authors.

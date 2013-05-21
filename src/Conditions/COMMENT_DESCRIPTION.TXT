@@ -1,0 +1,22 @@
+author of this package: Christian Hinterer
+
+description: this package includes (container-)classes to represent "real life conditions";
+these conditions are filtered of clinical practice guidelines (CPG)
+
+the different classes offer different interfaces to represent different conditions, such as comparison,
+contains, ranges,...
+
+the information stored in objects of these classes are used to be transfered into the classes of the
+package "AsbruConditions", which in turn represent the elements defined by the Asgard/Asbru
+
+note: only the most outer condition classes offer the usage of comments at the moment, these are:
+- CombinedCondition: combination of 2 or more conditions
+- ComparisonCondition: conditions containing a comparison
+- ContainsCondition: represents a condition that models an "in" -> if one variable (or value) is contained in a list of variables (or values)
+- IteratorEndCondition
+- IteratorStartCondition
+- NotCondition: negation of any kind of condition
+- OccuranceCondition
+- RangeCondition: models if a value is in between two other values
+- VariableKnownCondition
+- VariableUnknownCondition

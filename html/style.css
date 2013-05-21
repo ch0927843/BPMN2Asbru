@@ -1,0 +1,161 @@
+
+body {
+        margin:0px;
+        padding:0px;
+        font-family:verdana, arial, helvetica, sans-serif;
+        color:#333;
+        background-color:white;
+        }
+h1 {
+        margin:0px 0px 15px 0px;
+        padding:0px;
+        font-size:28px;
+        line-height:28px;
+        font-weight:900;
+        color:#999;
+        }
+        
+h2	{
+		margin:15px 0px 15px 0px;
+		padding:0px;
+		font-size:22px;
+		line-height:22px;
+		color:#666;
+		}
+
+h3	{
+		margin:15px 0px 15px 0px;
+		padding:0px;
+		font-size:16px;
+		line-height:16px;
+		}
+
+h4	{
+		margin:15px 0px 15px 0px;
+		padding:0px;
+		font-size:14px;
+		line-height:14px;
+		}
+						
+p {
+        font:12px/20px verdana, arial, helvetica, sans-serif;
+        margin:0px 0px 16px 0px;
+        padding:0px;
+        }
+#Content>p {margin:0px;}
+#Content>p+p {text-indent:30px;}
+
+td {
+	   font-size:12px;
+        }
+
+li {
+		font-size:12px;
+		}
+		
+a {
+/*        color:#09c;
+   */     font-size:12px;
+        text-decoration:none;
+        font-weight:600;
+        font-family:verdana, arial, helvetica, sans-serif;
+        }
+a:link {color:#3399cc;}     /* #09c;} */
+a:visited {color:#336699;}  /* #07a;} */
+a:hover {background-color:#eee;}
+
+#Header {
+        margin:35px 0px 10px 0px;
+        padding:20px 80px 0px 20px;
+        /* For IE5/Win's benefit height = [correct height] + [top padding] + [top and bottom border widths] */
+        height:42px; /* 24px + 20px + 2px = 46px */
+        border-style:solid;
+        border-color:black;
+        border-width:1px 0px; /* top and bottom borders: 1px; left and right borders: 0px */
+        line-height:36px;
+		font-size:28px;
+        background-color:#eee;
+        voice-family: "\"}\"";
+        voice-family:inherit;
+        height:24px; /* the correct height */
+        color:#666;
+        text-align:right
+        }
+body>#Header {height:36px;}
+
+#Header>a { font-size:28px;
+			color:#666;
+			font-weight:normal;
+		   }
+
+#box  { position:absolute; 
+		top:36px;
+		right:0px; 
+		width:56px; 
+		height:56px; 
+		/* background-color:#33cc00; */
+	  }
+#box.red { background-color:red; }
+#box.green { background-color:#33cc00; }
+#box.orange { background-color:#ff9900; }
+#box.blue { background-color:#3399cc; }
+#box.yellow { background-color:#ffcc00; }
+
+
+#Header>#box  {height:56px; }  
+
+#Footer {
+	margin:100px 0px 30px 0px;
+	padding:8px 80px 0px 20px;
+	height:20px;
+	border-style:solid;
+	border-color:black;
+	border-width:1px 0px;
+	line-height:12px;
+	background-color:#eee;
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	height:10px;
+	font-size:10px;
+	text-align:right
+	}
+#Footer>a {font-size:10px; }
+
+/* #box_f  {position:absolute; 
+		top:0px; 
+		right:0px; 
+		width:56px; 
+		height:20px; 
+		background-color:#ff6600; 
+#Footer>#box_f {height:14px; } */
+		
+body>#Footer  {height:14px;}
+
+#Content {
+		/* margin:0px 210px 50px 10px; # menÙ rechts */
+        /* margin:0px 10px 50px 210px;  # menÙ links */
+        margin:0px 10px 50px 10px; /* # kein menÙ */
+        padding:10px;
+        }
+
+#Menu {
+        position:absolute;
+        top:110px;
+        left:20px;
+        
+     /*   right:20px; */
+        width:172px; 
+        padding:10px;
+        background-color:#eee;
+        border:1px dashed #999;
+        line-height:17px;
+/* Again, the ugly brilliant hack. */
+        voice-family: "\"}\"";
+        voice-family:inherit;
+        width:170px;
+        font-size:15px;
+        }
+/* Again, "be nice to Opera 5". */
+body>#Menu {width:150px;}
+
+

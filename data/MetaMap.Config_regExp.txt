@@ -1,0 +1,19 @@
+host:[a-zA-Z]+ 								e.q. localhost
+port:[0-90-90-90-9]							e.q. 8066
+(annotateNegEx:[true|false])?						e.q. true
+(annotatePhrases:[true|false])?						e.q. true
+(inputASName:[a-zA-Z]+)?						e.q. myInputAnnotationSetName
+(inputASTypes:[a-zA-Z]+,)?						e.q. myInputAnnotationSetType1,myInputAnnotationSetType2,
+(inputASTypeFeature:[a-zA-Z]+)?						e.q. myFeatureName
+metaMapOptions:[-8?A?C?D?J?K?R?S?V?X?Y?Z?a?b?d?e?g?i?k?l?o?r?y?z?]	e.q. -Xdt (also default config)
+(outputASName:[a-zA-Z]+)?						e.q. myOutputAnnotationSetName
+(outputASType:[a-zA-Z]+)?						e.q. myOutputAnnotationSetType
+(outputMode:[AllCandidatesAndMappings|					e.q. AllMappings
+	    AllMappings|
+	    HighestMappingOnly|
+	    HighestMappingLowestCUI|
+	    HighestMappingMostSources|
+	    AllCandidates])?
+(taggerMode:[FirstOccurrenceOnly|					e.q. FirstOccurenceOnly
+	    CoReference|
+	    AllOccurrences])?

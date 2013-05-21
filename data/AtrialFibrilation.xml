@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" 
+xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" 
+xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" 
+xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" 
+xmlns:signavio="http://www.signavio.com" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="6.4.0" expressionLanguage="http://www.w3.org/1999/XPath" id="sid-3f3d8f40-3827-42bd-9a88-f1ea762c2c62" targetNamespace="http://www.signavio.com/bpmn20" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e84c" xsi:type="tFormalExpression">For patients who have 1 of the following less well-validated risk factors (age 65 to 74 y, female gender, or CAD) </conditionExpression>
+
+
+
+</definitions>

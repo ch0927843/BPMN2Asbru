@@ -1,0 +1,129 @@
+======================================================================
+REVIEW FORM
+======================================================================
+
+----------------------------------------------------------------------
+(+) Summary of the paper's contribution
+Please outline briefly the main contribution of this submission.
+
+The focus of this work is mainly on approaches of information extraction of medical free-text (MPGs and CPGs). In detail they were concentrating on processing of specific information. The aim is to represent the free-text into computer-interpretable formats.
+Among other the Asgaard/Asbru project was mentioned in the paper.
+
+----------------------------------------------------------------------
+(+) Utility, Importance (relevance in general):
+Does the paper provide a relevant, needed contribution? Is there a potential that this paper could become an important reference for future work? Is the paper relevant for important applications?
+3 - Addresses clear need
+2 - Possibly useful
+1 - Case for utility not compelling
+
+1
+
+
+----------------------------------------------------------------------
+(+) Soundness (technical soundness, soundness of approach):
+Is paper technically sound (when this question is applicable)? Is the chosen approach sound/correct? Is the presented research methodology sound?
+3 - Approach is (technically) correct and well justified
+2 - Some concerns on correctness, some choices questionable
+1 - Fundamentally unsound (technical) approach
+
+2
+
+----------------------------------------------------------------------
+(+) Reproducability:
+3 - Everything critical is discussed
+2 - Many issues discussed, but some important details left out
+1 - Work cannot be replicated because too many critical aspects remain murky
+
+1
+
+----------------------------------------------------------------------
+(+) Presentation Quality:
+5 - Excellent: exposition is clear and writing flows well
+4 - Good: only minor typos and grammar problems
+3 - Fair: some structural changes or some wordsmithing needed
+2 - Poor: major structural changes or extensive wordsmithing needed
+1 - Unpublishable: too difficult to understand
+
+3
+
+----------------------------------------------------------------------
+(+) References:
+3 - At large, all important references are included
+2 - Some important references are missing
+1 - Major areas of previous work ignored
+
+2
+
+----------------------------------------------------------------------
+(+) Strengths of the paper (at least 3)
+Point out the major strengths of the submitted contribution.
+
+- Detailed method description
+- Result section is well structured
+- Related work is wide-ranging (good overview)
+
+----------------------------------------------------------------------
+(+) Weaknesses of the paper (at least 3)
+Point out the major weaknesses of the submitted contribution.
+
+- no figures
+- references were omitted
+- no critically discussion
+
+----------------------------------------------------------------------
+(+) Comments and suggestions
+Explain your reasons for the numeric rating above, addressing for example the following questions. Please also provide suggestions for improvement and use an objective and constructive writing style.
+
+Is relevant previous work adequately referenced? If not, what citations should be added?
+Are any important details or analyses missing?
+Is the paper technically sound? 
+Could it be reproduced by a skilled graduate student?
+Is the exposition clear? How could the structure or style of the presentation be improved? 
+Should anything be deleted or condensed from the writeup? Are the figures as informative as possible? 
+Are the figures as informative as possible?
+Is the (optional) supplementary material helpful (if provided)?
+
+BE THOROUGH -- your explanation will be of highest importance for any discussion of the paper and will be used by the authors to improve their work.
+
+BE FAIR -- the authors spent a lot of effort to prepare their submission.
+
+BE SPECIFIC -- the emphasis of our reviews should be to help the authors on how to improve their work.
+
+BE HELPFUL -- point out the potential positive aspects. Be encouraging.
+
+BE TACTFUL -- belittling or sarcastic comments may help display one’s wit, but they are unnecessary in the reviewing process.
+
+VGTC Ethics Guidelines: http://vgtc.org/wpmu/techcom/conferences/ethics-guidelines
+
+The abstract should contain more about result and what has been done within the work.
+The references in the introduction and the result sections are not complete (for example: Asgaard project). In the introduction there is no outline of the manuscript. 
+The related work section contains a lot of facts and approaches but no further details like evaluted results or open/missing challenges.
+
+The results of the evaluations should be more mentioned and discussed.
+
+Insted of "I...." use "We....".
+ 
+No figures were used.
+
+Discussion and conclusion sections are missing.
+
+----------------------------------------------------------------------
+(+) Overall Rating:
+Provide your overall rating of the paper. 
+5 - Definite accept: I would argue strongly for accepting this paper.
+4 - Probably accept: I would argue for accepting this paper.
+3 - Borderline: the strengths and weaknesses balance for this paper.
+2 - Probably reject: I would argue for rejecting this paper.
+1 - Definite reject: I would argue strongly for rejecting this paper.
+
+2
+
+----------------------------------------------------------------------
+(+) Expertise:
+Provide your expertise in the topic area of this paper.
+4 - Expert
+3 - Knowledgeable
+2 - Passing Knowledge
+1 - No Knowledge
+
+3

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan-library>
+<plans>
+<plan-group>
+<plan name="plan1">
+<conditions>
+<filter-precondition overridable="no" confirmation-required="no" ID="sid-04894d52-d1d9-4413-be47-01d612a9e84c"><simple-condition label="" importance="0.0"><simple-condition-combination type="OR"><any-comment><comment text="For patients who have 1 of the following less well-validated risk factors (age 65 to 74 y, female gender, or CAD) " /></any-comment><is-within-range><any-comment><comment text="age 65 to 74 y" /></any-comment><expression><string-constant value="age"></string-constant></expression><ValueRange><lower-bound include-limit="true" ><expression><numerical-constant value="65.0" unit="y" scale=""></numerical-constant></expression></lower-bound><upper-bound include-limit="true" ><expression><numerical-constant value="74.0" unit="y" scale=""></numerical-constant></expression></upper-bound></ValueRange></is-within-range><comparison type="equal" ><any-comment><comment text="female gender" /></any-comment><left-hand-side><expression><parameter-ref name="female gender"></parameter-ref></expression></left-hand-side><right-hand-side><expression><qualitative-constant value="true"></qualitative-constant></expression></right-hand-side></comparison><comparison type="equal" ><any-comment><comment text="CAD" /></any-comment><left-hand-side><expression><parameter-ref name="CAD"></parameter-ref></expression></left-hand-side><right-hand-side><expression><qualitative-constant value="true"></qualitative-constant></expression></right-hand-side></comparison></simple-condition-combination></simple-condition></filter-precondition>
+</conditions>
+</plan>
+</plan-group>
+</plans>
+</plan-library>

@@ -1,0 +1,67 @@
+﻿======================================================================
+REVIEW FORM 1
+======================================================================
+
+----------------------------------------------------------------------
+(+) 
+The topic of the State of the Art report is about information extraction of medical guideline protocols. The underlying problem is, that with the increasing knowledge in the field of medicine automated knowledge processing becomes more and more important. Therefore automated techniques to extract information out of written text (like medical guidelines) without destroying or changing their semantic meaning are crucial. The author provides an overview over the related work and gives then an informative overview over the different approaches which ahve already been developed in this direction. 
+----------------------------------------------------------------------
+(+) Utility, Importance (relevance in general): 
+2 - Possibly useful
+
+The paper is of utility but not yet of importance. It provides a well done overview over the current state of the art, but its main problems are, that a critical discussion is missing as well as a comparison of the approaches with each other. Except from them also the Conclusion section is absent and the number of sources are too few. In regard to the already given overview of the State of the Art, the Paper is of potential and it could become an important reference for future work, in case the missing parts are asserted. However another negative point is that it does not exactly specify the problem around which the corresponding master thesis is centered. This report describes in the Introduction section, what MPGs are, and that it is necessary to extract knowledge out of them. But why is this important? What is the motivation behind extracting the information out of MPGs? What will be challenges in this context?
+----------------------------------------------------------------------
+(+) Soundness: 2 - Some concerns on correctness, some choices questionable
+
+
+The technical soundness of the report is very good as it becomes clear that the author really conducted recherche on the topic and gathered some surrounding knowledge. Except from that it becomes clear that the author put some effort in this report. The related work is also described in a clear manner and a structured way, BUT the author inly describes very briefly what happened in the related works but not their results, although this is the most important part of the related work. In turn, the Methods section is very good. The author clearly outlined what he searched, how he searched and which policies he used in his recherche.  
+Also the Results section shows that the author processed the most important information state of the art extraction approaches and gives a nice overview about them. 
+----------------------------------------------------------------------
+(+) Reproducability:
+ 3 - Everything critical is discussed
+
+
+As far as i can see, no critical details have been left out and there were no passages which were not understandeable.
+----------------------------------------------------------------------
+(+) 
+Presentation Quality: 3 - Fair: some structural changes or some wordsmithing needed
+
+The presentation quality of the paper is excellent, at least in regard to the state of the art itself. However the author seems to just have processed the current state of the art without comparing it and without putting it under a critical light.
+----------------------------------------------------------------------
+(+) References: 
+1 - Major areas of previous work ignored
+
+
+
+
+The number of references should be at least trippled.
+----------------------------------------------------------------------
+(+) Strengths of the paper (at least 3)
+Point out the major strengths of the submitted contribution.
+
+
+
+- The state of the art is very well processed
+- the Methods section is perfect
+- the report delivers a bright and srtrutured overview of the state of the art
+- The author seems to have put much effort into the topic and seems to have gathered valuable background information
+----------------------------------------------------------------------
+(+) Weaknesses of the paper (at least 3)
+Point out the major weaknesses of the submitted contribution.
+
+
+
+- There is no discussion and no conclusion chapter
+- The state of the Art seems to be described without criticism and comparisons
+- The problem description does not exactly meet the point of the topic
+- The number of references is too little
+----------------------------------------------------------------------
+(+) ----------------------------------------------------------------------
+(+) Overall Rating:
+ 
+4 - Probably accept: I would argue for accepting this paper.
+
+The author should add the missing chapters, restructure the related work section, rewrite the problem description and add more references and it will be a nice state of the art report
+----------------------------------------------------------------------
+(+) Expertise: 2 - Passing Knowledge
+----------------------------------------------------------------------
