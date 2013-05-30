@@ -9,7 +9,7 @@ import org.apache.commons.lang.Validate;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class HasOccured extends CommentBase implements IAbstractSimpleCondition {
+public class HasOccured extends AbstractSimpleCondition {
 
 	/**
 	 * @param planStateTransition
@@ -25,7 +25,7 @@ public class HasOccured extends CommentBase implements IAbstractSimpleCondition 
 	 */
 	public HasOccured(PlanStateTransition planStateTransition, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		
 		Validate.notNull(planStateTransition, "planStateTransition can't be null");
 		
@@ -40,12 +40,15 @@ public class HasOccured extends CommentBase implements IAbstractSimpleCondition 
 		String s = "";
 		
 		s = "<has-occurred>";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + planStateTransition.print();
 		s = s + "</has-occurred>";
 		
 		return s;
 	}
 	
+	// instance of the plan state transition
 	private PlanStateTransition planStateTransition;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

@@ -6,16 +6,37 @@ import java.util.Iterator;
 
 import org.apache.commons.lang.Validate;
 
-public class ConstraintCombination extends CommentBase implements ITemporalPattern {
+/**
+ * this is a container class for the corresponding element of the Asbru-language (defined in the Asgaard/Asbru)
+ * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
+ * @author Christian Hinterer
+ */
+public class ConstraintCombination implements ITemporalPattern {
 
+	/**
+	 * 
+	 * @param label label of the element
+	 * @param importance importance attribute of the element
+	 * @param type logical operator of the combination
+	 * @param patterns patterns that contain the conditions to be combined
+	 */
 	public ConstraintCombination(String label, float importance, Type type, ArrayList<ITemporalPattern> patterns)
 	{
 		this(label, importance, Type.AND, patterns, new ArrayList<AnyComment>(), new ArrayList<Explanation>());
 	}
 	
+	/**
+	 * 
+	 * @param label label of the element
+	 * @param importance importance attribute of the element
+	 * @param type logical operator of the combination
+	 * @param patterns patterns that contain the conditions to be combined
+	 * @param comments comments of the element
+	 * @param explanations explanations of the element
+	 */
 	public ConstraintCombination(String label, float importance, Type type, ArrayList<ITemporalPattern> patterns, ArrayList<AnyComment> comments, ArrayList<Explanation> explanations)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		
 		if (!explanations.isEmpty())
 		{
@@ -36,6 +57,9 @@ public class ConstraintCombination extends CommentBase implements ITemporalPatte
 		this.patterns = patterns;
 	}
 
+	/**
+	 * prints the "asbru element" as valid xml
+	 */
 	public String print()
 	{
 		String s = "";
@@ -46,7 +70,7 @@ public class ConstraintCombination extends CommentBase implements ITemporalPatte
 		
 		s = "<constraint-combination label=\"" + label + "\" importance=\"" + String.valueOf(importance) + "\">";
 		
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		
 		explanationIterator = explanations.iterator();
 		while(explanationIterator.hasNext())
@@ -75,4 +99,6 @@ public class ConstraintCombination extends CommentBase implements ITemporalPatte
 	private String label;
 	// priority of the condition
 	private float importance;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

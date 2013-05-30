@@ -182,6 +182,8 @@ public class ConditionWrapper
 	 */
 	private boolean WriteAsbruConditionsToFile(Collection<FilterPrecondition> asbruConditions, String fileName)
 	{
+		int i = 1;
+		
 		try
 		{
 			if (fileName == null || fileName.isEmpty())
@@ -209,27 +211,32 @@ public class ConditionWrapper
 
 			out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			out.write("\n");
+			//out.write("<!DOCTYPE plan-library PUBLIC \"AsbuDTD\" \"C:/PROJECT/Asbru_7.3h_DELTA_modified.dtd\">");
+			out.write("<!DOCTYPE plan-library PUBLIC \"AsbuDTD\" \"Asbru_7.3h_DELTA_modified.dtd\">");
+			out.write("\n");
 			out.write("<plan-library>");
 			out.write("\n");
 			out.write("<plans>");
 			out.write("\n");
 			out.write("<plan-group>");
 			out.write("\n");
-			out.write("<plan name=\"plan1\">");
-			out.write("\n");
-			out.write("<conditions>");
-			out.write("\n");
 			
 			for(FilterPrecondition condition: asbruConditions)
 			{
+				out.write("<plan name=\"plan" + String.valueOf(i) + "\">");
+				out.write("\n");
+				out.write("<conditions>");
+				out.write("\n");
 				out.write(condition.print());
 				out.write("\n");
+				out.write("</conditions>");
+				out.write("\n");
+				out.write("</plan>");
+				out.write("\n");
+				
+				i++;
 			}
 			
-			out.write("</conditions>");
-			out.write("\n");
-			out.write("</plan>");
-			out.write("\n");
 			out.write("</plan-group>");
 			out.write("\n");
 			out.write("</plans>");
@@ -238,6 +245,8 @@ public class ConditionWrapper
 			out.write("\n");
 			
 			out.close();
+			fstream.close();
+			
 			return true;
 		}
 		catch (IOException e)

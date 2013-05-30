@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class PlanPointer extends CommentBase implements IAnyPlanPointerChild {
+public class PlanPointer implements IAnyPlanPointerChild {
 
 	/**
 	 * @param staticPlanPointer
@@ -25,7 +25,7 @@ public class PlanPointer extends CommentBase implements IAnyPlanPointerChild {
 	 */
 	public PlanPointer(InstanceType instanceType, int instanceNumber, StaticPlanPointer staticPlanPointer, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.instanceType = instanceType;
 		this.instanceNumber = instanceNumber;
 		this.staticPlanPointer = staticPlanPointer;
@@ -39,7 +39,7 @@ public class PlanPointer extends CommentBase implements IAnyPlanPointerChild {
 		String s = "";
 		
 		s = "<plan-pointer instance-type=\"" + instanceType.toString() + "\" instance-number=\"" + Integer.toString(instanceNumber) + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + staticPlanPointer.print();
 		s = s + "</plan-pointer>";
 		
@@ -49,4 +49,6 @@ public class PlanPointer extends CommentBase implements IAnyPlanPointerChild {
 	private InstanceType instanceType;
 	private int instanceNumber;
 	private StaticPlanPointer staticPlanPointer;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

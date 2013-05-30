@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class PlanStateTransition extends CommentBase implements IAsbruExpressionChild {
+public class PlanStateTransition implements IAsbruExpressionChild {
 
 	/**
 	 * @param anyPlanPointer
@@ -41,7 +41,7 @@ public class PlanStateTransition extends CommentBase implements IAsbruExpression
 	 */
 	public PlanStateTransition(AnyPlanPointer anyPlanPointer, ArrayList<AnyComment> comments, State state, Direction direction, InstanceType instanceType, int instanceNumber)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.anyPlanPointer = anyPlanPointer;
 		this.state = state;
 		this.direction = direction;
@@ -58,7 +58,7 @@ public class PlanStateTransition extends CommentBase implements IAsbruExpression
 		
 		s = "<plan-state-transition state=\"" + state.toString() + "\" direction=\"" + direction.toString() + "\"";
 		s = s + " instance-type=\"" + instanceType.toString() + "\" instance-number=\"" + Integer.toString(instanceNumber) + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + anyPlanPointer.print();
 		s = s + "</plan-state-transition>";
 		
@@ -70,4 +70,6 @@ public class PlanStateTransition extends CommentBase implements IAsbruExpression
 	private Direction direction;
 	private InstanceType instanceType;
 	private int instanceNumber;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

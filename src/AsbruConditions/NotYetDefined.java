@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class NotYetDefined extends CommentBase implements IActualComment {
+public class NotYetDefined implements IActualComment {
 
 	public NotYetDefined()
 	{
@@ -19,7 +19,7 @@ public class NotYetDefined extends CommentBase implements IActualComment {
 	 */
 	public NotYetDefined(ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 	}
 	
 	/**
@@ -30,9 +30,12 @@ public class NotYetDefined extends CommentBase implements IActualComment {
 		String s;
 		
 		s = "<not-yet-defined>";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + "</not-yet-defined>";
 		
 		return s;
 	}
+	
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

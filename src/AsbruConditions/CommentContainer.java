@@ -9,14 +9,14 @@ import java.util.Iterator;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public abstract class CommentBase {
+public class CommentContainer {
 
 	/**
 	 * @param comments list of comments
 	 */
-	public CommentBase(ArrayList<AnyComment> comments)
+	public CommentContainer(ArrayList<AnyComment> comments)
 	{
-		if (!comments.isEmpty())
+		if (comments != null && !comments.isEmpty())
 		{
 			this.comments = comments;
 		}

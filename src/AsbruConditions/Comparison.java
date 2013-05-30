@@ -9,7 +9,7 @@ import org.apache.commons.lang.Validate;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class Comparison extends CommentBase implements IAbstractSimpleCondition {
+public class Comparison extends AbstractSimpleCondition {
 
 	/**
 	 * @param comparisonType operator of the comparison
@@ -41,7 +41,7 @@ public class Comparison extends CommentBase implements IAbstractSimpleCondition 
 	 */
 	public Comparison(ComparisonType comparisonType, LeftHandSide left, RightHandSide right, ArrayList<AnyComment> comments, Tolerance tolerance)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		
 		Validate.notNull(comparisonType, "comparisonType can't be null");
 		Validate.notNull(left, "left can't be null");
@@ -60,8 +60,8 @@ public class Comparison extends CommentBase implements IAbstractSimpleCondition 
 	{
 		String s = "";
 		
-		s = "<comparison type=\"" + comparisonType.toString() + "\" >";
-		s = s + printComments();
+		s = "<comparison type=\"" + printComparisonType() + "\" >";
+		s = s + commentContainer.printComments();
 		s = s + left.print();
 		s = s + right.print();
 		if (tolerance != null)
@@ -73,6 +73,32 @@ public class Comparison extends CommentBase implements IAbstractSimpleCondition 
 		return s;
 	}
 	
+	/**
+	 * 
+	 * @param comparisonType comparison type
+	 * @return a String that contains the comparison type in Asbru language
+	 */
+	private String printComparisonType()
+	{
+		switch(comparisonType)
+		{
+			case lessThan:
+				return "less-than";
+			case lessOrEqual:
+				return "less-or-equal";
+			case greaterThan:
+				return "greater-than";
+			case greaterOrEqual:
+				return "greater-or-equal";
+			case equal:
+				return "equal";
+			case notEqual:
+				return "not-equal";
+			default:
+				return "equal";
+		}
+	}
+	
 	// operator of the comparison
 	private ComparisonType comparisonType;
 	// left side of the comparison
@@ -81,4 +107,6 @@ public class Comparison extends CommentBase implements IAbstractSimpleCondition 
 	private RightHandSide right;
 	// tolerance of the comparison
 	private Tolerance tolerance;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

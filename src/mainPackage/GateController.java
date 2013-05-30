@@ -510,21 +510,25 @@ public class GateController
 			log.log(new LogRecord(Level.INFO, "starting annie initialization"));
 
 			// load annie controller from file with defaults
-		    annieController = (SerialAnalyserController)PersistenceManager.loadObjectFromFile
+		    //annieController = (SerialAnalyserController)PersistenceManager.loadObjectFromFile
+					//(new File(new File(Gate.getPluginsHome(), ANNIEConstants.PLUGIN_DIR), ANNIEConstants.DEFAULT_FILE));
+			annieController = (SerialAnalyserController)PersistenceManager.loadObjectFromFile
 					(new File(new File(Gate.getPluginsHome(), ANNIEConstants.PLUGIN_DIR), ANNIEConstants.DEFAULT_FILE));
-
-/*			String[] prNames = ANNIEConstants.PR_NAMES;
+			
+			String[] prNames = ANNIEConstants.PR_NAMES;
 			for (int i = 0; i < prNames.length; i++) 
 			{
 				String element = prNames[i];
 				FeatureMap params = Factory.newFeatureMap(); // use default parameters
 				ProcessingResource pr = (ProcessingResource)Factory.createResource(element, params);
 				
+				System.out.println("XXXXXXXXXXXXXXX " + element.toString());
+				
 				// add the PR to the pipeline controller
 				annieController.add(pr);
-			}*/
+			}
 
-		    FeatureMap params = Factory.newFeatureMap(); // use default parameters
+		    /*FeatureMap params = Factory.newFeatureMap(); // use default parameters
 		    
 		    // create PR for Tokeniser
 		 	ProcessingResource pr = (ProcessingResource)Factory.createResource("gate.creole.annotdelete.AnnotationDeletePR", params);
@@ -539,7 +543,7 @@ public class GateController
 			// create PR for SentenceSplitter
 			pr = (ProcessingResource)Factory.createResource("gate.creole.splitter.SentenceSplitter", params);
 			// add the PR to the pipeline controller
-			annieController.add(pr);
+			annieController.add(pr);*/
 			
 			
 			

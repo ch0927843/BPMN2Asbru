@@ -9,7 +9,7 @@ import org.apache.commons.lang.Validate;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class IsAtEnd extends CommentBase implements IAbstractSimpleCondition {
+public class IsAtEnd extends AbstractSimpleCondition {
 
 	/**
 	 * @param iterator name of the iterator
@@ -25,7 +25,7 @@ public class IsAtEnd extends CommentBase implements IAbstractSimpleCondition {
 	 */
 	public IsAtEnd(String iterator, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		
 		Validate.notNull(iterator, "iterator can't be null");
 		
@@ -40,7 +40,7 @@ public class IsAtEnd extends CommentBase implements IAbstractSimpleCondition {
 		String s = "";
 		
 		s = "<is-at-end iterator=\"" + iterator + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + "</is-at-end>";
 		
 		return s;
@@ -48,4 +48,6 @@ public class IsAtEnd extends CommentBase implements IAbstractSimpleCondition {
 	
 	// name of the iterator
 	private String iterator;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

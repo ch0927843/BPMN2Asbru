@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class Tolerance extends CommentBase implements IPrintable {
+public class Tolerance implements IPrintable {
 
 	/**
 	 * @param constantExpression the expression that defines the tolerance
@@ -23,7 +23,7 @@ public class Tolerance extends CommentBase implements IPrintable {
 	 */
 	public Tolerance(ConstantExpression constantExpression, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.constantExpression = constantExpression;
 	}
 	
@@ -35,7 +35,7 @@ public class Tolerance extends CommentBase implements IPrintable {
 		String s = "";
 		
 		s = "<tolerance>";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + constantExpression.print();
 		s = s + "</tolerance>";
 		
@@ -44,4 +44,6 @@ public class Tolerance extends CommentBase implements IPrintable {
 	
 	// the expression that defines the tolerance
 	private ConstantExpression constantExpression;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

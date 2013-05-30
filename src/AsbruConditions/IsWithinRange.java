@@ -9,7 +9,7 @@ import org.apache.commons.lang.Validate;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class IsWithinRange extends CommentBase implements IAbstractSimpleCondition {
+public class IsWithinRange extends AbstractSimpleCondition {
 
 	/**
 	 * @param expression expression that contains the value for the range check
@@ -27,7 +27,7 @@ public class IsWithinRange extends CommentBase implements IAbstractSimpleConditi
 	 */
 	public IsWithinRange(AsbruExpression expression, ValueRange valueRange, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		
 		Validate.notNull(expression, "expression can't be null");
 		Validate.notNull(valueRange, "valueRange can't be null");
@@ -44,7 +44,7 @@ public class IsWithinRange extends CommentBase implements IAbstractSimpleConditi
 		String s = "";
 		
 		s = "<is-within-range>";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + expression.print();
 		s = s + valueRange.print();
 		s = s + "</is-within-range>";
@@ -56,4 +56,6 @@ public class IsWithinRange extends CommentBase implements IAbstractSimpleConditi
 	private AsbruExpression expression;
 	// contains the information of the range for the range check
 	private ValueRange valueRange;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

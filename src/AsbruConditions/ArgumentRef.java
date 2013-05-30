@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class ArgumentRef extends CommentBase implements IAsbruExpressionChild {
+public class ArgumentRef implements IAsbruExpressionChild {
 
 	/**
 	 * @param name name of the reference
@@ -23,7 +23,7 @@ public class ArgumentRef extends CommentBase implements IAsbruExpressionChild {
 	 */
 	public ArgumentRef(String name, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.name = name;
 	}
 	
@@ -35,7 +35,7 @@ public class ArgumentRef extends CommentBase implements IAsbruExpressionChild {
 		String s = "";
 		
 		s = "<argument-ref name=\"" + name + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + "</argument-ref>";
 		
 		return s;
@@ -43,4 +43,6 @@ public class ArgumentRef extends CommentBase implements IAsbruExpressionChild {
 	
 	// name of the reference
 	private String name;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

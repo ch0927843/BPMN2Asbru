@@ -11,13 +11,13 @@ import org.apache.commons.lang.Validate;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class SimpleConditionCombination extends CommentBase implements IAbstractSimpleCondition {
+public class SimpleConditionCombination extends AbstractSimpleCondition {
 
 	/**
 	 * @param conditions list of conditions to combine
 	 * @param type logical operator of the combination
 	 */
-	public SimpleConditionCombination(ArrayList<IAbstractSimpleCondition> conditions, Type type)
+	public SimpleConditionCombination(ArrayList<AbstractSimpleCondition> conditions, Type type)
 	{
 		this(conditions, type, new ArrayList<AnyComment>());
 	}
@@ -27,9 +27,9 @@ public class SimpleConditionCombination extends CommentBase implements IAbstract
 	 * @param type logical operator of the combination
 	 * @param comments comments of the element
 	 */
-	public SimpleConditionCombination(ArrayList<IAbstractSimpleCondition> conditions, Type type, ArrayList<AnyComment> comments)
+	public SimpleConditionCombination(ArrayList<AbstractSimpleCondition> conditions, Type type, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		
 		if (conditions.isEmpty() || conditions == null)
 			throw new IllegalArgumentException("conditions can't be null or emtpy");
@@ -43,7 +43,7 @@ public class SimpleConditionCombination extends CommentBase implements IAbstract
 	 * adds a condition the the combination
 	 * @param condition condition to add
 	 */
-	public void addCondition(IAbstractSimpleCondition condition)
+	public void addCondition(AbstractSimpleCondition condition)
 	{
 		if (condition != null)
 		{
@@ -57,11 +57,11 @@ public class SimpleConditionCombination extends CommentBase implements IAbstract
 	public String print()
 	{
 		String s;
-		Iterator<IAbstractSimpleCondition> it;
-		IAbstractSimpleCondition condition;
+		Iterator<AbstractSimpleCondition> it;
+		AbstractSimpleCondition condition;
 		
-		s = "<simple-condition-combination type=\"" + type.toString() + "\">";
-		s = s + printComments();
+		s = "<simple-condition-combination type=\"" + type.toString().toLowerCase() + "\">";
+		s = s + commentContainer.printComments();
 		it = conditions.iterator();
 		while(it.hasNext())
 		{
@@ -74,7 +74,9 @@ public class SimpleConditionCombination extends CommentBase implements IAbstract
 	}
 	
 	// list of conditions to combine with a logical operator
-	private Collection<IAbstractSimpleCondition> conditions;
+	private Collection<AbstractSimpleCondition> conditions;
 	// type of the operator
 	private Type type;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

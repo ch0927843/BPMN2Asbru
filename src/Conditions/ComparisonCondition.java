@@ -104,14 +104,14 @@ public class ComparisonCondition extends ConditionBase {
 		
 		if (comparisonMemberType == ComparisonMemberType.fieldNumericvalue)
 		{
-			expLeft = new AsbruExpression(new ParameterRef(field));
+			expLeft = new AsbruExpression(new StringConstant(field));
 			expRight = new AsbruExpression(new NumericalConstant(fValue, unit, scale));
 			left = new LeftHandSide(expLeft);
 			right = new RightHandSide(expRight);
 		}
 		else if (comparisonMemberType == ComparisonMemberType.fieldStringvalue)
 		{
-			expLeft = new AsbruExpression(new ParameterRef(field));
+			expLeft = new AsbruExpression(new StringConstant(field));
 			if (sValue.equals("true") || sValue.equals("false"))
 			{
 				expRight = new AsbruExpression(new QualitativeConstant(sValue));
@@ -126,8 +126,8 @@ public class ComparisonCondition extends ConditionBase {
 		}
 		else if (comparisonMemberType == ComparisonMemberType.fieldField)
 		{
-			expLeft = new AsbruExpression(new ParameterRef(field));
-			expRight = new AsbruExpression(new ParameterRef(field2));
+			expLeft = new AsbruExpression(new StringConstant(field));
+			expRight = new AsbruExpression(new StringConstant(field2));
 			left = new LeftHandSide(expLeft);
 			right = new RightHandSide(expRight);
 		}

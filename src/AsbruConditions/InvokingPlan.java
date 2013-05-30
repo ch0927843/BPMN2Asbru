@@ -8,7 +8,7 @@ import java.util.UUID;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class InvokingPlan extends CommentBase implements IPrintable {
+public class InvokingPlan implements IPrintable {
 
 	/**
 	 * @param planName
@@ -25,7 +25,7 @@ public class InvokingPlan extends CommentBase implements IPrintable {
 	 */
 	public InvokingPlan(UUID planName, ArrayList<AnyComment> comments, InvokingPlan invokingPlan)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.planName = planName;
 		this.invokingPlan = invokingPlan;
 	}
@@ -38,7 +38,7 @@ public class InvokingPlan extends CommentBase implements IPrintable {
 		String s = "";
 		
 		s = "<invoking-plan plan-name=\"" + planName.toString() + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		if (invokingPlan != null)
 		{
 			s = s + invokingPlan.print();
@@ -50,4 +50,6 @@ public class InvokingPlan extends CommentBase implements IPrintable {
 	
 	private UUID planName;
 	private InvokingPlan invokingPlan;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

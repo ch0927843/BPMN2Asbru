@@ -34,11 +34,11 @@ public class AnyComment implements IPrintable {
 	 */
 	public String print()
 	{
-		String s;
+		String s = "";
 		
-		s = "<any-comment>";
+		//s = "<any-comment>";
 		s = s + comment.print();
-		s = s + "</any-comment>";
+		//s = s + "</any-comment>";
 		
 		return s;
 	}

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class NumericalConstant extends CommentBase implements IAsbruExpressionChild, IConstantExpressionChild {
+public class NumericalConstant implements IAsbruExpressionChild, IConstantExpressionChild {
 
 	/**
 	 * @param value the value of the constant
@@ -35,7 +35,7 @@ public class NumericalConstant extends CommentBase implements IAsbruExpressionCh
 	 */
 	public NumericalConstant(float value, String unit, String scale, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.value = value;
 		this.unit = unit;
 		this.scale = scale;
@@ -49,7 +49,7 @@ public class NumericalConstant extends CommentBase implements IAsbruExpressionCh
 		String s = "";
 		
 		s = "<numerical-constant value=\"" + Float.toString(value) + "\" unit=\"" + unit + "\" scale=\"" + scale + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + "</numerical-constant>";
 		
 		return s;
@@ -61,4 +61,6 @@ public class NumericalConstant extends CommentBase implements IAsbruExpressionCh
 	private String unit;
 	// the scale of the constant
 	private String scale;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

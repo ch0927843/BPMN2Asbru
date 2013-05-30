@@ -7,12 +7,11 @@ date: May 2013
 external libraries:
 	- Gate JAVA API: Gate Version 7.0 Build 4195; no licence required 
 		(downloaded at http://gate.ac.uk/download/)
-	- MetaMap JAVA API: MetaMap Version 2011; registration required -> i got an account of my supervisor Mag. Dr.rer.soc.oec. Katharina Kaiser
+	- MetaMap JAVA API: MetaMap Version 2012; registration required -> i got an account of my supervisor Mag. Dr.rer.soc.oec. Katharina Kaiser
 		(downloaded at http://www.nlm.nih.gov/research/umls/) -> the exact link requires login
-		note: it is important to use MetaMap2011, NOT 2011v2 AND NOT 2012 -> they don't work with the JAVA API of GATE properly
 
 external components:
-	- MetaMap 2011 (NOT 2001v2 AND NOT 2012): i run my own server instances of (wsdserverctl and skrmedpostctl and mmserver11)
+	- MetaMap 2012: i run my own server instances of (wsdserverctl and skrmedpostctl and mmserver12)
 		(downloaded at http://www.nlm.nih.gov/research/umls/) -> the exact link requires login
 
 operating system: Windows 7

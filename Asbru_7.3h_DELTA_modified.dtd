@@ -1,0 +1,896 @@
+<!-- Automatically generated DELTA-Version of Asbru_7.3h.dtd -->
+
+<!--  DTD for Asbru 7.3h  -->
+<!--  Created Sun Aug 21 22:30:54 CEST 2005 by Pontifex. Do not edit!  -->
+
+<!-- DELTA Link Definition -->
+<!ELEMENT delta-link EMPTY>
+<!ATTLIST delta-link link-id CDATA  #REQUIRED
+			comment CDATA #IMPLIED
+			target-context CDATA #IMPLIED
+ 			created-at CDATA #IMPLIED
+			created-by CDATA #IMPLIED
+			last-modified-at CDATA #IMPLIED
+			last-modified-by CDATA #IMPLIED>
+<!ELEMENT gmt-link EMPTY>
+<!ATTLIST gmt-link link-id CDATA  #REQUIRED
+			comment CDATA #IMPLIED
+			target-context CDATA #IMPLIED
+ 			created-at CDATA #IMPLIED
+			created-by CDATA #IMPLIED
+			last-modified-at CDATA #IMPLIED
+			last-modified-by CDATA #IMPLIED>
+
+<!ELEMENT plan-library (((bibref|comment|not-yet-defined|url)*,library-info?,domain-defs?,library-defs?,plans))>
+
+<!ELEMENT library-info ((administrative-data))>
+<!ATTLIST library-info title CDATA #REQUIRED>
+<!ATTLIST library-info version CDATA #IMPLIED>
+
+<!ELEMENT library-defs (((bibref|comment|not-yet-defined|url)*,(numerical-scale-def|patient-record-def|qualitative-scale-def|record-def|unit-def)*,(constant-def|iterator-def|variable-def)*,function-def*,(cyclical-time-annotation-assignment|cyclical-time-point-assignment|time-annotation-assignment)*))>
+
+<!ELEMENT value-defs ((constant-def|iterator-def|variable-def)*)>
+
+<!ELEMENT domain-defs (((bibref|comment|not-yet-defined|url)*,(domain|use-domain)*))>
+
+<!ELEMENT domain (((bibref|comment|not-yet-defined|url)*,(numerical-scale-def|patient-record-def|qualitative-scale-def|record-def|unit-def)*,context-def*,parameter-group*,(constant-def|iterator-def|variable-def)*,function-def*,primitive-plan-def*,(cyclical-time-annotation-assignment|cyclical-time-point-assignment|time-annotation-assignment)*))>
+<!ATTLIST domain name ID #REQUIRED>
+
+<!ELEMENT use-domain ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST use-domain name IDREF #REQUIRED>
+
+<!ELEMENT parameter-group (((bibref|comment|not-yet-defined|url)*,(parameter-def|parameter-group)*))>
+<!ATTLIST parameter-group title CDATA #IMPLIED>
+
+<!ELEMENT record-def (((bibref|comment|not-yet-defined|url)*,field-def+))>
+<!ATTLIST record-def class NMTOKEN #IMPLIED>
+
+<!ELEMENT patient-record-def (((bibref|comment|not-yet-defined|url)*,primary-key+,record-def))>
+<!ATTLIST patient-record-def name NMTOKEN #REQUIRED>
+
+<!ELEMENT array-def (((bibref|comment|not-yet-defined|url)*,dimension-def+,(array-def|list-def|multi-set-def|record-def|scalar-def|set-def)))>
+
+<!ELEMENT dimension-def (((bibref|comment|not-yet-defined|url)*,length))>
+<!ATTLIST dimension-def name NMTOKEN #IMPLIED>
+
+<!ELEMENT list-def (((bibref|comment|not-yet-defined|url)*,(array-def|list-def|multi-set-def|record-def|scalar-def|set-def)))>
+
+<!ELEMENT set-def (((bibref|comment|not-yet-defined|url)*,(array-def|list-def|multi-set-def|record-def|scalar-def|set-def)))>
+
+<!ELEMENT multi-set-def (((bibref|comment|not-yet-defined|url)*,(array-def|list-def|multi-set-def|record-def|scalar-def|set-def)))>
+
+<!ELEMENT qualitative-scale-def (((bibref|comment|not-yet-defined|url)*,qualitative-entry+,secondary-qualitative-entry*))>
+<!ATTLIST qualitative-scale-def name NMTOKEN #REQUIRED>
+
+<!ELEMENT secondary-qualitative-entry (((bibref|comment|not-yet-defined|url)*,based-on-entry+))>
+<!ATTLIST secondary-qualitative-entry name NMTOKEN #REQUIRED>
+
+<!ELEMENT qualitative-entry ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST qualitative-entry entry NMTOKEN #REQUIRED>
+
+<!ELEMENT based-on-entry ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST based-on-entry entry NMTOKEN #REQUIRED>
+
+<!ELEMENT numerical-scale-def (((bibref|comment|not-yet-defined|url)*,first-unit-entry-equals?,unit-entry+))>
+<!ATTLIST numerical-scale-def name NMTOKEN #REQUIRED>
+<!ATTLIST numerical-scale-def unit-class NMTOKEN #REQUIRED>
+
+<!ELEMENT unit-entry ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST unit-entry unit CDATA #IMPLIED>
+<!ATTLIST unit-entry factor NMTOKEN #REQUIRED>
+
+<!ELEMENT limits (((bibref|comment|not-yet-defined|url)*,context,(limit-entry|negative-infinite|positive-infinite)+,cross-over-time?))>
+<!ATTLIST limits unit CDATA #IMPLIED>
+<!ATTLIST limits scale CDATA #IMPLIED>
+
+<!ELEMENT limit-entry ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST limit-entry value NMTOKEN #REQUIRED>
+<!ATTLIST limit-entry include-limit-value (yes|no) "yes">
+
+<!ELEMENT unit-def (((bibref|comment|not-yet-defined|url)*,compound-def))>
+<!ATTLIST unit-def name NMTOKEN #REQUIRED>
+<!ATTLIST unit-def rounding (up|down|nearest) "nearest">
+<!ATTLIST unit-def precision NMTOKEN #IMPLIED>
+<!ATTLIST unit-def precision-unit CDATA #IMPLIED>
+<!ATTLIST unit-def cascade NMTOKEN #IMPLIED>
+<!ATTLIST unit-def default-unit CDATA #IMPLIED>
+<!ATTLIST unit-def default-scale CDATA #IMPLIED>
+
+<!ELEMENT compound-def (((bibref|comment|not-yet-defined|url)*,numerator,denominator))>
+
+<!ELEMENT unit-class-list (((bibref|comment|not-yet-defined|url)*,unit-class*))>
+
+<!ELEMENT numerator (((bibref|comment|not-yet-defined|url)*,unit-class*))>
+
+<!ELEMENT denominator (((bibref|comment|not-yet-defined|url)*,unit-class*))>
+
+<!ELEMENT unit-class ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST unit-class name NMTOKEN #REQUIRED>
+<!ATTLIST unit-class exponent NMTOKEN "1">
+
+<!ELEMENT parameter-def (((bibref|comment|not-yet-defined|url)*,hard-bounds?,soft-bounds?,sampling-frequency?,trust-period?,retrospective-trust-period?,maximal-data-delay?,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+<!ATTLIST parameter-def name NMTOKEN #REQUIRED>
+<!ATTLIST parameter-def type NMTOKEN #REQUIRED>
+<!ATTLIST parameter-def required (yes|no) "no">
+
+<!ELEMENT the-any-parameter-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT source (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT delay (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT upper-limit (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT lower-limit (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT left-hand-parameter (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT right-hand-parameter (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT window-length (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT limit (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT then (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT default (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT minimum-value (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT maximum-value (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT maximal-increase (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT maximal-decrease (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT raw-data-def (((bibref|comment|not-yet-defined|url)*,minimum-value?,maximum-value?,maximal-increase?,maximal-decrease?,trust-period?,(cyclical-time-annotation|repeat-specification)?))>
+<!ATTLIST raw-data-def unit CDATA #IMPLIED>
+<!ATTLIST raw-data-def scale CDATA #IMPLIED>
+<!ATTLIST raw-data-def mode (manual|automatic|automatic-or-manual) #REQUIRED>
+<!ATTLIST raw-data-def channel-name CDATA #IMPLIED>
+<!ATTLIST raw-data-def user-text CDATA #IMPLIED>
+<!ATTLIST raw-data-def use-as-context (yes|no) "no">
+
+<!ELEMENT spread-def (((bibref|comment|not-yet-defined|url)*,time-window-size?,step-width?,minimum-of-valid-points?,(source|(upper-limit,lower-limit))))>
+
+<!ELEMENT slope-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+<!ATTLIST slope-def use-center-time (yes|no) "no">
+
+<!ELEMENT standard-deviation-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+<!ATTLIST standard-deviation-def use-center-time (yes|no) "no">
+
+<!ELEMENT standard-error-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+<!ATTLIST standard-error-def use-center-time (yes|no) "no">
+
+<!ELEMENT center-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+<!ATTLIST center-def use-center-time (yes|no) "yes">
+
+<!ELEMENT end-point-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT time-to-alarm-def (((bibref|comment|not-yet-defined|url)*,limit,source))>
+
+<!ELEMENT centile-def (((bibref|comment|not-yet-defined|url)*,limit,source))>
+
+<!ELEMENT change-def (((bibref|comment|not-yet-defined|url)*,interval,source))>
+
+<!ELEMENT average-def (((bibref|comment|not-yet-defined|url)*,interval,source))>
+
+<!ELEMENT qualitative-parameter-def (((bibref|comment|not-yet-defined|url)*,limits+,source))>
+<!ATTLIST qualitative-parameter-def use-as-context (yes|no) "no">
+
+<!ELEMENT calculation-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)+))>
+<!ATTLIST calculation-def operator (add|subtract|multiply|divide|root|exponent|logarithm|minimum|maximum|absolute-value|sign) #REQUIRED>
+
+<!ELEMENT logical-combination-def (((bibref|comment|not-yet-defined|url)*,(boolean-def|comparison-def|logical-combination-def|parameter-ref|raw-data-def)+))>
+<!ATTLIST logical-combination-def operator (and|or|xor|not) #REQUIRED>
+<!ATTLIST logical-combination-def use-as-context (yes|no) "no">
+
+<!ELEMENT logical-dependency-def (((bibref|comment|not-yet-defined|url)*,(if,then)+,default?))>
+<!ATTLIST logical-dependency-def use-as-context (yes|no) "no">
+
+<!ELEMENT if (((bibref|comment|not-yet-defined|url)*,(comparison-def|constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+
+<!ELEMENT boolean-def (((bibref|comment|not-yet-defined|url)*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST boolean-def use-as-context (yes|no) "no">
+
+<!ELEMENT constant-def (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+<!ATTLIST constant-def name NMTOKEN #REQUIRED>
+<!ATTLIST constant-def type NMTOKEN #REQUIRED>
+
+<!ELEMENT variable-def ((array-def|list-def|multi-set-def|record-def|scalar-def|set-def))>
+<!ATTLIST variable-def name NMTOKEN #REQUIRED>
+
+<!ELEMENT field-def ((array-def|list-def|multi-set-def|record-def|scalar-def|set-def))>
+<!ATTLIST field-def name NMTOKEN #REQUIRED>
+
+<!ELEMENT scalar-def (((bibref|comment|not-yet-defined|url)*,initial-value?))>
+<!ATTLIST scalar-def type NMTOKEN #REQUIRED>
+<!ATTLIST scalar-def rounding (up|down|nearest) #IMPLIED>
+<!ATTLIST scalar-def precision NMTOKEN #IMPLIED>
+<!ATTLIST scalar-def precision-unit CDATA #IMPLIED>
+<!ATTLIST scalar-def default-unit CDATA #IMPLIED>
+<!ATTLIST scalar-def default-scale CDATA #IMPLIED>
+<!ATTLIST scalar-def cascade NMTOKEN #IMPLIED>
+
+<!ELEMENT iterator-def (((bibref|comment|not-yet-defined|url)*,(argument-ref|constant-ref|field-ref|list|multi-set|set|variable-ref)))>
+<!ATTLIST iterator-def name NMTOKEN #REQUIRED>
+<!ATTLIST iterator-def start-at (first-element|last-element) "first-element">
+
+<!ELEMENT context-def (((bibref|comment|not-yet-defined|url)*,qualitative-entry*))>
+<!ATTLIST context-def name NMTOKEN #REQUIRED>
+
+<!ELEMENT function-def (((bibref|comment|not-yet-defined|url)*,argument*))>
+<!ATTLIST function-def name NMTOKEN #REQUIRED>
+<!ATTLIST function-def return-type NMTOKEN #REQUIRED>
+<!ATTLIST function-def method-name NMTOKEN #REQUIRED>
+<!ATTLIST function-def class-name NMTOKEN #REQUIRED>
+
+<!ELEMENT primitive-plan-def (((bibref|comment|not-yet-defined|url)*,argument*))>
+<!ATTLIST primitive-plan-def name ID #REQUIRED>
+<!ATTLIST primitive-plan-def return-type NMTOKEN #IMPLIED>
+<!ATTLIST primitive-plan-def method-name NMTOKEN #REQUIRED>
+<!ATTLIST primitive-plan-def class-name NMTOKEN #REQUIRED>
+
+<!ELEMENT time-annotation-assignment (((bibref|comment|not-yet-defined|url)*,time-range,time-point))>
+<!ATTLIST time-annotation-assignment name NMTOKEN #REQUIRED>
+
+<!ELEMENT cyclical-time-point-assignment (((bibref|comment|not-yet-defined|url)*,set-of-cyclical-time-points))>
+<!ATTLIST cyclical-time-point-assignment name NMTOKEN #REQUIRED>
+
+<!ELEMENT cyclical-time-annotation-assignment (((bibref|comment|not-yet-defined|url)*,cyclical-time-annotation))>
+<!ATTLIST cyclical-time-annotation-assignment name NMTOKEN #REQUIRED>
+
+<!ELEMENT cyclical-time-annotation (((bibref|comment|not-yet-defined|url)*,time-range,(cyclical-time-point-ref|set-of-cyclical-time-points)))>
+
+<!ELEMENT plans (((bibref|comment|not-yet-defined|url)*,plan-group*))>
+
+<!ELEMENT plan-group (((bibref|comment|not-yet-defined|url)*,(plan|plan-group)*))>
+<!ATTLIST plan-group title CDATA #IMPLIED>
+
+<!ELEMENT plan ((administrative-data?,(bibref|comment|not-yet-defined|url)*,explanation*,derived-from?,refers-to*,defaults?,arguments?,value-defs?,preferences?,intentions?,conditions?,effects?,plan-body?,returns?))>
+<!ATTLIST plan name ID #REQUIRED>
+<!ATTLIST plan title CDATA #IMPLIED>
+
+<!ELEMENT derived-from ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST derived-from plan-name IDREF #REQUIRED>
+
+<!ELEMENT refers-to ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST refers-to plan-name IDREF #REQUIRED>
+<!ATTLIST refers-to as NMTOKEN #IMPLIED>
+
+<!ELEMENT refer-to ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST refer-to plan-name NMTOKEN #REQUIRED>
+<!ATTLIST refer-to label NMTOKEN #REQUIRED>
+<!ATTLIST refer-to importance NMTOKEN #IMPLIED>
+
+<!ELEMENT defaults (((bibref|comment|not-yet-defined|url)*,on-suspend?,on-abort?,time-annotation?,typical-duration?))>
+
+<!ELEMENT plan-body (((bibref|comment|not-yet-defined|url)*,(ask|cyclical-plan|for-each-plan|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|iterative-plan|parameter-assignment|plan-activation|put-first|put-last|refer-to|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|subplans|to-be-defined|user-performed|variable-assignment)))>
+
+<!ELEMENT do-before (((bibref|comment|not-yet-defined|url)*,(ask|cyclical-plan|for-each-plan|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|iterative-plan|parameter-assignment|plan-activation|put-first|put-last|refer-to|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|subplans|to-be-defined|user-performed|variable-assignment)))>
+
+<!ELEMENT do-after (((bibref|comment|not-yet-defined|url)*,(ask|cyclical-plan|for-each-plan|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|iterative-plan|parameter-assignment|plan-activation|put-first|put-last|refer-to|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|subplans|to-be-defined|user-performed|variable-assignment)))>
+
+<!ELEMENT cyclical-plan-body (((bibref|comment|not-yet-defined|url)*,(ask|cyclical-plan|for-each-plan|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|iterative-plan|parameter-assignment|plan-activation|put-first|put-last|refer-to|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|subplans|to-be-defined|user-performed|variable-assignment)))>
+
+<!ELEMENT for-each-plan (((bibref|comment|not-yet-defined|url)*,explanation*,do-before?,do-for-each,termination-condition,do-after?))>
+<!ATTLIST for-each-plan subplan-ordering (parallel|any-order|unordered) #REQUIRED>
+<!ATTLIST for-each-plan wait-for-children (yes|no) "yes">
+<!ATTLIST for-each-plan propagation-specification (aborted|rejected|aborted-or-rejected|none) "aborted-or-rejected">
+
+<!ELEMENT iterative-plan (((bibref|comment|not-yet-defined|url)*,explanation*,do-before?,do-repeatedly,termination-condition,do-after?))>
+
+<!ELEMENT single-steps (((bibref|comment|not-yet-defined|url)*,(ask|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|parameter-assignment|plan-activation|put-first|put-last|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|variable-assignment)+))>
+
+<!ELEMENT then-branch (((bibref|comment|not-yet-defined|url)*,(ask|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|parameter-assignment|plan-activation|put-first|put-last|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|variable-assignment)+))>
+
+<!ELEMENT else-branch (((bibref|comment|not-yet-defined|url)*,(ask|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|parameter-assignment|plan-activation|put-first|put-last|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|variable-assignment)+))>
+
+<!ELEMENT do-repeatedly (((bibref|comment|not-yet-defined|url)*,(ask|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|parameter-assignment|plan-activation|put-first|put-last|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|variable-assignment)+))>
+
+<!ELEMENT the-single-step (((bibref|comment|not-yet-defined|url)*,(ask|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|parameter-assignment|plan-activation|put-first|put-last|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|variable-assignment)))>
+
+<!ELEMENT on-suspend (((bibref|comment|not-yet-defined|url)*,(ask|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|parameter-assignment|plan-activation|put-first|put-last|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|variable-assignment)))>
+
+<!ELEMENT on-abort (((bibref|comment|not-yet-defined|url)*,(ask|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|parameter-assignment|plan-activation|put-first|put-last|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|variable-assignment)))>
+
+<!ELEMENT insert-before-iterator (((bibref|comment|not-yet-defined|url)*,element))>
+<!ATTLIST insert-before-iterator iterator NMTOKEN #REQUIRED>
+
+<!ELEMENT insert-after-iterator (((bibref|comment|not-yet-defined|url)*,element))>
+<!ATTLIST insert-after-iterator iterator NMTOKEN #REQUIRED>
+
+<!ELEMENT insert-before-position (((bibref|comment|not-yet-defined|url)*,position,element))>
+<!ATTLIST insert-before-position list NMTOKEN #REQUIRED>
+
+<!ELEMENT insert-after-position (((bibref|comment|not-yet-defined|url)*,position,element))>
+<!ATTLIST insert-after-position list NMTOKEN #REQUIRED>
+
+<!ELEMENT remove-at-position (((bibref|comment|not-yet-defined|url)*,position))>
+<!ATTLIST remove-at-position list NMTOKEN #REQUIRED>
+
+<!ELEMENT remove-element (((bibref|comment|not-yet-defined|url)*,element))>
+<!ATTLIST remove-element list NMTOKEN #REQUIRED>
+
+<!ELEMENT put-first (((bibref|comment|not-yet-defined|url)*,element))>
+<!ATTLIST put-first list NMTOKEN #REQUIRED>
+
+<!ELEMENT put-last (((bibref|comment|not-yet-defined|url)*,element))>
+<!ATTLIST put-last list NMTOKEN #REQUIRED>
+
+<!ELEMENT go-to-next ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST go-to-next iterator NMTOKEN #REQUIRED>
+
+<!ELEMENT go-to-previous ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST go-to-previous iterator NMTOKEN #REQUIRED>
+
+<!ELEMENT remove-at-iterator ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST remove-at-iterator iterator NMTOKEN #REQUIRED>
+
+<!ELEMENT cyclical-plan (((bibref|comment|not-yet-defined|url)*,explanation*,start-time?,cyclical-plan-body,(cyclical-time-annotation|repeat-specification),set-of-cyclical-complete-conditions*))>
+<!ATTLIST cyclical-plan label NMTOKEN #IMPLIED>
+<!ATTLIST cyclical-plan max-attempts NMTOKEN #IMPLIED>
+
+<!ELEMENT repeat-specification (((bibref|comment|not-yet-defined|url)*,retry-delay?,duration?))>
+
+<!ELEMENT retry-delay (((bibref|comment|not-yet-defined|url)*,minimum?,maximum?))>
+<!ATTLIST retry-delay include-limit-value (yes|no) "yes">
+
+<!ELEMENT duration (((bibref|comment|not-yet-defined|url)*,minimum?,maximum?))>
+<!ATTLIST duration include-limit-value (yes|no) "yes">
+
+<!ELEMENT starting-shift (((bibref|comment|not-yet-defined|url)*,earliest?,latest?))>
+<!ATTLIST starting-shift include-limit-value (yes|no) "yes">
+
+<!ELEMENT finishing-shift (((bibref|comment|not-yet-defined|url)*,earliest?,latest?))>
+<!ATTLIST finishing-shift include-limit-value (yes|no) "yes">
+
+<!ELEMENT start-time (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|cyclical-time-annotation|cyclical-time-annotation-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+<!ATTLIST start-time number NMTOKEN "1">
+
+<!ELEMENT end-time (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|cyclical-time-annotation|cyclical-time-annotation-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+<!ATTLIST end-time number NMTOKEN "1">
+
+<!ELEMENT argument-value (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)+))>
+<!ATTLIST argument-value name NMTOKEN #REQUIRED>
+
+<!ELEMENT arguments (((bibref|comment|not-yet-defined|url)*,argument*))>
+
+<!ELEMENT argument ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST argument name NMTOKEN #REQUIRED>
+<!ATTLIST argument type NMTOKEN #REQUIRED>
+<!ATTLIST argument scalar-or-not (scalar|list|set|multiset) "scalar">
+
+<!ELEMENT time-annotation (((bibref|comment|not-yet-defined|url)*,(always|any|now|time-annotation-ref|(time-range,(now|parameter-change|plan-state-transition|reference-point|references|self)))))>
+
+<!ELEMENT waiting-period (((bibref|comment|not-yet-defined|url)*,(always|any|now|time-annotation-ref|(time-range,(now|parameter-change|plan-state-transition|reference-point|references|self)))))>
+
+<!ELEMENT time-range (((bibref|comment|not-yet-defined|url)*,starting-shift?,finishing-shift?,duration?))>
+
+<!ELEMENT reference-point (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref),epsilon?))>
+
+<!ELEMENT references (((bibref|comment|not-yet-defined|url)*,(now|parameter-change|plan-state-transition|reference-point|self)+))>
+
+<!ELEMENT set-of-cyclical-time-points (((bibref|comment|not-yet-defined|url)*,time-point,offset,frequency))>
+
+<!ELEMENT static-plan-pointer (((bibref|comment|not-yet-defined|url)*,invoking-plan?))>
+<!ATTLIST static-plan-pointer plan-name IDREF #REQUIRED>
+<!ATTLIST static-plan-pointer label NMTOKEN #IMPLIED>
+
+<!ELEMENT plan-pointer (((bibref|comment|not-yet-defined|url)*,static-plan-pointer))>
+<!ATTLIST plan-pointer instance-type (first|last) "first">
+<!ATTLIST plan-pointer instance-number NMTOKEN "1">
+
+<!ELEMENT invoking-plan (((bibref|comment|not-yet-defined|url)*,invoking-plan?))>
+<!ATTLIST invoking-plan plan-name IDREF #REQUIRED>
+
+<!ELEMENT preferences (((bibref|comment|not-yet-defined|url)*,resource-constraint*,costs*))>
+<!ATTLIST preferences strategy NMTOKEN #IMPLIED>
+<!ATTLIST preferences responsible-actor NMTOKEN #IMPLIED>
+
+<!ELEMENT resource-constraint (((bibref|comment|not-yet-defined|url)*,time-annotation))>
+<!ATTLIST resource-constraint name NMTOKEN #REQUIRED>
+<!ATTLIST resource-constraint type (prohibited|recommended|discouraged|obligatory) #REQUIRED>
+
+<!ELEMENT conditions ((filter-precondition?,setup-precondition?,suspend-condition?,reactivate-condition?,complete-condition?,abort-condition?))>
+
+<!ELEMENT filter-precondition (((bibref|comment|not-yet-defined|url)*,explanation*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST filter-precondition overridable (yes|no) "no">
+<!ATTLIST filter-precondition confirmation-required (yes|no) "no">
+<!ATTLIST filter-precondition ID CDATA #REQUIRED>
+
+<!ELEMENT setup-precondition (((bibref|comment|not-yet-defined|url)*,explanation*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined),waiting-period?))>
+<!ATTLIST setup-precondition overridable (yes|no) "no">
+<!ATTLIST setup-precondition confirmation-required (yes|no) "no">
+
+<!ELEMENT suspend-condition (((bibref|comment|not-yet-defined|url)*,explanation*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST suspend-condition overridable (yes|no) "no">
+<!ATTLIST suspend-condition confirmation-required (yes|no) "no">
+
+<!ELEMENT reactivate-condition (((bibref|comment|not-yet-defined|url)*,explanation*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST reactivate-condition overridable (yes|no) "no">
+<!ATTLIST reactivate-condition confirmation-required (yes|no) "no">
+
+<!ELEMENT complete-condition (((bibref|comment|not-yet-defined|url)*,explanation*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST complete-condition overridable (yes|no) "no">
+<!ATTLIST complete-condition confirmation-required (yes|no) "no">
+
+<!ELEMENT abort-condition (((bibref|comment|not-yet-defined|url)*,explanation*,(state-specific-pattern|state-specific-pattern-combination|state-specific-pattern-not)?,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST abort-condition overridable (yes|no) "no">
+<!ATTLIST abort-condition confirmation-required (yes|no) "no">
+
+<!ELEMENT set-of-cyclical-complete-conditions (((bibref|comment|not-yet-defined|url)*,cyclical-complete-condition+))>
+<!ATTLIST set-of-cyclical-complete-conditions label NMTOKEN #IMPLIED>
+<!ATTLIST set-of-cyclical-complete-conditions constraint (and|or|xor) #IMPLIED>
+
+<!ELEMENT cyclical-complete-condition (((bibref|comment|not-yet-defined|url)*,explanation*,(end-time|times-completed|until-condition)))>
+<!ATTLIST cyclical-complete-condition label NMTOKEN #IMPLIED>
+<!ATTLIST cyclical-complete-condition overridable (yes|no) "no">
+<!ATTLIST cyclical-complete-condition confirmation-required (yes|no) "no">
+
+<!ELEMENT times-completed ((delta-link | gmt-link)*)>
+<!ATTLIST times-completed number NMTOKEN "1">
+
+<!ELEMENT until-condition (((bibref|comment|not-yet-defined|url)*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST until-condition overridable (yes|no) "no">
+<!ATTLIST until-condition confirmation-required (yes|no) "no">
+
+<!ELEMENT state-specific-pattern-combination (((bibref|comment|not-yet-defined|url)*,(state-specific-pattern|state-specific-pattern-combination|state-specific-pattern-not)+))>
+<!ATTLIST state-specific-pattern-combination aborted-from (and|or|xor) #REQUIRED>
+
+<!ELEMENT state-specific-pattern-not (((bibref|comment|not-yet-defined|url)*,(state-specific-pattern|state-specific-pattern-combination|state-specific-pattern-not)))>
+
+<!ELEMENT state-specific-pattern (((bibref|comment|not-yet-defined|url)*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST state-specific-pattern aborted-from (activated|suspended) #REQUIRED>
+
+<!ELEMENT the-temporal-pattern (((bibref|comment|not-yet-defined|url)*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+
+<!ELEMENT temporal-constraint (((bibref|comment|not-yet-defined|url)*,explanation*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined),(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST temporal-constraint label NMTOKEN #IMPLIED>
+<!ATTLIST temporal-constraint type (before|overlaps|starts|equals|meets|during|finishes) #REQUIRED>
+<!ATTLIST temporal-constraint importance NMTOKEN #IMPLIED>
+
+<!ELEMENT parameter-proposition (((bibref|comment|not-yet-defined|url)*,explanation*,(is-known-parameter|is-unknown-parameter|value-description|value-range),context,time-annotation,sampling-frequency?))>
+<!ATTLIST parameter-proposition parameter-name NMTOKEN #REQUIRED>
+<!ATTLIST parameter-proposition label NMTOKEN #IMPLIED>
+<!ATTLIST parameter-proposition importance NMTOKEN #IMPLIED>
+
+<!ELEMENT is-automatic (((bibref|comment|not-yet-defined|url)*,explanation*))>
+<!ATTLIST is-automatic parameter-name NMTOKEN #REQUIRED>
+<!ATTLIST is-automatic label NMTOKEN #IMPLIED>
+<!ATTLIST is-automatic importance NMTOKEN #IMPLIED>
+
+<!ELEMENT is-manual (((bibref|comment|not-yet-defined|url)*,explanation*))>
+<!ATTLIST is-manual parameter-name NMTOKEN #REQUIRED>
+<!ATTLIST is-manual label NMTOKEN #IMPLIED>
+<!ATTLIST is-manual importance NMTOKEN #IMPLIED>
+
+<!ELEMENT comparison (((bibref|comment|not-yet-defined|url)*,left-hand-side,right-hand-side,tolerance?))>
+<!ATTLIST comparison type (less-than|less-or-equal|greater-than|greater-or-equal|equal|not-equal) #REQUIRED>
+
+<!ELEMENT is-within-range (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref),value-range))>
+
+<!ELEMENT simple-condition (((bibref|comment|not-yet-defined|url)*,explanation*,(comparison|has-occurred|is-at-end|is-at-start|is-known-variable|is-member-of|is-unknown-variable|is-within-range|simple-condition-combination|simple-condition-not)))>
+<!ATTLIST simple-condition label NMTOKEN #IMPLIED>
+<!ATTLIST simple-condition importance NMTOKEN #IMPLIED>
+
+<!ELEMENT termination-condition (((bibref|comment|not-yet-defined|url)*,explanation*,(comparison|has-occurred|is-at-end|is-at-start|is-known-variable|is-member-of|is-unknown-variable|is-within-range|simple-condition-combination|simple-condition-not)))>
+<!ATTLIST termination-condition label NMTOKEN #IMPLIED>
+<!ATTLIST termination-condition importance NMTOKEN #IMPLIED>
+
+<!ELEMENT simple-condition-not (((bibref|comment|not-yet-defined|url)*,(comparison|has-occurred|is-at-end|is-at-start|is-known-variable|is-member-of|is-unknown-variable|is-within-range|simple-condition-combination|simple-condition-not)))>
+
+<!ELEMENT simple-condition-combination (((bibref|comment|not-yet-defined|url)*,(comparison|has-occurred|is-at-end|is-at-start|is-known-variable|is-member-of|is-unknown-variable|is-within-range|simple-condition-combination|simple-condition-not)+))>
+<!ATTLIST simple-condition-combination type (and|or|xor) #REQUIRED>
+
+<!ELEMENT value-description (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref),tolerance?))>
+<!ATTLIST value-description type (less-than|less-or-equal|greater-than|greater-or-equal|equal|not-equal) #REQUIRED>
+
+<!ELEMENT constraint-combination (((bibref|comment|not-yet-defined|url)*,explanation*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)+))>
+<!ATTLIST constraint-combination label NMTOKEN #IMPLIED>
+<!ATTLIST constraint-combination type (and|or|xor) #REQUIRED>
+<!ATTLIST constraint-combination importance NMTOKEN #IMPLIED>
+
+<!ELEMENT constraint-not (((bibref|comment|not-yet-defined|url)*,explanation*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST constraint-not label NMTOKEN #IMPLIED>
+<!ATTLIST constraint-not importance NMTOKEN #IMPLIED>
+
+<!ELEMENT count-constraint (((bibref|comment|not-yet-defined|url)*,explanation*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref),(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST count-constraint label NMTOKEN #IMPLIED>
+<!ATTLIST count-constraint importance NMTOKEN #IMPLIED>
+
+<!ELEMENT plan-state-transition (((bibref|comment|not-yet-defined|url)*,(plan-pointer|self)))>
+<!ATTLIST plan-state-transition state (considered|possible|ready|activated|suspended|aborted|completed|selected|executed) #REQUIRED>
+<!ATTLIST plan-state-transition direction (leave|enter) "enter">
+<!ATTLIST plan-state-transition instance-type (first|last) #REQUIRED>
+<!ATTLIST plan-state-transition instance-number NMTOKEN "1">
+
+<!ELEMENT parameter-change (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+<!ATTLIST parameter-change value NMTOKEN #REQUIRED>
+<!ATTLIST parameter-change direction (leave|enter) "enter">
+
+<!ELEMENT plan-state-constraint (((bibref|comment|not-yet-defined|url)*,(plan-pointer|self),time-annotation))>
+<!ATTLIST plan-state-constraint label NMTOKEN #IMPLIED>
+<!ATTLIST plan-state-constraint state (considered|possible|ready|activated|suspended|aborted|completed|selected|executed) #REQUIRED>
+<!ATTLIST plan-state-constraint importance NMTOKEN #IMPLIED>
+
+<!ELEMENT variable-assignment (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list|list-ref|multi-set|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set|set-ref|string-constant|variable-ref)))>
+<!ATTLIST variable-assignment label NMTOKEN #IMPLIED>
+<!ATTLIST variable-assignment variable NMTOKEN #REQUIRED>
+
+<!ELEMENT parameter-assignment (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+<!ATTLIST parameter-assignment label NMTOKEN #IMPLIED>
+<!ATTLIST parameter-assignment parameter NMTOKEN #REQUIRED>
+
+<!ELEMENT costs (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list|list-ref|multi-set|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set|set-ref|string-constant|variable-ref)))>
+<!ATTLIST costs label NMTOKEN #IMPLIED>
+<!ATTLIST costs name NMTOKEN #IMPLIED>
+
+<!ELEMENT return-value (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list|list-ref|multi-set|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set|set-ref|string-constant|variable-ref)))>
+<!ATTLIST return-value label NMTOKEN #IMPLIED>
+<!ATTLIST return-value name NMTOKEN #IMPLIED>
+
+<!ELEMENT numerical-constant ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST numerical-constant value NMTOKEN #REQUIRED>
+<!ATTLIST numerical-constant unit CDATA #IMPLIED>
+<!ATTLIST numerical-constant scale CDATA #IMPLIED>
+
+<!ELEMENT first-unit-entry-equals ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST first-unit-entry-equals value NMTOKEN #REQUIRED>
+<!ATTLIST first-unit-entry-equals unit CDATA #IMPLIED>
+<!ATTLIST first-unit-entry-equals scale CDATA #IMPLIED>
+
+<!ELEMENT qualitative-constant ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST qualitative-constant value NMTOKEN #REQUIRED>
+
+<!ELEMENT string-constant ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST string-constant value CDATA #REQUIRED>
+
+<!ELEMENT the-expression (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT cardinality (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT time-point (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT position (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT element (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT offset (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT frequency (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT minimum (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT maximum (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT time-out (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT epsilon (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT initial-value (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT typical-duration (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT left-hand-side (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT right-hand-side (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT earliest (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT latest (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT length (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+
+<!ELEMENT the-constant-expression (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT step-width (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT time-window-size (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT interval (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT sampling-frequency (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT cross-over-time (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT minimum-of-valid-points (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT channel (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT trust-period (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT retrospective-trust-period (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT maximal-data-delay (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT tolerance (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)))>
+
+<!ELEMENT set-iterator (((bibref|comment|not-yet-defined|url)*,element))>
+<!ATTLIST set-iterator iterator NMTOKEN #REQUIRED>
+<!ATTLIST set-iterator direction (forward|backward) "forward">
+
+<!ELEMENT get-position ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST get-position iterator NMTOKEN #REQUIRED>
+
+<!ELEMENT constant-operation (((bibref|comment|not-yet-defined|url)*,(constant-operation|constant-ref|numerical-constant|qualitative-constant|string-constant)+))>
+<!ATTLIST constant-operation operator (add|multiply|subtract|divide|modulo|power|root|minimum|maximum|absolute-value|sign) #REQUIRED>
+
+<!ELEMENT operation (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)+))>
+<!ATTLIST operation operator (add|multiply|subtract|divide|modulo|power|root|minimum|maximum|absolute-value|sign) #REQUIRED>
+
+<!ELEMENT return-value-assignment ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST return-value-assignment variable-name NMTOKEN #REQUIRED>
+<!ATTLIST return-value-assignment return-value-name NMTOKEN #IMPLIED>
+
+<!ELEMENT variable-ref ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST variable-ref name NMTOKEN #REQUIRED>
+
+<!ELEMENT context-ref ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST context-ref name NMTOKEN #REQUIRED>
+
+<!ELEMENT value-ref ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST value-ref name NMTOKEN #REQUIRED>
+
+<!ELEMENT constant-ref ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST constant-ref name NMTOKEN #REQUIRED>
+
+<!ELEMENT argument-ref ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST argument-ref name NMTOKEN #REQUIRED>
+
+<!ELEMENT parameter-ref ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST parameter-ref name NMTOKEN #REQUIRED>
+
+<!ELEMENT primary-key ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST primary-key name NMTOKEN #REQUIRED>
+
+<!ELEMENT cyclical-time-point-ref ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST cyclical-time-point-ref name NMTOKEN #REQUIRED>
+
+<!ELEMENT is-known-variable ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST is-known-variable name NMTOKEN #REQUIRED>
+
+<!ELEMENT is-unknown-variable ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST is-unknown-variable name NMTOKEN #REQUIRED>
+
+<!ELEMENT cyclical-time-annotation-ref ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST cyclical-time-annotation-ref name NMTOKEN #REQUIRED>
+
+<!ELEMENT time-annotation-ref ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST time-annotation-ref name NMTOKEN #REQUIRED>
+
+<!ELEMENT field-ref (((bibref|comment|not-yet-defined|url)*,(array-ref|field-ref|list-ref|multi-set-ref|set-ref|variable-ref)))>
+<!ATTLIST field-ref field NMTOKEN #REQUIRED>
+
+<!ELEMENT array-ref (((bibref|comment|not-yet-defined|url)*,index,(array-ref|field-ref|list-ref|multi-set-ref|set-ref|variable-ref)))>
+
+<!ELEMENT index (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+<!ATTLIST index name NMTOKEN #IMPLIED>
+
+<!ELEMENT list-ref (((bibref|comment|not-yet-defined|url)*,(array-ref|field-ref|list-ref|multi-set-ref|set-ref|variable-ref)))>
+<!ATTLIST list-ref iterator NMTOKEN #REQUIRED>
+<!ATTLIST list-ref iterator-change (increment|none|decrement) #REQUIRED>
+
+<!ELEMENT set-ref (((bibref|comment|not-yet-defined|url)*,(array-ref|field-ref|list-ref|multi-set-ref|set-ref|variable-ref)))>
+<!ATTLIST set-ref iterator NMTOKEN #REQUIRED>
+<!ATTLIST set-ref iterator-change (increment|none|decrement) #REQUIRED>
+
+<!ELEMENT multi-set-ref (((bibref|comment|not-yet-defined|url)*,(array-ref|field-ref|list-ref|multi-set-ref|set-ref|variable-ref)))>
+<!ATTLIST multi-set-ref iterator NMTOKEN #REQUIRED>
+<!ATTLIST multi-set-ref iterator-change (increment|none|decrement) #REQUIRED>
+
+<!ELEMENT function-call (((bibref|comment|not-yet-defined|url)*,argument-value*,return-value-assignment?))>
+<!ATTLIST function-call name NMTOKEN #REQUIRED>
+
+<!ELEMENT value-range (((bibref|comment|not-yet-defined|url)*,lower-bound?,upper-bound?))>
+
+<!ELEMENT hard-bounds (((bibref|comment|not-yet-defined|url)*,lower-bound?,upper-bound?))>
+
+<!ELEMENT soft-bounds (((bibref|comment|not-yet-defined|url)*,lower-bound?,upper-bound?))>
+
+<!ELEMENT bound (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+<!ATTLIST bound include-limit (yes|no) "yes">
+
+<!ELEMENT lower-bound (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+<!ATTLIST lower-bound include-limit (yes|no) "yes">
+
+<!ELEMENT upper-bound (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)))>
+<!ATTLIST upper-bound include-limit (yes|no) "yes">
+
+<!ELEMENT is-known-parameter ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT is-unknown-parameter ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT is-member-of (((bibref|comment|not-yet-defined|url)*,element,(argument-ref|constant-ref|field-ref|list|multi-set|set|variable-ref)))>
+
+<!ELEMENT is-at-start ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST is-at-start iterator NMTOKEN #REQUIRED>
+
+<!ELEMENT is-at-end ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST is-at-end iterator NMTOKEN #REQUIRED>
+
+<!ELEMENT reset-iterator ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST reset-iterator iterator NMTOKEN #REQUIRED>
+
+<!ELEMENT list (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)*))>
+
+<!ELEMENT set (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)*))>
+
+<!ELEMENT multi-set (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)*))>
+
+<!ELEMENT context (((bibref|comment|not-yet-defined|url)*,(any|(context-combination|context-not|context-ref|one-of)+)))>
+
+<!ELEMENT context-combination (((bibref|comment|not-yet-defined|url)*,(context-combination|context-not|context-ref|one-of)+))>
+<!ATTLIST context-combination operator (and|or|xor) #REQUIRED>
+
+<!ELEMENT context-not (((bibref|comment|not-yet-defined|url)*,(context-combination|context-not|context-ref|one-of)))>
+
+<!ELEMENT one-of (((bibref|comment|not-yet-defined|url)*,value-ref+))>
+<!ATTLIST one-of name NMTOKEN #REQUIRED>
+
+<!ELEMENT intentions (((bibref|comment|not-yet-defined|url)*,intention*,refer-to*))>
+
+<!ELEMENT intention (((bibref|comment|not-yet-defined|url)*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+<!ATTLIST intention label NMTOKEN #IMPLIED>
+<!ATTLIST intention type (intermediate-state|intermediate-action|overall-state|overall-action) #REQUIRED>
+<!ATTLIST intention verb (avoid|maintain|achieve) #REQUIRED>
+<!ATTLIST intention importance NMTOKEN #IMPLIED>
+
+<!ELEMENT effects (((bibref|comment|not-yet-defined|url)*,(none|parameter-dependency|plan-effect|refer-to|to-be-defined)*))>
+
+<!ELEMENT parameter-dependency (((bibref|comment|not-yet-defined|url)*,time-annotation,context))>
+<!ATTLIST parameter-dependency label NMTOKEN #IMPLIED>
+<!ATTLIST parameter-dependency cause-parameter NMTOKEN #REQUIRED>
+<!ATTLIST parameter-dependency relationship (positive-mon|negative-mon) #REQUIRED>
+<!ATTLIST parameter-dependency likelihood NMTOKEN #IMPLIED>
+<!ATTLIST parameter-dependency effect-parameter NMTOKEN #REQUIRED>
+
+<!ELEMENT plan-effect (((bibref|comment|not-yet-defined|url)*,time-annotation,context))>
+<!ATTLIST plan-effect label NMTOKEN #IMPLIED>
+<!ATTLIST plan-effect direction (inc|dec|stable) #REQUIRED>
+<!ATTLIST plan-effect likelihood NMTOKEN #IMPLIED>
+<!ATTLIST plan-effect parameter NMTOKEN #REQUIRED>
+
+<!ELEMENT subplans (((bibref|comment|not-yet-defined|url)*,wait-for,abort-if?,(ask|cyclical-plan|for-each-plan|go-to-next|go-to-previous|if-then-else|insert-after-iterator|insert-after-position|insert-before-iterator|insert-before-position|iterative-plan|parameter-assignment|plan-activation|put-first|put-last|refer-to|remove-at-iterator|remove-at-position|remove-element|reset-iterator|set-context|set-iterator|subplans|to-be-defined|user-performed|variable-assignment)+))>
+<!ATTLIST subplans label NMTOKEN #IMPLIED>
+<!ATTLIST subplans type (sequentially|parallel|any-order|unordered) #REQUIRED>
+<!ATTLIST subplans wait-for-optional-subplans (yes|no) "no">
+<!ATTLIST subplans retry-aborted-subplans (yes|no) "no">
+
+<!ELEMENT one ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT user-performed ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT any ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT all ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT now ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT self ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT positive-infinite ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT negative-infinite ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT always ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT not-yet-defined ((bibref|comment|not-yet-defined|url)*)>
+
+<!ELEMENT none ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST none importance NMTOKEN #IMPLIED>
+
+<!ELEMENT to-be-defined ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST to-be-defined importance NMTOKEN #IMPLIED>
+
+<!ELEMENT set-context ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST set-context label NMTOKEN #IMPLIED>
+<!ATTLIST set-context name NMTOKEN #REQUIRED>
+<!ATTLIST set-context value NMTOKEN #IMPLIED>
+
+<!ELEMENT wait-for (((bibref|comment|not-yet-defined|url)*,(all|cardinality|none|one|refer-to|static-plan-pointer|to-be-defined|wait-for-group|wait-for-not)))>
+
+<!ELEMENT wait-for-not (((bibref|comment|not-yet-defined|url)*,(refer-to|static-plan-pointer|wait-for-group|wait-for-not)+))>
+
+<!ELEMENT wait-for-group (((bibref|comment|not-yet-defined|url)*,(refer-to|static-plan-pointer|wait-for-group|wait-for-not)+))>
+<!ATTLIST wait-for-group label NMTOKEN #IMPLIED>
+<!ATTLIST wait-for-group type (and|or|xor) #REQUIRED>
+
+<!ELEMENT abort-if (((bibref|comment|not-yet-defined|url)*,(abort-if-group|abort-if-item|abort-if-not|none|refer-to|to-be-defined)))>
+
+<!ELEMENT abort-if-not (((bibref|comment|not-yet-defined|url)*,(abort-if-group|abort-if-item|abort-if-not|refer-to)))>
+
+<!ELEMENT abort-if-group (((bibref|comment|not-yet-defined|url)*,(abort-if-group|abort-if-item|abort-if-not|refer-to)+))>
+<!ATTLIST abort-if-group label NMTOKEN #IMPLIED>
+<!ATTLIST abort-if-group type (and|or|xor) #REQUIRED>
+
+<!ELEMENT abort-if-item (((bibref|comment|not-yet-defined|url)*,static-plan-pointer))>
+<!ATTLIST abort-if-item label NMTOKEN #IMPLIED>
+<!ATTLIST abort-if-item type (aborted|rejected|aborted-or-rejected) "aborted-or-rejected">
+
+<!ELEMENT returns (((bibref|comment|not-yet-defined|url)*,(plan-activation|return-value+)))>
+
+<!ELEMENT plan-schema (((bibref|comment|not-yet-defined|url)*,argument-value*,time-annotation?,typical-duration?,return-value-assignment*))>
+<!ATTLIST plan-schema name IDREF #REQUIRED>
+
+<!ELEMENT do-for-each (((bibref|comment|not-yet-defined|url)*,argument-value*,time-annotation?,typical-duration?,return-value-assignment*))>
+<!ATTLIST do-for-each name IDREF #REQUIRED>
+
+<!ELEMENT ask (((bibref|comment|not-yet-defined|url)*,parameter-ref+,time-out))>
+
+<!ELEMENT plan-activation (((bibref|comment|not-yet-defined|url)*,plan-schema,on-suspend?,on-abort?))>
+
+<!ELEMENT if-then-else (((bibref|comment|not-yet-defined|url)*,simple-condition,then-branch,else-branch?))>
+
+<!ELEMENT comment ((delta-link | gmt-link)*)>
+<!ATTLIST comment text CDATA #REQUIRED>
+
+<!ELEMENT url ((delta-link | gmt-link)*)>
+<!ATTLIST url text CDATA #REQUIRED>
+
+<!ELEMENT bibref ((delta-link | gmt-link)*)>
+<!ATTLIST bibref key NMTOKEN #REQUIRED>
+<!ATTLIST bibref page CDATA #IMPLIED>
+
+<!ELEMENT explanation (((bibref|comment|not-yet-defined|url)*,(argument-ref|array-ref|constant-ref|field-ref|function-call|get-position|list-ref|multi-set-ref|now|numerical-constant|operation|parameter-ref|plan-state-transition|qualitative-constant|self|set-ref|string-constant|variable-ref)?))>
+<!ATTLIST explanation text CDATA #IMPLIED>
+
+<!ELEMENT administrative-data (((bibref|comment|not-yet-defined|url)*,changes*))>
+<!ATTLIST administrative-data original-author CDATA #IMPLIED>
+<!ATTLIST administrative-data creation-date CDATA #IMPLIED>
+<!ATTLIST administrative-data release-date CDATA #IMPLIED>
+
+<!ELEMENT changes ((bibref|comment|not-yet-defined|url)*)>
+<!ATTLIST changes date CDATA #REQUIRED>
+<!ATTLIST changes author CDATA #REQUIRED>
+<!ATTLIST changes description CDATA #REQUIRED>
+
+<!ELEMENT has-occurred (((bibref|comment|not-yet-defined|url)*,plan-state-transition))>
+
+<!ELEMENT day-of-week (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT duration-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT valid-time-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT hour (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT minute (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT second (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT month (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT year (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT day-of-month (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT end-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT start-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+
+<!ELEMENT delay-def (((bibref|comment|not-yet-defined|url)*,delay,source))>
+
+<!ELEMENT comparison-def (((bibref|comment|not-yet-defined|url)*,left-hand-parameter,right-hand-parameter,tolerance?))>
+<!ATTLIST comparison-def operator (less-than|less-or-equal|greater-than|greater-or-equal|equal|not-equal) #REQUIRED>
+<!ATTLIST comparison-def use-as-context (yes|no) "no">
+
+<!ELEMENT time-window-def (((bibref|comment|not-yet-defined|url)*,window-length,step-width,source))>
+
+<!ELEMENT time-window-analysis-def (((bibref|comment|not-yet-defined|url)*,(episode-def|time-window-def)))>
+<!ATTLIST time-window-analysis-def operator (minimum|maximum|median|average|change|time-oriented-average|sum|count|start|end|duration) #REQUIRED>
+
+<!ELEMENT linear-regression-def (((bibref|comment|not-yet-defined|url)*,minimum-of-valid-points?,source))>
+
+<!ELEMENT histogram-def (((bibref|comment|not-yet-defined|url)*,(average-def|boolean-def|calculation-def|center-def|centile-def|change-def|comparison-def|constant-operation|constant-ref|day-of-month|day-of-week|delay-def|duration-def|end-def|end-point-def|episode-analysis-def|episode-def|histogram-def|hour|limit-def|linear-regression-def|logical-combination-def|logical-dependency-def|minute|month|now|numerical-constant|parameter-ref|qualitative-constant|qualitative-parameter-def|raw-data-def|second|selection-def|slope-def|spread-def|standard-deviation-def|standard-error-def|start-def|string-constant|time-to-alarm-def|time-window-analysis-def|time-window-def|valid-time-def|year)))>
+<!ATTLIST histogram-def quote-shares (relative|absolute) #REQUIRED>
+<!ATTLIST histogram-def classes NMTOKEN #IMPLIED>
+
+<!ELEMENT selection-def (((bibref|comment|not-yet-defined|url)*,channel,source))>
+
+<!ELEMENT limit-def (((bibref|comment|not-yet-defined|url)*,maximum-value?,minimum-value?,maximal-increase?,maximal-decrease?,source))>
+
+<!ELEMENT episode-def (((bibref|comment|not-yet-defined|url)*,(constraint-combination|constraint-not|count-constraint|is-automatic|is-manual|none|parameter-proposition|parameter-ref|plan-state-constraint|refer-to|simple-condition|temporal-constraint|to-be-defined)))>
+
+<!ELEMENT episode-analysis-def (((bibref|comment|not-yet-defined|url)*,(episode-def|parameter-ref)))>
+<!ATTLIST episode-analysis-def operator (count|duration|total-duration|start|end) #REQUIRED>

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class LowerBound extends CommentBase implements IPrintable {
+public class LowerBound implements IPrintable {
 
 	/**
 	 * @param expression the expression that defines the bound
@@ -24,7 +24,7 @@ public class LowerBound extends CommentBase implements IPrintable {
 	 */
 	public LowerBound(AsbruExpression expression, boolean includeLimit, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.expression = expression;
 		this.includeLimit = includeLimit;
 	}
@@ -35,9 +35,19 @@ public class LowerBound extends CommentBase implements IPrintable {
 	public String print()
 	{
 		String s = "";
+		String sIncludeLimit = "";
 		
-		s = "<lower-bound include-limit=\"" + Boolean.toString(includeLimit) + "\" >";
-		s = s + printComments();
+		if (includeLimit == true)
+		{
+			sIncludeLimit = "yes";
+		}
+		else
+		{
+			sIncludeLimit = "no";
+		}
+		
+		s = "<lower-bound include-limit=\"" + sIncludeLimit + "\" >";
+		s = s + commentContainer.printComments();
 		s = s + expression.print();
 		s = s + "</lower-bound>";
 		
@@ -48,4 +58,6 @@ public class LowerBound extends CommentBase implements IPrintable {
 	private AsbruExpression expression;
 	// defines the usgage of the bound limit
 	private boolean includeLimit;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

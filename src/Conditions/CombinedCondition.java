@@ -3,11 +3,12 @@ package Conditions;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.apache.commons.lang.Validate;
+
+import AsbruConditions.AbstractSimpleCondition;
 import AsbruConditions.AnyComment;
 import AsbruConditions.Comment;
 import AsbruConditions.FilterPrecondition;
 import AsbruConditions.FilterPreconditionFactory;
-import AsbruConditions.IAbstractSimpleCondition;
 import AsbruConditions.SimpleCondition;
 import AsbruConditions.SimpleConditionCombination;
 import AsbruConditions.Type;
@@ -61,12 +62,12 @@ public class CombinedCondition extends ConditionBase {
 	 */
 	public FilterPrecondition Convert()
 	{
-		ArrayList<IAbstractSimpleCondition> asbruConditions = new ArrayList<IAbstractSimpleCondition>(); 
+		ArrayList<AbstractSimpleCondition> asbruConditions = new ArrayList<AbstractSimpleCondition>(); 
 		
 		for(ConditionBase condition: conditions)
 		{
 			FilterPrecondition filterPrecondition = condition.Convert();
-			IAbstractSimpleCondition abstractCondition = ((SimpleCondition)filterPrecondition.GetPattern()).GetCondition();
+			AbstractSimpleCondition abstractCondition = ((SimpleCondition)filterPrecondition.GetPattern()).GetCondition();
 
 			asbruConditions.add(abstractCondition);
 		}

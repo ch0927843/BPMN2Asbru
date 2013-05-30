@@ -9,7 +9,7 @@ import org.apache.commons.lang.Validate;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class IsMemberOf extends CommentBase implements IAbstractSimpleCondition {
+public class IsMemberOf extends AbstractSimpleCondition {
 
 	/**
 	 * @param element element to find in list
@@ -27,7 +27,7 @@ public class IsMemberOf extends CommentBase implements IAbstractSimpleCondition 
 	 */
 	public IsMemberOf(Element element, ListOrSetRef listOrSetRef, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		
 		Validate.notNull(element, "element can't be null");
 		Validate.notNull(listOrSetRef, "listOrSetRef can't be null");
@@ -44,7 +44,7 @@ public class IsMemberOf extends CommentBase implements IAbstractSimpleCondition 
 		String s = "";
 		
 		s = "<is-member-of>";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + element.print();
 		s = s + listOrSetRef.print();
 		s = s + "</is-member-of>";
@@ -56,4 +56,6 @@ public class IsMemberOf extends CommentBase implements IAbstractSimpleCondition 
 	private Element element;
 	// list of elements to search in
 	private ListOrSetRef listOrSetRef;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

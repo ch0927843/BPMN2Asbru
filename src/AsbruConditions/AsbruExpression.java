@@ -26,9 +26,9 @@ public class AsbruExpression implements IPrintable {
 	{
 		String s = "";
 		
-		s = "<expression>";
+		//s = "<expression>";
 		s = s + expressionChild.print();
-		s = s + "</expression>";
+		//s = s + "</expression>";
 		
 		return s;
 	}

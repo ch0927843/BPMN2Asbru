@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class ConstantRef extends CommentBase implements IAsbruExpressionChild, IConstantExpressionChild {
+public class ConstantRef implements IAsbruExpressionChild, IConstantExpressionChild {
 
 	/**
 	 * @param name name of the reference
@@ -23,7 +23,7 @@ public class ConstantRef extends CommentBase implements IAsbruExpressionChild, I
 	 */
 	public ConstantRef(String name, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.name = name;
 	}
 	
@@ -35,7 +35,7 @@ public class ConstantRef extends CommentBase implements IAsbruExpressionChild, I
 		String s = "";
 		
 		s = "<constant-ref name=\"" + name + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + "</constant-ref>";
 		
 		return s;
@@ -43,4 +43,6 @@ public class ConstantRef extends CommentBase implements IAsbruExpressionChild, I
 	
 	// name of the reference
 	private String name;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

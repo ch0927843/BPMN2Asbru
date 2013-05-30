@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class Self extends CommentBase implements IAnyPlanPointerChild, IAsbruExpressionChild {
+public class Self implements IAnyPlanPointerChild, IAsbruExpressionChild {
 	
 	public Self()
 	{
@@ -19,7 +19,7 @@ public class Self extends CommentBase implements IAnyPlanPointerChild, IAsbruExp
 	 */
 	public Self(ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 	}
 	
 	/**
@@ -30,10 +30,12 @@ public class Self extends CommentBase implements IAnyPlanPointerChild, IAsbruExp
 		String s = "";
 		
 		s = "<self>";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + "</self>";
 		
 		return s;
 	}
 
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

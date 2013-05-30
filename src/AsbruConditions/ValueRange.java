@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class ValueRange extends CommentBase implements IPrintable {
+public class ValueRange implements IPrintable {
 
 	/**
 	 * empty value range
@@ -33,7 +33,7 @@ public class ValueRange extends CommentBase implements IPrintable {
 	 */
 	public ValueRange(ArrayList<AnyComment> comments, LowerBound lowerBound, UpperBound upperBound)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;
 	}
@@ -45,11 +45,11 @@ public class ValueRange extends CommentBase implements IPrintable {
 	{
 		String s = "";
 		
-		s = "<ValueRange>";
-		s = s + printComments();
+		s = "<value-range>";
+		s = s + commentContainer.printComments();
 		s = s + lowerBound.print();
 		s = s + upperBound.print();
-		s = s + "</ValueRange>";
+		s = s + "</value-range>";
 		
 		return s;
 	}
@@ -58,4 +58,6 @@ public class ValueRange extends CommentBase implements IPrintable {
 	private LowerBound lowerBound;
 	// upper bound of the value range
 	private UpperBound upperBound;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

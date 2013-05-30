@@ -204,15 +204,7 @@ public class ConditionTranslator
 		
 		LogicOperatorType logicOperatorType = LogicOperatorType.AND;
 		
-		Iterator<Annotation> logicAnnotationsIterator = logicOperatorAS.iterator();
-		ArrayList<Annotation> sortedLogicAnnotations = new ArrayList<Annotation>();
-		
-		// sort the found logic operators by offset
-		while (logicAnnotationsIterator.hasNext())
-		{
-			sortedLogicAnnotations.add(logicAnnotationsIterator.next());
-		}
-		
+		ArrayList<Annotation> sortedLogicAnnotations = new ArrayList<Annotation>(logicOperatorAS);
 		Collections.sort(sortedLogicAnnotations);
 		Iterator<Annotation> sortedLogicAnnotationsIterator = sortedLogicAnnotations.iterator();
 		
@@ -325,14 +317,7 @@ public class ConditionTranslator
 		if (informationBraceAS.isEmpty()) // if the colons are not in a brace
 		{
 			AnnotationSet colonAS = allMarkupsAS.get("colon", startOffset, endOffset);
-			Iterator<Annotation> colonIterator = colonAS.iterator();
-			// sort colons by offset
-			ArrayList<Annotation> sortedColon = new ArrayList<Annotation>();
-			while (colonIterator.hasNext())
-			{
-				sortedColon.add(colonIterator.next());
-			}
-			
+			ArrayList<Annotation> sortedColon = new ArrayList<Annotation>(colonAS);
 			Collections.sort(sortedColon);
 			Iterator<Annotation> sortedColonIterator = sortedColon.iterator();
 			
@@ -374,13 +359,7 @@ public class ConditionTranslator
 			long braceStartOffset = informationBrace.getStartNode().getOffset();
 			long braceEndOffset = informationBrace.getEndNode().getOffset();
 			AnnotationSet colonAS = allMarkupsAS.get("colon", braceStartOffset, braceEndOffset);
-			Iterator<Annotation> colonIterator = colonAS.iterator();
-			//sort colons by offset
-			ArrayList<Annotation> sortedColon = new ArrayList<Annotation>();
-			while (colonIterator.hasNext())
-			{
-				sortedColon.add(colonIterator.next());
-			}
+			ArrayList<Annotation> sortedColon = new ArrayList<Annotation>(colonAS);
 			
 			Collections.sort(sortedColon);
 			Iterator<Annotation> sortedColonIterator = sortedColon.iterator();
@@ -670,14 +649,7 @@ public class ConditionTranslator
 		
 		AnnotationSet allMarkupsAS = document.getAnnotations();
 		AnnotationSet referenceAS = allMarkupsAS.get("reference", startOffset, endOffset);
-		
-		Iterator<Annotation> referenceASIterator = referenceAS.iterator();
-		ArrayList<Annotation> sortedReferenceAS = new ArrayList<Annotation>();
-		
-		while (referenceASIterator.hasNext())
-		{
-			sortedReferenceAS.add(referenceASIterator.next());
-		}
+		ArrayList<Annotation> sortedReferenceAS = new ArrayList<Annotation>(referenceAS);
 		Collections.sort(sortedReferenceAS);
 		
 		Iterator<Annotation> sortedReferenceASIterator = sortedReferenceAS.iterator();
@@ -745,12 +717,7 @@ public class ConditionTranslator
 		String field = "";
 		AnnotationSet allMarkupsAS = document.getAnnotations();
 		AnnotationSet fieldMetaMapAnnotations = allMarkupsAS.get("MetaMap", startOffset, endOffset);
-		Iterator<Annotation> fieldMetaMapAnnotationsIterator = fieldMetaMapAnnotations.iterator();
-		ArrayList<Annotation> fieldMetaMapAnnotationsSorted = new ArrayList<Annotation>();
-		while (fieldMetaMapAnnotationsIterator.hasNext())
-		{
-			fieldMetaMapAnnotationsSorted.add(fieldMetaMapAnnotationsIterator.next());
-		}
+		ArrayList<Annotation> fieldMetaMapAnnotationsSorted = new ArrayList<Annotation>(fieldMetaMapAnnotations);
 		Collections.sort(fieldMetaMapAnnotationsSorted);
 		
 		Iterator<Annotation> fieldMetaMapAnnotationsSortedIterator = fieldMetaMapAnnotationsSorted.iterator();
@@ -763,12 +730,7 @@ public class ConditionTranslator
 		if (field.isEmpty()) // if there are no contained metamap concepts, the plain-text is concatinated to get some results
 		{
 			AnnotationSet fieldTokenAnnotations = allMarkupsAS.get("Token", startOffset, endOffset);
-			Iterator<Annotation> fieldTokenAnnotationsIterator = fieldTokenAnnotations.iterator();
-			ArrayList<Annotation> fieldTokenAnnotationsSorted = new ArrayList<Annotation>();
-			while (fieldTokenAnnotationsIterator.hasNext())
-			{
-				fieldTokenAnnotationsSorted.add(fieldTokenAnnotationsIterator.next());
-			}
+			ArrayList<Annotation> fieldTokenAnnotationsSorted = new ArrayList<Annotation>(fieldTokenAnnotations);
 			Collections.sort(fieldTokenAnnotationsSorted);
 			
 			Iterator<Annotation> fieldTokenAnnotationsSortedIterator = fieldTokenAnnotationsSorted.iterator();

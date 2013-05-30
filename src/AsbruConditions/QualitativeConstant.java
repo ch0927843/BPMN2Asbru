@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class QualitativeConstant extends CommentBase implements IAsbruExpressionChild, IConstantExpressionChild {
+public class QualitativeConstant implements IAsbruExpressionChild, IConstantExpressionChild {
 
 	/**
 	 * @param value the value of the constant
@@ -23,7 +23,7 @@ public class QualitativeConstant extends CommentBase implements IAsbruExpression
 	 */
 	public QualitativeConstant(String value, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.value = value;
 	}
 	
@@ -35,7 +35,7 @@ public class QualitativeConstant extends CommentBase implements IAsbruExpression
 		String s = "";
 		
 		s = "<qualitative-constant value=\"" + value + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + "</qualitative-constant>";
 		
 		return s;
@@ -43,4 +43,6 @@ public class QualitativeConstant extends CommentBase implements IAsbruExpression
 	
 	// the value of the constant
 	private String value;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang.Validate;
 
+import AsbruConditions.AbstractSimpleCondition;
 import AsbruConditions.AnyComment;
 import AsbruConditions.Comment;
 import AsbruConditions.FilterPrecondition;
 import AsbruConditions.FilterPreconditionFactory;
-import AsbruConditions.IAbstractSimpleCondition;
 import AsbruConditions.SimpleCondition;
 import AsbruConditions.SimpleConditionNot;
 
@@ -40,7 +40,7 @@ public class NotCondition extends ConditionBase {
 	public FilterPrecondition Convert()
 	{
 		FilterPrecondition filterPrecondition = condition.Convert();
-		IAbstractSimpleCondition abstractCondition = ((SimpleCondition)filterPrecondition.GetPattern()).GetCondition();
+		AbstractSimpleCondition abstractCondition = ((SimpleCondition)filterPrecondition.GetPattern()).GetCondition();
 		
 		if (comments.isEmpty())
 		{

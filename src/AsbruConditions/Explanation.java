@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class Explanation extends CommentBase implements IPrintable {
+public class Explanation implements IPrintable {
 
 	public Explanation()
 	{
@@ -21,7 +21,7 @@ public class Explanation extends CommentBase implements IPrintable {
 	 */
 	public Explanation(String text, ArrayList<AnyComment> comments, AsbruExpression expression)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.expression = expression;
 		this.text = text;
 	}
@@ -34,7 +34,7 @@ public class Explanation extends CommentBase implements IPrintable {
 		String s = "";
 		
 		s = "<explanation text=\"" + text + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		if (expression != null)
 		{
 			s = s + expression.print(); 
@@ -48,4 +48,6 @@ public class Explanation extends CommentBase implements IPrintable {
 	private AsbruExpression expression;
 	// explanation short text
 	private String text;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

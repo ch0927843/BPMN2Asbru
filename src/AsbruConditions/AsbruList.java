@@ -13,7 +13,7 @@ import java.util.Iterator;
  * <p>
  * @author Christian Hinterer
  */
-public class AsbruList extends CommentBase implements IListOrSetRefChild {
+public class AsbruList implements IListOrSetRefChild {
 
 	public AsbruList()
 	{
@@ -26,7 +26,7 @@ public class AsbruList extends CommentBase implements IListOrSetRefChild {
 	 */
 	public AsbruList(ArrayList<AnyComment> comments, ArrayList<AsbruExpression> expressions)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		this.expressions = expressions;
 	}
 	
@@ -49,7 +49,7 @@ public class AsbruList extends CommentBase implements IListOrSetRefChild {
 		AsbruExpression expression;
 		
 		s = "<list>";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		
 		it = expressions.iterator();
 		while(it.hasNext())
@@ -65,4 +65,6 @@ public class AsbruList extends CommentBase implements IListOrSetRefChild {
 	
 	// list of expressions
 	private Collection<AsbruExpression> expressions;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

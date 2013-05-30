@@ -9,12 +9,12 @@ import org.apache.commons.lang.Validate;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class SimpleConditionNot extends CommentBase implements IAbstractSimpleCondition {
+public class SimpleConditionNot extends AbstractSimpleCondition {
 
 	/**
 	 * @param condition condition to negate
 	 */
-	public SimpleConditionNot(IAbstractSimpleCondition condition)
+	public SimpleConditionNot(AbstractSimpleCondition condition)
 	{
 		this(condition, new ArrayList<AnyComment>());
 	}
@@ -23,9 +23,9 @@ public class SimpleConditionNot extends CommentBase implements IAbstractSimpleCo
 	 * @param condition condition to negate
 	 * @param comments comments of the element
 	 */
-	public SimpleConditionNot(IAbstractSimpleCondition condition, ArrayList<AnyComment> comments)
+	public SimpleConditionNot(AbstractSimpleCondition condition, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		
 		Validate.notNull(condition, "condition can't be null");
 		
@@ -40,7 +40,7 @@ public class SimpleConditionNot extends CommentBase implements IAbstractSimpleCo
 		String s;
 		
 		s = "<simple-condition-not>";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + condition.print();
 		s = s + "</simple-condition-not>";
 		
@@ -48,5 +48,7 @@ public class SimpleConditionNot extends CommentBase implements IAbstractSimpleCo
 	}
 	
 	// condition to negate
-	private IAbstractSimpleCondition condition;
+	private AbstractSimpleCondition condition;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }

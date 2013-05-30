@@ -60,7 +60,7 @@ public class mainClass
 			
 			Scanner scanner = new Scanner(System.in);
 			command = scanner.nextInt();
-				
+	
 			// distinguish the user input
 			switch (command) 
 			{
@@ -109,6 +109,7 @@ public class mainClass
 					break;
 				case 7:
 					log.log(new LogRecord(Level.INFO, "programm terminated"));
+					scanner.close();
 					System.exit(0);
 					break;
 				default:
@@ -153,6 +154,7 @@ public class mainClass
 	{
 		Scanner scanner = new Scanner(System.in);
 		String fileName = scanner.nextLine();
+		scanner.close();
 		
 		if (fileNameType == FileNameType.inputFile)
 		{

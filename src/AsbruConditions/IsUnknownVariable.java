@@ -9,7 +9,7 @@ import org.apache.commons.lang.Validate;
  * for more details read COMMENT_DESCRIPTION.TXT of the package "AsbruConditions"
  * @author Christian Hinterer
  */
-public class IsUnknownVariable extends CommentBase implements IAbstractSimpleCondition {
+public class IsUnknownVariable extends AbstractSimpleCondition {
 
 	/**
 	 * @param name name of the variable
@@ -25,7 +25,7 @@ public class IsUnknownVariable extends CommentBase implements IAbstractSimpleCon
 	 */
 	public IsUnknownVariable(String name, ArrayList<AnyComment> comments)
 	{
-		super(comments);
+		commentContainer = new CommentContainer(comments);
 		
 		Validate.notNull(name, "name can't be null");
 		
@@ -40,7 +40,7 @@ public class IsUnknownVariable extends CommentBase implements IAbstractSimpleCon
 		String s = "";
 		
 		s = "<is-unknown-variable name=\"" + name + "\">";
-		s = s + printComments();
+		s = s + commentContainer.printComments();
 		s = s + "</is-unknown-variable>";
 		
 		return s;
@@ -48,4 +48,6 @@ public class IsUnknownVariable extends CommentBase implements IAbstractSimpleCon
 	
 	// name of the variable
 	private String name;
+	// stores the comments of this object
+	private CommentContainer commentContainer;
 }
