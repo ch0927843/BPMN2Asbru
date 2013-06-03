@@ -37,21 +37,14 @@ public class IteratorStartCondition extends ConditionBase {
 	 */
 	public FilterPrecondition Convert()
 	{
-		if (comments.isEmpty())
+		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
+		
+		for(String comment: comments)
 		{
-			return FilterPreconditionFactory.CreateFilterPrecondition(new IsAtStart(iterator), id);
+			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
-		else
-		{
-			ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
-			
-			for(String comment: comments)
-			{
-				asbruComments.add(new AnyComment(new Comment(comment)));
-			}
-			
-			return FilterPreconditionFactory.CreateFilterPrecondition(new IsAtStart(iterator, asbruComments), id);
-		}
+		
+		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new IsAtStart(iterator, asbruComments), id);
 	}
 	
 	// name of iterator

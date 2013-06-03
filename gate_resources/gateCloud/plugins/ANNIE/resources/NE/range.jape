@@ -1,0 +1,11 @@
+Phase:firstpass
+Input:  Lookup  
+Options: control = brill
+
+Rule: rangeRule
+Priority: 20
+(
+{Lookup.majorType == "range"}
+): label
+-->
+:label.range = {rule= "rangeRule" } 

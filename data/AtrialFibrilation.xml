@@ -34,4 +34,54 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process
 <conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e15c" xsi:type="tFormalExpression">In patients who experience symptoms related to AF during activity</conditionExpression>
 
 
+
+
+
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e16c" xsi:type="tFormalExpression">for patients with HF, LV dysfunction, or for sedentary individuals</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e17c" xsi:type="tFormalExpression">when pharmacological therapy is (insufficient or associated with side effects)</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e18c" xsi:type="tFormalExpression">in patients with AF when other measures are (unsuccessful or contraindicated)</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e19c" xsi:type="tFormalExpression">When electrical cardioversion is not necessary in patients with AF and an accessory pathway</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e20c" xsi:type="tFormalExpression">When the ventricular rate cannot be adequately controlled both (at rest and during exercise) in patients with AF using a beta blocker</conditionExpression>
+
+
+
+
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e21c" xsi:type="tFormalExpression">for hemodynamically stable patients with AF involving conduction over an accessory pathway</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e22c" xsi:type="tFormalExpression">When the rate cannot be controlled with pharmacological agents or tachycardia-mediated cardiomyopathy is suspected AND in patients with AF</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e23c" xsi:type="tFormalExpression">for all patients with AF, except those with lone AF or contraindications</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e24c" xsi:type="tFormalExpression">For patients without mechanical heart valves at high risk of stroke</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e25c" xsi:type="tFormalExpression">for patients with more than 1 moderate risk factor. Such factors include age 75 y or greater, hypertension, HF, impaired LV systolic function (ejection fraction 35% or less or fractional shortening less than 25%), and diabetes mellitus</conditionExpression>
+
+
+
+
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e26c" xsi:type="tFormalExpression">in low-risk patients or in those with contraindications to oral anticoagulation</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e27c" xsi:type="tFormalExpression">For patients with AF who have mechanical heart valves</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e28c" xsi:type="tFormalExpression">for patients with atrial flutter as for those with AF</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e29c" xsi:type="tFormalExpression">in patients with nonvalvular AF who have just 1 of the following validated risk factors (age greater than or equal to 75 y (especially in female patients), hypertension, HF, impaired LV function, or diabetes mellitus)</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e30c" xsi:type="tFormalExpression">For patients with nonvalvular AF who have 1 or more of the following less well-validated risk factors (age 65 to 74 y, female gender, or CAD)</conditionExpression>
+
+
+
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e31c" xsi:type="tFormalExpression">In patients with AF who do not have mechanical prosthetic heart valves</conditionExpression>
+
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e32c" xsi:type="tFormalExpression">In patients 75 y of age and older at increased risk of bleeding but without frank contraindications to oral anticoagulant therapy, and in other patients with moderate risk factors for thromboembolism who are unable to safely tolerate anticoagulation at the standard intensity of INR 2.0 to 3.0</conditionExpression>
+
+
 </definitions>

@@ -64,22 +64,15 @@ public class OccuranceCondition extends ConditionBase {
 		AnyPlanPointer pointer = new AnyPlanPointer(self);
 		PlanStateTransition planStateTransition = new PlanStateTransition(pointer, ConditionConverter.Convert(stateType), 
 				ConditionConverter.Convert(directionType), ConditionConverter.Convert(instanceType), instanceNumber);
+	
+		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 		
-		if (comments.isEmpty())
+		for(String comment: comments)
 		{
-			return FilterPreconditionFactory.CreateFilterPrecondition(new HasOccured(planStateTransition), id);
+			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
-		else
-		{
-			ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
-			
-			for(String comment: comments)
-			{
-				asbruComments.add(new AnyComment(new Comment(comment)));
-			}
-			
-			return FilterPreconditionFactory.CreateFilterPrecondition(new HasOccured(planStateTransition, asbruComments), id);
-		}
+		
+		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new HasOccured(planStateTransition, asbruComments), id);
 	}
 	
 	// state type of the condition

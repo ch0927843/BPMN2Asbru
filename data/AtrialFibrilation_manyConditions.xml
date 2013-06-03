@@ -9,6 +9,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process
 
 
 
+
 <conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e84c" xsi:type="tFormalExpression">For patients who have 1 of the following less well-validated risk factors (age 65 to 74 y, female gender, or CAD) </conditionExpression>
 
 <conditionExpression id="sid-5023436a-4626-4cc2-b79e-27d5dad70e70" xsi:type="tFormalExpression">patient needs stroke prevention AND patient refuses OAC AND patient cannot tolerate aspirin-clopidogrel combination therapy</conditionExpression>
@@ -17,11 +18,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process
 
 <conditionExpression id="sid-706ce6cf-4f94-4a64-bef9-181cad6e4048" xsi:type="tFormalExpression">age &lt; 65 and lone AF</conditionExpression>
 
-<conditionExpression id="sid-65a7e5ba-de09-4415-9890-c6c86d51f1f8" xsi:type="tFormalExpression">non-valvular AF AND (previous stroke OR TIA OR systemic embolism OR LVEF (left ventricular ejection fraction) &lt; 40% AND symptomatic heart failure AND (age &gt;= 75 OR (age &gt;=65 AND (diabetes OR coronary artery disease OR hypertension)))</conditionExpression>
+<conditionExpression id="sid-65a7e5ba-de09-4415-9890-c6c86d51f1f8" xsi:type="tFormalExpression">non-valvular AF AND (previous stroke OR TIA OR systemic embolism OR LVEF (left ventricular ejection fraction) &lt; 40% AND symptomatic heart failure AND (age &gt;= 75 OR (age &gt;=65 AND (diabetes OR coronary artery disease OR hypertension))))</conditionExpression>
 
 <conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e11c" xsi:type="tFormalExpression">recurrent (paroxymal or persistent) AF AND after cardioversion AND (high risk for drug-induced adverse effects OR high risk with infrequent recurrences of AF)</conditionExpression>
 
-<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e12c" xsi:type="tFormalExpression">for patients with persistent or permanent AF</conditionExpression>
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e12c" xsi:type="tFormalExpression">for patients with (persistent or permanent) AF</conditionExpression>
 
 <conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e13c" xsi:type="tFormalExpression">in the absence of preexcitation</conditionExpression>
 
@@ -31,13 +32,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process
 
 <conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e16c" xsi:type="tFormalExpression">for patients with HF, LV dysfunction, or for sedentary individuals</conditionExpression>
 
-<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e17c" xsi:type="tFormalExpression">when pharmacological therapy is insufficient or associated with side effects</conditionExpression>
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e17c" xsi:type="tFormalExpression">when pharmacological therapy is (insufficient or associated with side effects)</conditionExpression>
 
-<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e18c" xsi:type="tFormalExpression">in patients with AF when other measures are unsuccessful or contraindicated</conditionExpression>
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e18c" xsi:type="tFormalExpression">in patients with AF when other measures are (unsuccessful or contraindicated)</conditionExpression>
 
 <conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e19c" xsi:type="tFormalExpression">When electrical cardioversion is not necessary in patients with AF and an accessory pathway</conditionExpression>
 
-<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e20c" xsi:type="tFormalExpression">When the ventricular rate cannot be adequately controlled both at rest and during exercise in patients with AF using a beta blocker</conditionExpression>
+<conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e20c" xsi:type="tFormalExpression">When the ventricular rate cannot be adequately controlled both (at rest and during exercise) in patients with AF using a beta blocker</conditionExpression>
 
 <conditionExpression id="sid-04894d52-d1d9-4413-be47-01d612a9e21c" xsi:type="tFormalExpression">for hemodynamically stable patients with AF involving conduction over an accessory pathway</conditionExpression>
 

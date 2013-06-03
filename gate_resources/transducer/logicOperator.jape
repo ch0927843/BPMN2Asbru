@@ -1,0 +1,11 @@
+Phase:firstpass
+Input:  Lookup  
+Options: control = brill
+
+Rule: logicOperatorRule
+Priority: 20
+(
+{Lookup.majorType == "logicOperator"}
+): label
+-->
+:label.logicOperator = {rule= "logicOperatorRule" } 

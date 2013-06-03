@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.apache.commons.lang.Validate;
 
-import AsbruConditions.AbstractSimpleCondition;
 import AsbruConditions.AnyComment;
 import AsbruConditions.Comment;
+import AsbruConditions.ConstraintCombination;
+import AsbruConditions.Explanation;
 import AsbruConditions.FilterPrecondition;
-import AsbruConditions.FilterPreconditionFactory;
-import AsbruConditions.SimpleCondition;
-import AsbruConditions.SimpleConditionCombination;
+import AsbruConditions.ITemporalPattern;
 import AsbruConditions.Type;
 import Conditions.Converter.ConditionConverter;
 
@@ -62,33 +61,29 @@ public class CombinedCondition extends ConditionBase {
 	 */
 	public FilterPrecondition Convert()
 	{
-		ArrayList<AbstractSimpleCondition> asbruConditions = new ArrayList<AbstractSimpleCondition>(); 
+		ArrayList<ITemporalPattern> temporalPatterns = new ArrayList<ITemporalPattern>(); 
 		
 		for(ConditionBase condition: conditions)
 		{
 			FilterPrecondition filterPrecondition = condition.Convert();
-			AbstractSimpleCondition abstractCondition = ((SimpleCondition)filterPrecondition.GetPattern()).GetCondition();
+			ITemporalPattern temporalPattern = filterPrecondition.GetPattern();
 
-			asbruConditions.add(abstractCondition);
+			temporalPatterns.add(temporalPattern);
 		}
 		
 		Type asbruType = ConditionConverter.Convert(type);
+		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 		
-		if (comments.isEmpty())
+		for(String comment: comments)
 		{
-			return FilterPreconditionFactory.CreateFilterPrecondition(new SimpleConditionCombination(asbruConditions, asbruType), id);	
+			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
-		else
-		{
-			ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
-			
-			for(String comment: comments)
-			{
-				asbruComments.add(new AnyComment(new Comment(comment)));
-			}
-			
-			return FilterPreconditionFactory.CreateFilterPrecondition(new SimpleConditionCombination(asbruConditions, asbruType, asbruComments), id);
-		}
+		
+		//return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new SimpleConditionCombination(asbruConditions, asbruType, asbruComments), id);
+		
+		ConstraintCombination constrainCombination = new ConstraintCombination("null", 0, asbruType, temporalPatterns, asbruComments, new ArrayList<Explanation>());
+
+		return new FilterPrecondition(constrainCombination, id);
 	}
 	
 	/**

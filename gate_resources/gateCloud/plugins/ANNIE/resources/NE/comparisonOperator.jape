@@ -1,0 +1,11 @@
+Phase:firstpass
+Input:  Lookup  
+Options: control = brill
+
+Rule: comparisonOperatorRule
+Priority: 20
+(
+{Lookup.majorType == "comparisonOperator"}
+): label
+-->
+:label.comparisonOperator = {rule= "comparisonOperatorRule" } 

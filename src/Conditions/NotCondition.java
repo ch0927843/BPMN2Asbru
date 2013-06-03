@@ -7,8 +7,11 @@ import org.apache.commons.lang.Validate;
 import AsbruConditions.AbstractSimpleCondition;
 import AsbruConditions.AnyComment;
 import AsbruConditions.Comment;
+import AsbruConditions.ConstraintNot;
+import AsbruConditions.Explanation;
 import AsbruConditions.FilterPrecondition;
 import AsbruConditions.FilterPreconditionFactory;
+import AsbruConditions.ITemporalPattern;
 import AsbruConditions.SimpleCondition;
 import AsbruConditions.SimpleConditionNot;
 
@@ -40,22 +43,27 @@ public class NotCondition extends ConditionBase {
 	public FilterPrecondition Convert()
 	{
 		FilterPrecondition filterPrecondition = condition.Convert();
-		AbstractSimpleCondition abstractCondition = ((SimpleCondition)filterPrecondition.GetPattern()).GetCondition();
 		
-		if (comments.isEmpty())
+		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
+		for(String comment: comments)
 		{
-			return FilterPreconditionFactory.CreateFilterPrecondition(new SimpleConditionNot(abstractCondition), id);
+			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
+		
+		ITemporalPattern temporalPatterns = filterPrecondition.GetPattern();
+		
+		if (temporalPatterns instanceof SimpleCondition)
+		{
+			AbstractSimpleCondition abstractCondition = ((SimpleCondition)temporalPatterns).GetCondition();
+			
+			return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new SimpleConditionNot(abstractCondition, asbruComments), id);
+		}
+		
 		else
 		{
-			ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
+			ConstraintNot constraintNot = new ConstraintNot("null", 0, temporalPatterns, asbruComments, new ArrayList<Explanation>());
 			
-			for(String comment: comments)
-			{
-				asbruComments.add(new AnyComment(new Comment(comment)));
-			}
-			
-			return FilterPreconditionFactory.CreateFilterPrecondition(new SimpleConditionNot(abstractCondition, asbruComments), id);
+			return new FilterPrecondition(constraintNot, id);
 		}
 	}
 	

@@ -1,0 +1,14 @@
+Phase:firstpass
+Input: logicOperator openBrace Token  
+Options: control = brill
+
+Rule: openLogicBraceRule
+Priority: 20
+(
+{logicOperator}
+): temp
+(
+{openBrace}
+): label
+-->
+:label.openLogicBrace = {rule= "openLogicBraceRule" } 

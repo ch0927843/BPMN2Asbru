@@ -1,0 +1,20 @@
+Phase:firstpass
+Input: logicOperator openBrace closeBrace Token
+Options: control = brill
+
+Rule: informationBraceRule
+Priority: 20
+
+({!logicOperator})
+
+({openBrace})
+
+(
+({!closeBrace})*
+): label
+
+(
+{closeBrace}
+)
+-->
+:label.informationBrace = {rule= "informationBraceRule" }

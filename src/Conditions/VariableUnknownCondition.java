@@ -35,21 +35,14 @@ public class VariableUnknownCondition extends ConditionBase {
 	 */
 	public FilterPrecondition Convert()
 	{
-		if (comments.isEmpty())
+		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
+		
+		for(String comment: comments)
 		{
-			return FilterPreconditionFactory.CreateFilterPrecondition(new IsUnknownVariable(name), id);
+			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
-		else
-		{
-			ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
-			
-			for(String comment: comments)
-			{
-				asbruComments.add(new AnyComment(new Comment(comment)));
-			}
-			
-			return FilterPreconditionFactory.CreateFilterPrecondition(new IsUnknownVariable(name, asbruComments), id);
-		}
+		
+		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new IsUnknownVariable(name, asbruComments), id);
 	}
 	
 	// name of the variable to check

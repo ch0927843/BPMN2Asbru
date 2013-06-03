@@ -40,7 +40,7 @@ public class mainClass
 		}
 		if (args.length > 1)
 		{
-			outputFileName = args[1];
+			gateAppFileName = args[1];
 		}
 		if (args.length > 2)
 		{
@@ -48,19 +48,23 @@ public class mainClass
 		}
 		if (args.length > 3)
 		{
-			gateHomeDir = args[3];
+			outputFileName = args[3];
+		}
+		if (args.length > 4)
+		{
+			gateHomeDir = args[4];
 		}
 		
 		// creating new instance of the conditionWrapper
-		ConditionWrapper conditionWrapper = new ConditionWrapper(gateHomeDir, configFileName);
+		ConditionWrapper conditionWrapper = new ConditionWrapper(gateHomeDir, configFileName, gateAppFileName);
 		
-		while (command != 7)
+		while (command != 8)
 		{
 			printMenue();
 			
 			Scanner scanner = new Scanner(System.in);
 			command = scanner.nextInt();
-	
+			
 			// distinguish the user input
 			switch (command) 
 			{
@@ -69,17 +73,6 @@ public class mainClass
 					inputFileName = ReadFileNameFromConsole(FileNameType.inputFile);
 					break;
 				case 2:
-					System.out.print("Enter output file: ");
-					outputFileName = ReadFileNameFromConsole(FileNameType.outputFile);
-					break;
-				case 3:
-					System.out.print("Enter configuration file: ");
-					configFileName = ReadFileNameFromConsole(FileNameType.configFile);
-					if (CheckFileExistence(configFileName) && !configFileName.equals(""))
-					{
-						conditionWrapper.ParseConfigFile(configFileName);
-					}
-				case 4:
 					if (!inputFileName.isEmpty())
 					{
 						if (CheckFileExistence(inputFileName) && !inputFileName.equals(""))
@@ -99,15 +92,35 @@ public class mainClass
 						System.out.println("inputFile must not be null or empty!");
 					}
 					break;
+				case 3:
+					System.out.print("Enter gate application file: ");
+					gateAppFileName = ReadFileNameFromConsole(FileNameType.gateAppFile);
+					if (gateAppFileName != null && !gateAppFileName.equals(""))
+					{
+						conditionWrapper.SetGateApplicationFile(gateAppFileName);
+					}
+					break;
+				case 4:
+					System.out.print("Enter configuration file: ");
+					configFileName = ReadFileNameFromConsole(FileNameType.configFile);
+					if (configFileName != null && !configFileName.equals(""))
+					{
+						conditionWrapper.ParseConfigFile(configFileName);
+					}
+					break;
 				case 5:
-					System.out.print("Enter gate home directory: ");
-					gateHomeDir = ReadFileNameFromConsole(FileNameType.outputFile); //dirty fix: same behavior like output file
-					conditionWrapper.CreateNewGateInstance(gateHomeDir);
+					System.out.print("Enter output file: ");
+					outputFileName = ReadFileNameFromConsole(FileNameType.outputFile);
 					break;
 				case 6:
-					conditionWrapper.InitGateComponents();
+					System.out.print("Enter gate home directory: ");
+					gateHomeDir = ReadFileNameFromConsole(FileNameType.outputFile); //dirty fix: same behavior like output file
+					conditionWrapper.CreateNewGateInstance(gateHomeDir, gateAppFileName);
 					break;
 				case 7:
+					conditionWrapper.InitGateComponents();
+					break;
+				case 8:
 					log.log(new LogRecord(Level.INFO, "programm terminated"));
 					scanner.close();
 					System.exit(0);
@@ -134,14 +147,15 @@ public class mainClass
 		System.out.println("-----------------------------");
 		System.out.println("+++++++++ M E N U E +++++++++");
 		System.out.println("-----------------------------");
-		System.out.println("Change input file...........1");
-		System.out.println("Change output file..........2");
-		System.out.println("Change config file..........3");
-		System.out.println("PROCESS input to output.....4");
-		System.out.println("Reset gate-home directory...5");
-		System.out.println("Re-initialize gate..........6");
-		System.out.println("Quit........................7");
-		System.out.println("Choice:.....................");
+		System.out.println("Change input file..............1");
+		System.out.println("PROCESS input to output........2");
+		System.out.println("Change gate application file:..3");
+		System.out.println("Change config file.............4");
+		System.out.println("Change output file.............5");
+		System.out.println("Reset gate-home directory......6");
+		System.out.println("Re-initialize gate.............7");
+		System.out.println("Quit...........................8");
+		System.out.print("Choice........................:");
 	}
 
 	/**
@@ -152,9 +166,9 @@ public class mainClass
 	 */
 	private static String ReadFileNameFromConsole(FileNameType fileNameType)
 	{
+		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		String fileName = scanner.nextLine();
-		scanner.close();
 		
 		if (fileNameType == FileNameType.inputFile)
 		{
@@ -173,6 +187,18 @@ public class mainClass
 			return fileName;
 		}
 		else if (fileNameType == FileNameType.configFile)
+		{
+			if(CheckFileExistence(fileName)) 
+			{ 
+				return fileName;  
+			}
+			else
+			{
+				System.out.println("File does not exist!");
+				return "";
+			}
+		}
+		else if (fileNameType == FileNameType.gateAppFile)
 		{
 			if(CheckFileExistence(fileName)) 
 			{ 
@@ -208,6 +234,8 @@ public class mainClass
 	private static String configFileName = "";
 	// home directory of gate application
 	private static String gateHomeDir = "";
+	// file name of a gate application
+	private static String gateAppFileName = "";
 	
 	private static final Logger log = Logger.getLogger("mainClass.java");
 }

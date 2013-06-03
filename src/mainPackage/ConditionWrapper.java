@@ -34,31 +34,38 @@ public class ConditionWrapper
 
 	public ConditionWrapper()
 	{
-		this("C:\\Program Files\\GATE_Developer_7.0", null);
+		this("C:\\Program Files\\GATE_Developer_7.0", null, null);
 	}
 	
 	/**
 	 * 
 	 * @param gateHomeDir home directory of installed gate
 	 * @param configFileName file name of the metamap configuration
+	 * @param gateAppFileName file name of a gate application
 	 */
-	public ConditionWrapper(String gateHomeDir, String configFileName)
+	public ConditionWrapper(String gateHomeDir, String configFileName, String gateAppFileName)
 	{
 		if (configFileName != null && !configFileName.isEmpty())
 		{
 			ParseConfigFile(configFileName);
 		}
 		
-		CreateNewGateInstance(gateHomeDir);
+		if (!CheckFileExistence(gateAppFileName))
+		{
+			gateAppFileName = "";
+		}
+		
+		CreateNewGateInstance(gateHomeDir, gateAppFileName);
 	}
 	
 	/**
 	 * creates a new instance of the GateController
 	 * @param gateHomeDir home directory of installed gate
+	 * @param gateAppFileName file name of a gate application
 	 */
-	public void CreateNewGateInstance(String gateHomeDir)
+	public void CreateNewGateInstance(String gateHomeDir, String gateAppFileName)
 	{
-		gateController = new GateController(gateHomeDir, metaMapConfiguration);
+		gateController = new GateController(gateHomeDir, metaMapConfiguration, gateAppFileName);
 	}
 	
 	/**
@@ -138,8 +145,10 @@ public class ConditionWrapper
 					
 				in.close();
 				
-				gateController.SetMetaMapConfiguration(metaMapConfiguration);
-				InitGateComponents();
+				if (gateController != null)
+				{
+					gateController.SetMetaMapConfiguration(metaMapConfiguration);	
+				}
 			}
 			catch (FileNotFoundException e)
 			{
@@ -155,6 +164,29 @@ public class ConditionWrapper
 		else
 		{
 			System.out.println("configurationFile does not exist!");
+		}
+	}
+	
+	/**
+	 * sets the gate application file in the gateController
+	 * @param gateAppFile gate application file
+	 */
+	public void SetGateApplicationFile(String gateAppFile)
+	{
+		if (CheckFileExistence(gateAppFile))
+		{
+			if (gateController != null)
+			{
+				gateController.SetGateApplicationFile(gateAppFile);
+			}
+			else
+			{
+				System.out.println("gateController not initialized!");
+			}
+		}
+		else
+		{
+			System.out.println("gate application file does not exist!");
 		}
 	}
 	

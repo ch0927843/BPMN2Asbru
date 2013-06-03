@@ -55,6 +55,7 @@ public class ConstraintCombination implements ITemporalPattern {
 		this.label = label;
 		this.importance = importance;
 		this.patterns = patterns;
+		this.type = type;
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class ConstraintCombination implements ITemporalPattern {
 		Iterator<ITemporalPattern> patternIterator;
 		ITemporalPattern pattern;
 		
-		s = "<constraint-combination label=\"" + label + "\" importance=\"" + String.valueOf(importance) + "\">";
+		s = "<constraint-combination label=\"" + label + "\" type=\"" + type.toString().toLowerCase() + "\" importance=\"" + String.valueOf(importance) + "\">";
 		
 		s = s + commentContainer.printComments();
 		
@@ -101,4 +102,6 @@ public class ConstraintCombination implements ITemporalPattern {
 	private float importance;
 	// stores the comments of this object
 	private CommentContainer commentContainer;
+	// type of the operator
+	private Type type;
 }

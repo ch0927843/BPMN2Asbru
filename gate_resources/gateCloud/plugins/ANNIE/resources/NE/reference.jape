@@ -1,0 +1,11 @@
+Phase:firstpass
+Input:  Lookup  
+Options: control = brill
+
+Rule: referenceRule
+Priority: 20
+(
+{Lookup.majorType == "reference"}
+): label
+-->
+:label.reference = {rule= "referenceRule" } 

@@ -35,11 +35,11 @@ public class MetaMapConfiguration {
 	 * This method configures an instance of a metamap-processing-ressource with the configuration-options defined by a user
 	 * @param metaMap metamap-processing-ressource
 	 */
-	public void Configure(MetaMapPR metaMap)
+	public void Configure(gate.metamap.MetaMapPR metaMap)
 	{
 		try 
 		{
-			if (host != null && !host.isEmpty() && port != -1)
+/*			if (host != null && !host.isEmpty() && port != -1)
 			{
 				metaMap.setHost(host);
 				metaMap.setPort(port);
@@ -48,7 +48,7 @@ public class MetaMapConfiguration {
 			{
 				metaMap.setHost("localhost");
 				metaMap.setPort(8066);
-			}
+			}*/
 			
 			metaMap.setAnnotateNegEx(annotateNegEx);
 			metaMap.setAnnotatePhrases(annotatePhrases);

@@ -88,22 +88,15 @@ public class ContainsCondition<T> extends ConditionBase {
 		
 		Element element = new Element(expression); 
 		ListOrSetRef listOrSetRef = new ListOrSetRef(asbruList);
+		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 		
-		if (comments.isEmpty())
+		for(String comment: comments)
 		{
-			return FilterPreconditionFactory.CreateFilterPrecondition(new IsMemberOf(element, listOrSetRef), id);
+			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
-		else
-		{
-			ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
-			
-			for(String comment: comments)
-			{
-				asbruComments.add(new AnyComment(new Comment(comment)));
-			}
-			
-			return FilterPreconditionFactory.CreateFilterPrecondition(new IsMemberOf(element, listOrSetRef, asbruComments), id);
-		}
+		
+		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new IsMemberOf(element, listOrSetRef, asbruComments), id);
+
 	}
 	
 	// value to find in list

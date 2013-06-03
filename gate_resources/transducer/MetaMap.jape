@@ -1,0 +1,11 @@
+Phase:firstpass
+Input:  Lookup  
+Options: control = brill
+
+Rule: metaMapRule
+Priority: 20
+(
+{Lookup.majorType == "MetaMap"}
+): label
+-->
+:label.MetaMap = {rule= "metaMapRule" } 

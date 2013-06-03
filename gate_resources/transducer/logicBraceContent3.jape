@@ -1,0 +1,32 @@
+Phase:firstpass
+Input: Token openLogicBrace
+Options: control = brill
+
+Rule: logicBraceContentRule
+Priority: 20
+
+({openLogicBrace})
+(
+({!openLogicBrace})*
+
+	({openLogicBrace})
+	(
+	({!openLogicBrace})*
+
+		({openLogicBrace})
+		(
+		({Token.string != ")"})*
+		):label3
+		({Token.string == ")"})
+
+	({Token.string != ")"})*
+	):label2
+	({Token.string == ")"})
+
+({Token.string != ")"})*
+):label1
+({Token.string == ")"})
+-->
+:label3.logicBraceLayer3 = {rule= "logicBraceContentRule" },
+:label2.logicBraceLayer2 = {rule= "logicBraceContentRule" },
+:label1.logicBraceLayer1 = {rule= "logicBraceContentRule" }

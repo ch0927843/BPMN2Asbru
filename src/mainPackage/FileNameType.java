@@ -8,5 +8,5 @@ package mainPackage;
  */
 
 public enum FileNameType {
-	inputFile, outputFile, configFile
+	inputFile, outputFile, configFile, gateAppFile
 }

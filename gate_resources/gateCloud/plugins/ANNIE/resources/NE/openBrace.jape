@@ -1,0 +1,11 @@
+Phase:firstpass
+Input:  Token  
+Options: control = brill
+
+Rule: openBraceRule
+Priority: 20
+(
+{Token.string == "("}
+): label
+-->
+:label.openBrace = {rule= "openBraceRule" } 

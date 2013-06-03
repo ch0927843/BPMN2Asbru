@@ -1,0 +1,13 @@
+MultiPhase:	TheGrammars
+Phases: 
+logicOperator
+lingualLogicOperator
+negation
+reference
+colon
+contains
+range
+comparisonOperator
+MetaMap
+informationBrace
+openLogicBrace

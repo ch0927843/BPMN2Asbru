@@ -72,21 +72,14 @@ public class RangeCondition extends ConditionBase {
 		UpperBound upper = new UpperBound(expUpper);
 		ValueRange range = new ValueRange(lower, upper);
 		
-		if (comments.isEmpty())
-		{
-			return FilterPreconditionFactory.CreateFilterPrecondition(new IsWithinRange(expVal, range), id);
-		}
-		else
-		{
-			ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
+		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 			
-			for(String comment: comments)
-			{
-				asbruComments.add(new AnyComment(new Comment(comment)));
-			}
-			
-			return FilterPreconditionFactory.CreateFilterPrecondition(new IsWithinRange(expVal, range, asbruComments), id);
+		for(String comment: comments)
+		{
+			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
+		
+		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new IsWithinRange(expVal, range, asbruComments), id);
 	}
 	
 	// variable to check (if it is between the bounds)

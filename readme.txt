@@ -28,17 +28,19 @@ how to start the program:
 
 name of the executable program file: BPMN2Asbru.jar
 
-command line parameters:
-	1. name of the input file (the input file has to be in valid xml) -> optional
-	2. name of the output file -> optional
-	3. name of the file that includes the MetaMap configuration -> optional
-	4. gate home directory
+command line parameters (all parameters are optional since everthing can be configured at runtime):
+	1. name of the input file (the input file has to be in valid xml)
+	2. name of the file that contains a gate application, that is used to process the input file
+	3. name of the file that includes the MetaMap configuration
+	4. name of the output file
+	5. gate home directory
 note: you either can use one of the following scenarios:
 	1. no command line parameters
 	2. command line parameter 1
 	3. command line parameters 1 and 2
 	4. command line parameters 1, 2 and 3
 	5. command line parameters 1, 2, 3 and 4
+	6. command line parameters 1, 2, 3, 4 and 5
 
 configuration files and settings:
 	despite using the standard MetaMap configuration, you have 2 possibilities to hand over your own configuration

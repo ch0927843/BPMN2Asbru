@@ -9,10 +9,13 @@ import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
 import gate.ProcessingResource;
-import gate.creole.ANNIEConstants;
+import gate.creole.ANNIETransducer;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
+import gate.creole.SerialController;
+import gate.creole.Transducer;
+import gate.creole.gazetteer.DefaultGazetteer;
 import gate.persist.PersistenceException;
 import gate.util.GateException;
 import gate.util.InvalidOffsetException;
@@ -40,22 +43,24 @@ import Conditions.ConditionBase;
  * @author Christian Hinterer
  *
  */
+@SuppressWarnings("unused")
 public class GateController 
 {
 	// unnecessary (not used) at current implementation
 	public GateController()
 	{
-		this("C:\\Program Files\\GATE_Developer_7.0", null);
+		this("C:\\Program Files\\GATE_Developer_7.0", null, null);
 	}
 	
 	/**
 	 * 
 	 * @param gateHomeDir home directory of the installed gate
 	 * @param metaMapConfiguration container for metamap configuration
+	 * @param gateAppFile file name of a gate application
 	 */
-	public GateController(String gateHomeDir, MetaMapConfiguration metaMapConfiguration)
+	public GateController(String gateHomeDir, MetaMapConfiguration metaMapConfiguration, String gateAppFile)
 	{
-		if (!gateHomeDir.isEmpty())
+		if (gateHomeDir != null && !gateHomeDir.isEmpty())
 		{
 			System.setProperty("gate.home", gateHomeDir);
 		}
@@ -64,6 +69,7 @@ public class GateController
 			System.setProperty("gate.home", "C:\\Program Files\\GATE_Developer_7.0");
 		}
 		
+		this.gateAppFile = gateAppFile;
 		this.metaMapConfiguration = metaMapConfiguration;
 		InitGateComponents();
 		conditionTranslator = new ConditionTranslator();
@@ -163,8 +169,8 @@ public class GateController
 				corpus.add(doc);
 			}
 			
-			annieController.setCorpus(corpus);
-			annieController.execute();
+			gateController.setCorpus(corpus);
+			gateController.execute();
 			
 			// calls the method to create conditions out of annotated gate documents
 			conditions = CreateConditionsFromAnnotatedStatements();
@@ -223,6 +229,17 @@ public class GateController
 	public void SetMetaMapConfiguration(MetaMapConfiguration metaMapConfiguration)
 	{
 		this.metaMapConfiguration = metaMapConfiguration;
+		InitGateComponents();
+	}
+	
+	/**
+	 * sets the gate application file
+	 * @param gateAppFile gate application file
+	 */
+	public void SetGateApplicationFile(String gateAppFile)
+	{
+		this.gateAppFile = gateAppFile;
+		InitGateComponents();
 	}
 	
 	/**
@@ -287,7 +304,7 @@ public class GateController
 					}
 					
 					// add an annotation
-					markups.add(lowerOffset, upperOffset, type, features);
+					//markups.add(lowerOffset, upperOffset, type, features);
 				}
 			}
 		}
@@ -310,12 +327,13 @@ public class GateController
 	{
 		Collection<ConditionBase> conditions = new ArrayList<ConditionBase>();
 		
-		Iterator<Document> documentIterator = annieController.getCorpus().iterator();
+		Iterator<Document> documentIterator = gateController.getCorpus().iterator();
 		Iterator<ConditionExpression> conditionExpressionIterator = conditionExpressions.iterator();
 		
 		while(documentIterator.hasNext() && conditionExpressionIterator.hasNext()) // all condition statements are iteratred...
 		{
 			Document doc = documentIterator.next();
+			
 			ConditionExpression conExp = conditionExpressionIterator.next();
 			
 			AddHelperAnnotations(doc); //...additational annotatinos are created...
@@ -336,73 +354,23 @@ public class GateController
 	 */
 	private String GetAnnotationType(String token)
 	{
-		//String t = token.toLowerCase();
 		String t = token;
 		
 		if (t.equals("AND") || t.equals("OR") || t.equals("XOR"))
 		{
 			isLastTokenALogicOperator = true;
 			
-			return "logicOperator";
+			return null;
 		}
-		if (t.equals("and") || t.equals("or"))
-		{
-			isLastTokenALogicOperator = false;
-			
-			return "lingualLogicOperator";
-		}
-		
-		t = token.toLowerCase();
-		
-		if (t.equals("not") || t.equals("nothing") || t.equals("without") || t.equals("cannot"))
-		{
-			isLastTokenALogicOperator = false;
-			
-			return "negation";
-		}
-		else if (t.equals("with") || t.equals("who") || t.equals("when"))
-		{
-			isLastTokenALogicOperator = false;
-			
-			return "reference";
-		}
-		else if (t.equals("("))
+		if (t.equals("("))
 		{
 			return "openBrace";
 		}
-		else if (t.equals(")"))
+		if (t.equals(")"))
 		{
 			isLastTokenALogicOperator = false;
 			
 			return "closeBrace";
-		}
-		else if (t.equals(","))
-		{
-			isLastTokenALogicOperator = false;
-			
-			return "colon";
-		}
-		else if (t.equals("inlude") || t.equals("including") || t.equals("includes") || t.equals("with") || t.equals("in"))
-		{
-			isLastTokenALogicOperator = false;
-			
-			return "contains";
-		}
-		else if (t.equals("between") || t.equals("to") || t.equals("from"))
-		{
-			isLastTokenALogicOperator = false;
-			
-			return "range";
-		}
-		else if (t.equals("=")|| t.equals("<") || t.equals(">") || t.equals("!") ||
-				 t.equals("equal") || t.equals("equals") || t.equals("greater") || t.equals("less"))
-				 //t.equals(">=") || t.equals("==") || t.equals("!=") || t.equals("<>")  t.equals("<=") ||
-				 //t.equals("smaller") || t.equals("lower") || t.equals("less") || t.equals("bigger") || 
-				 //t.equals("higher") || t.equals("greater") || t.equals("more") || t.equals("than"))
-		{
-			isLastTokenALogicOperator = false;
-			
-			return "comparisonOperator";
 		}
 		
 		isLastTokenALogicOperator = false;
@@ -502,69 +470,92 @@ public class GateController
 	/**
 	 * inits an annie-system, respectively an annie controller -> instance that contains content as document
 	 * or as set of documents corpus and processing resources that belong to a defined annie system
+	 * @throws MalformedURLException 
 	 */
-	private void InitAnnieController()
+	private void InitAnnieController() throws MalformedURLException
 	{
 		try
 		{
 			log.log(new LogRecord(Level.INFO, "starting annie initialization"));
 
-			// load annie controller from file with defaults
-		    //annieController = (SerialAnalyserController)PersistenceManager.loadObjectFromFile
-					//(new File(new File(Gate.getPluginsHome(), ANNIEConstants.PLUGIN_DIR), ANNIEConstants.DEFAULT_FILE));
-			annieController = (SerialAnalyserController)PersistenceManager.loadObjectFromFile
-					(new File(new File(Gate.getPluginsHome(), ANNIEConstants.PLUGIN_DIR), ANNIEConstants.DEFAULT_FILE));
-			
-			String[] prNames = ANNIEConstants.PR_NAMES;
-			for (int i = 0; i < prNames.length; i++) 
+			if (gateAppFile != null && !gateAppFile.isEmpty())
 			{
-				String element = prNames[i];
-				FeatureMap params = Factory.newFeatureMap(); // use default parameters
-				ProcessingResource pr = (ProcessingResource)Factory.createResource(element, params);
-				
-				System.out.println("XXXXXXXXXXXXXXX " + element.toString());
-				
-				// add the PR to the pipeline controller
-				annieController.add(pr);
-			}
+				// load annie with defaults
+				//gateController = (SerialAnalyserController)PersistenceManager.loadObjectFromFile
+					//	(new File(new File(Gate.getPluginsHome(), ANNIEConstants.PLUGIN_DIR), ANNIEConstants.DEFAULT_FILE));
 
-		    /*FeatureMap params = Factory.newFeatureMap(); // use default parameters
-		    
-		    // create PR for Tokeniser
-		 	ProcessingResource pr = (ProcessingResource)Factory.createResource("gate.creole.annotdelete.AnnotationDeletePR", params);
-		 	// add the PR to the pipeline controller
-		 	annieController.add(pr);
-		    
-		    // create PR for Tokeniser
-		 	pr = (ProcessingResource)Factory.createResource("gate.creole.tokeniser.DefaultTokeniser", params);
-			// add the PR to the pipeline controller
-			annieController.add(pr);
-		    
-			// create PR for SentenceSplitter
-			pr = (ProcessingResource)Factory.createResource("gate.creole.splitter.SentenceSplitter", params);
-			// add the PR to the pipeline controller
-			annieController.add(pr);*/
-			
-			
-			
+				// load controller from "gate gui export"
+				//gateController = (SerialAnalyserController)PersistenceManager.loadObjectFromFile
+				//		(new File(".\\gate_resources\\gateGUIexport\\gateGUIexport.gapp"));
+				
+				// load controller from "cloud exportet"
+				//gateController = (SerialAnalyserController)PersistenceManager.loadObjectFromFile
+				//		(new File(".\\gate_resources\\gateCloud\\application.xgapp"));
+				
+				// load controller from gate gui application
+				gateController = (SerialAnalyserController)PersistenceManager.loadObjectFromFile
+						(new File(gateAppFile));
+			}
+			else // manually created gate application
+			{
+				// create empty serial analyser controller
+				gateController = (SerialAnalyserController)Factory.createResource("gate.creole.SerialAnalyserController", Factory.newFeatureMap(),
+						        												  Factory.newFeatureMap(), "GateController");
+				
+			    FeatureMap params = Factory.newFeatureMap(); // use default parameters
+			    
+			    // create PR for Tokeniser
+			 	ProcessingResource pr = (ProcessingResource)Factory.createResource("gate.creole.annotdelete.AnnotationDeletePR", params);
+			 	// add the PR to the pipeline controller
+			 	gateController.add(pr);
+			    
+			    // create PR for Tokeniser
+			 	pr = (ProcessingResource)Factory.createResource("gate.creole.tokeniser.DefaultTokeniser", params);
+				// add the PR to the pipeline controller
+			 	gateController.add(pr);
+			    
+				// create PR for SentenceSplitter
+				pr = (ProcessingResource)Factory.createResource("gate.creole.splitter.SentenceSplitter", params);
+				// add the PR to the pipeline controller
+				gateController.add(pr);
+				
+				// create PR for Gezetteer
+				DefaultGazetteer gazetteer = new DefaultGazetteer();
+				// assign my gazetteer lists
+			 	gazetteer.setListsURL(new File(".\\gate_resources\\gazetteer\\lists.def").toURI().toURL());
+			 	pr = (ProcessingResource)gazetteer.init();
+			 	// add the PR to the pipeline controller
+			 	gateController.add(pr);
+				
+			 	// create PR for Transducer
+			 	pr = (ProcessingResource)Factory.createResource("gate.creole.ANNIETransducer", params);
+			 	ANNIETransducer transducer = (ANNIETransducer)pr;
+			 	// assign my jape grammer
+			 	transducer.setGrammarURL(new File(".\\gate_resources\\transducer\\main.jape").toURI().toURL());
+			 	pr = (ProcessingResource)transducer.init();
+			 	// add the PR to the pipeline controller
+			 	gateController.add(pr);
+			}
+		 	
 		    log.log(new LogRecord(Level.INFO, "annie initialization sucessful"));
 		}
 		catch (IOException e)
 		{
 			log.log(new LogRecord(Level.WARNING, "annie initialization failed: " + e.toString()));
 			System.out.println("Error on creating file for gate plug-in");
-			////e.printStackTrace();
+			//e.printStackTrace();
 		} 
 		catch (ResourceInstantiationException e) 
 		{
 			log.log(new LogRecord(Level.WARNING, "annie initialization failed: " + e.toString()));
 			System.out.println("Error on instantiating resource");
-			////e.printStackTrace();
+			//e.printStackTrace();
 		} 
 		catch (PersistenceException e) 
 		{
 			log.log(new LogRecord(Level.WARNING, "annie initialization failed: " + e.toString()));
-			////e.printStackTrace();
+			System.out.println("Ungültiger Dateiinhalt!");
+			//e.printStackTrace();
 		}
 	}
 	
@@ -582,20 +573,20 @@ public class GateController
 			{
 				ProcessingResource metaMap = (ProcessingResource)Factory.createResource("gate.metamap.MetaMapPR", Factory.newFeatureMap());
 				
-				annieController.add(metaMap);
+				gateController.add(metaMap);
 			}
 			else
 			{
 				//included the gate-MetaMapPR-sources -> this makes it possible to instantiate the MetaMap-gate-plug-in directly, which in turn,
 				//allows to configute the MetaMap plug-in, becuase it offers interfaces that are passed-through to the nlm-meta-map-Java-Api
 				//the code line above instantiates the MetaMap directly from the lib using the string "gate.metamap.MetaMapPR" -> this does not
+				//MetaMapPR metaMapInstance = (MetaMapPR)metaMap;
+				
 				ProcessingResource metaMap = (ProcessingResource)Factory.createResource("gate.metamap.MetaMapPR", Factory.newFeatureMap());
+					
+				metaMapConfiguration.Configure((gate.metamap.MetaMapPR)metaMap);
 				
-				MetaMapPR metaMapInstance = (MetaMapPR)metaMap;
-				
-				metaMapConfiguration.Configure(metaMapInstance);
-				
-				annieController.add(metaMapInstance);
+				gateController.add(metaMap);
 			}
 		} 
 		catch (ResourceInstantiationException e) 
@@ -619,7 +610,7 @@ public class GateController
 		{
 			ProcessingResource numberTagger = (ProcessingResource)Factory.createResource("gate.creole.numbers.NumbersTagger", Factory.newFeatureMap());
 			
-			annieController.add(numberTagger);
+			gateController.add(numberTagger);
 		} 
 		catch (ResourceInstantiationException e) 
 		{
@@ -632,7 +623,7 @@ public class GateController
 	}
 	
 	// controller of gate (in this case for annie, metamap and number tagger)
-	private SerialAnalyserController annieController = null;
+	private SerialAnalyserController gateController = null;
 	
 	// list of condition container (plain-text condition and ID)
 	private Collection<ConditionExpression> conditionExpressions;
@@ -644,6 +635,9 @@ public class GateController
 	
 	//helper for the annotation logic; true if the last read token is an logic operator (AND, OR, XOR)
 	private boolean isLastTokenALogicOperator = false;
+	
+	// file name of a gate application
+	private String gateAppFile = "";
 	
 	private static final Logger log = Logger.getLogger("GateController.java");
 }

@@ -137,21 +137,14 @@ public class ComparisonCondition extends ConditionBase {
 			right = new RightHandSide(null);
 		}
 		
-		if (comments.isEmpty())
-		{
-			return FilterPreconditionFactory.CreateFilterPrecondition(new Comparison(comparisonType, left, right), id);
-		}
-		else
-		{
-			ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
+		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 			
-			for(String comment: comments)
-			{
-				asbruComments.add(new AnyComment(new Comment(comment)));
-			}
-			
-			return FilterPreconditionFactory.CreateFilterPrecondition(new Comparison(comparisonType, left, right, asbruComments), id);
+		for(String comment: comments)
+		{
+			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
+			
+		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new Comparison(comparisonType, left, right, asbruComments), id);
 	}
 	
 	// field to compare

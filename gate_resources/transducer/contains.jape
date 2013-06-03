@@ -1,0 +1,11 @@
+Phase:firstpass
+Input:  Lookup  
+Options: control = brill
+
+Rule: containsRule
+Priority: 20
+(
+{Lookup.majorType == "contains"}
+): label
+-->
+:label.contains = {rule= "containsRule" } 

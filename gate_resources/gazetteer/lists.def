@@ -1,0 +1,9 @@
+logicOperator.lst:logicOperator
+lingualLogicOperator.lst:lingualLogicOperator
+negation.lst:negation
+reference.lst:reference
+colon.lst:colon
+contains.lst:contains
+range.lst:range
+comparisonOperator.lst:comparisonOperator
+metaMap.lst:MetaMap

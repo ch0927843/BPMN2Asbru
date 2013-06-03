@@ -1,0 +1,11 @@
+Phase:firstpass
+Input:  Lookup Token 
+Options: control = brill
+
+Rule: colonRule
+Priority: 20
+(
+{Token.string == ","}
+): label
+-->
+:label.colon = {rule= "colonRule" } 

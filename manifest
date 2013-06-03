@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: mainPackage.mainClass
+Class-Path: lib/BPMN2Asbru.jar
+Created-By: Christian Hinterer
+

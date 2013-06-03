@@ -1,0 +1,11 @@
+Phase:firstpass
+Input:  Lookup Token  
+Options: control = brill
+
+Rule: SportsCategory
+Priority: 20
+(
+{Lookup.majorType == "sport"}
+): label
+-->
+:label.Sport = {rule= "SportsCategory" } 
