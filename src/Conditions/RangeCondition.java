@@ -63,7 +63,7 @@ public class RangeCondition extends ConditionBase {
 	 * 
 	 * @return the corresponding Asbru-condition
 	 */
-	public FilterPrecondition Convert()
+	public FilterPrecondition convert()
 	{
 		AsbruExpression expVal = new AsbruExpression(new StringConstant(variable));
 		AsbruExpression expLower = new AsbruExpression(new NumericalConstant(lowerBound, unit, scale));
@@ -79,7 +79,7 @@ public class RangeCondition extends ConditionBase {
 			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
 		
-		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new IsWithinRange(expVal, range, asbruComments), id);
+		return FilterPreconditionFactory.createFilterPreconditionFromAbstractSimpleCondition(new IsWithinRange(expVal, range, asbruComments), id);
 	}
 	
 	// variable to check (if it is between the bounds)

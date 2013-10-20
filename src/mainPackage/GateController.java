@@ -49,7 +49,7 @@ public class GateController
 	// unnecessary (not used) at current implementation
 	public GateController()
 	{
-		this("C:\\Program Files\\GATE_Developer_7.0", null, null);
+		this("C:\\Program Files\\GATE_Developer_7.1", null, null);
 	}
 	
 	/**
@@ -66,12 +66,12 @@ public class GateController
 		}
 		else
 		{
-			System.setProperty("gate.home", "C:\\Program Files\\GATE_Developer_7.0");
+			System.setProperty("gate.home", "C:\\Program Files\\GATE_Developer_7.1");
 		}
 		
 		this.gateAppFile = gateAppFile;
 		this.metaMapConfiguration = metaMapConfiguration;
-		InitGateComponents();
+		initGateComponents();
 		conditionTranslator = new ConditionTranslator();
 		
 		conditionExpressions = new ArrayList<ConditionExpression>();
@@ -83,7 +83,7 @@ public class GateController
 	 * initializes the gate framework, gate embedded, the gate ANNIE, the metamap plug-in and the number tagger
 	 */
 	@SuppressWarnings("deprecation")
-	public void InitGateComponents()
+	public void initGateComponents()
 	{
 		try 
 		{
@@ -94,21 +94,24 @@ public class GateController
 			
 			log.log(new LogRecord(Level.INFO, "register annie"));
 			// register annie controller
+			//log.log(new LogRecord(Level.INFO, Gate.getPluginsHome().toString()));
+			//Gate.getCreoleRegister().registerDirectories(new File(Gate.getPluginsHome(), "ANNIE").toURL());
 			Gate.getCreoleRegister().registerDirectories(new File(Gate.getPluginsHome(), "ANNIE").toURL());
 			log.log(new LogRecord(Level.INFO, "annie registration sucessful"));
-			InitAnnieController();
+			initAnnieController();
 			
 			log.log(new LogRecord(Level.INFO, "register MetaMap"));
 			// register metamap controller
 			Gate.getCreoleRegister().registerDirectories(new File(Gate.getPluginsHome(), "Tagger_MetaMap").toURL());
 			log.log(new LogRecord(Level.INFO, "MetaMap registration sucessful"));
-			InitMetaMapController();
+			initMetaMapController();
 			
 			log.log(new LogRecord(Level.INFO, "register tagger_numbers"));
 			// register number controller
+			Gate.getCreoleRegister().registerDirectories(new File(Gate.getPluginsHome(), "JAPE_Plus").toURL());
 			Gate.getCreoleRegister().registerDirectories(new File(Gate.getPluginsHome(), "Tagger_Numbers").toURL());
 			log.log(new LogRecord(Level.INFO, "tagger_numbers registration sucessful"));
-			InitNumberController();
+			initNumberController();
 		}
 		catch (GateException e) 
 		{
@@ -130,13 +133,13 @@ public class GateController
 	 * @param fileName file name of the input file
 	 * @return list of conditionExpression that contain the plain-text phrase of the condition-tag and the id
 	 */
-	public Collection<ConditionExpression> ParseFileForConditionExpressionStatements(String fileName)
+	public Collection<ConditionExpression> parseFileForConditionExpressionStatements(String fileName)
 	{
 		int expressionCount = 0;
 		
 		log.log(new LogRecord(Level.INFO, "searching condition expressions..."));
 
-		expressionCount = FindConditionExpressionStatements(fileName);
+		expressionCount = findConditionExpressionStatements(fileName);
 		
 		log.log(Level.INFO, expressionCount + " condition expressions found in input file");
 		
@@ -152,7 +155,7 @@ public class GateController
 	 * @return a list of classes that contain the found logic conditions
 	 * @throws ConnectException ConnectException: unable to establish connection
 	 */
-	public Collection<ConditionBase> ProcessConditionExpressionStatements(Collection<ConditionExpression> conditionExpressions) throws ConnectException
+	public Collection<ConditionBase> processConditionExpressionStatements(Collection<ConditionExpression> conditionExpressions) throws ConnectException
 	{
 		Collection<ConditionBase> conditions = new ArrayList<ConditionBase>();
 		Corpus corpus;
@@ -173,7 +176,7 @@ public class GateController
 			gateController.execute();
 			
 			// calls the method to create conditions out of annotated gate documents
-			conditions = CreateConditionsFromAnnotatedStatements();
+			conditions = createConditionsFromAnnotatedStatements();
 		}
 		catch (ResourceInstantiationException e) 
 		{
@@ -197,11 +200,11 @@ public class GateController
 	 * @param fileName file name of the input file
 	 * @return list of classes that contain the found conditions
 	 */
-	public Collection<ConditionBase> FindAndProcessConditionExpressionStatements(String fileName)
+	public Collection<ConditionBase> findAndProcessConditionExpressionStatements(String fileName)
 	{
 		try 
 		{
-			Collection<ConditionExpression> conditionExpressions = ParseFileForConditionExpressionStatements(fileName);
+			Collection<ConditionExpression> conditionExpressions = parseFileForConditionExpressionStatements(fileName);
 			
 			if (conditionExpressions == null || conditionExpressions.isEmpty())
 			{
@@ -209,7 +212,7 @@ public class GateController
 			}
 			else
 			{
-				return ProcessConditionExpressionStatements(conditionExpressions);
+				return processConditionExpressionStatements(conditionExpressions);
 			}
 			
 		} 
@@ -226,32 +229,32 @@ public class GateController
 	 * 
 	 * @param metaMapConfiguration container with meta map configuration informations
 	 */
-	public void SetMetaMapConfiguration(MetaMapConfiguration metaMapConfiguration)
+	public void setMetaMapConfiguration(MetaMapConfiguration metaMapConfiguration)
 	{
 		this.metaMapConfiguration = metaMapConfiguration;
-		InitGateComponents();
+		initGateComponents();
 	}
 	
 	/**
 	 * sets the gate application file
 	 * @param gateAppFile gate application file
 	 */
-	public void SetGateApplicationFile(String gateAppFile)
+	public void setGateApplicationFile(String gateAppFile)
 	{
 		this.gateAppFile = gateAppFile;
-		InitGateComponents();
+		initGateComponents();
 	}
 	
 	/**
 	 * this class adds additional annotations that are typical for some conditions like some special words, terms and symbols
 	 */
 	@SuppressWarnings("unchecked")
-	private void AddHelperAnnotations(Document doc)
+	private void addHelperAnnotations(Document doc)
 	{ 
 		ArrayList<Integer> braceContentStartOffsets = new ArrayList<Integer>();
 		ArrayList<Boolean> isLogicBrace = new ArrayList<Boolean>();
 		
-		conditionTranslator.ResetLogicBraceLayerCount();
+		conditionTranslator.resetLogicBraceLayerCount();
 		
 		try 
 		{
@@ -274,7 +277,7 @@ public class GateController
 				long lowerOffset = token.getStartNode().getOffset();
 				long upperOffset = token.getEndNode().getOffset();
 				
-				String type = GetAnnotationType(docContent.getContent(lowerOffset, upperOffset).toString());
+				String type = getAnnotationType(docContent.getContent(lowerOffset, upperOffset).toString());
 				
 				// if the word or the sign is a typical for some sort of condition
 				if (type != null)
@@ -291,7 +294,7 @@ public class GateController
 						if (isLogicOp)
 						{
 							markups.add((long)start, (long)(upperOffset - 1), "logicBraceContentLayer" + braceContentStartOffsets.size(), features);
-							conditionTranslator.IncrementLogicBraceLayerCount();
+							conditionTranslator.incrementLogicBraceLayerCount();
 							//markups.add((long)start, (long)(upperOffset - 1), "braceContentLayer", features);
 						}
 						else
@@ -323,7 +326,7 @@ public class GateController
 	 * 
 	 * @return list of conditions
 	 */
-	private Collection<ConditionBase> CreateConditionsFromAnnotatedStatements()
+	private Collection<ConditionBase> createConditionsFromAnnotatedStatements()
 	{
 		Collection<ConditionBase> conditions = new ArrayList<ConditionBase>();
 		
@@ -336,12 +339,12 @@ public class GateController
 			
 			ConditionExpression conExp = conditionExpressionIterator.next();
 			
-			AddHelperAnnotations(doc); //...additational annotatinos are created...
+			addHelperAnnotations(doc); //...additational annotatinos are created...
 			
-			conditions.add(CreateSingleCondition(doc, conExp.Id())); //... and the conditions are translated and put into a list
+			conditions.add(createSingleCondition(doc, conExp.Id())); //... and the conditions are translated and put into a list
 		}
 		
-		conditionTranslator.PrintStatistics();
+		conditionTranslator.printStatistics();
 		
 		return conditions;
 	}
@@ -352,7 +355,7 @@ public class GateController
 	 * @param token the word, sign, term, symbol
 	 * @return name of the annotation group the token fits in
 	 */
-	private String GetAnnotationType(String token)
+	private String getAnnotationType(String token)
 	{
 		String t = token;
 		
@@ -385,11 +388,11 @@ public class GateController
 	 * @param id the ID to identify the the condition term
 	 * @return the found condition
 	 */
-	private ConditionBase CreateSingleCondition(Document document, String id)
+	private ConditionBase createSingleCondition(Document document, String id)
 	{
 		ConditionBase condition = null;
 		
-		condition = conditionTranslator.Translate(document, id);
+		condition = conditionTranslator.translate(document, id);
 		
 		return condition;
 	}
@@ -402,7 +405,7 @@ public class GateController
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
-	private int FindConditionExpressionStatements(String inputFile)
+	private int findConditionExpressionStatements(String inputFile)
 	{
 		int count = 0;
 		
@@ -472,7 +475,7 @@ public class GateController
 	 * or as set of documents corpus and processing resources that belong to a defined annie system
 	 * @throws MalformedURLException 
 	 */
-	private void InitAnnieController() throws MalformedURLException
+	private void initAnnieController() throws MalformedURLException
 	{
 		try
 		{
@@ -563,7 +566,7 @@ public class GateController
 	 * inits the MetaMap-processing resource and adds it to the annie-controller or an own instance of a MetaMapController
 	 * depending on the configuration for metamap that is given by the user, the configuration is considered of the standard config is used
 	 */
-	private void InitMetaMapController()
+	private void initMetaMapController()
 	{
 		log.log(new LogRecord(Level.INFO, "starting metamap initialization"));
 		
@@ -584,7 +587,7 @@ public class GateController
 				
 				ProcessingResource metaMap = (ProcessingResource)Factory.createResource("gate.metamap.MetaMapPR", Factory.newFeatureMap());
 					
-				metaMapConfiguration.Configure((gate.metamap.MetaMapPR)metaMap);
+				metaMapConfiguration.configure((gate.metamap.MetaMapPR)metaMap);
 				
 				gateController.add(metaMap);
 			}
@@ -602,7 +605,7 @@ public class GateController
 	/**
 	 * inits a number-processing resource and adds it to the annie-controller or an own instance of a NumberController
 	 */
-	private void InitNumberController()
+	private void initNumberController()
 	{
 		log.log(new LogRecord(Level.INFO, "starting tagger_numbers initialization"));
 		

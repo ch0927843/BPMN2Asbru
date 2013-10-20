@@ -90,7 +90,7 @@ public class SimpleCondition implements ITemporalPattern {
 	 * return the condition wrapped in this class
 	 * @return the actual condition
 	 */
-	public AbstractSimpleCondition GetCondition()
+	public AbstractSimpleCondition getCondition()
 	{
 		return condition;
 	}

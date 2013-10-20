@@ -8,5 +8,5 @@ import AsbruConditions.FilterPrecondition;
  */
 public interface IConvertable {
 
-	public FilterPrecondition Convert();
+	public FilterPrecondition convert();
 }

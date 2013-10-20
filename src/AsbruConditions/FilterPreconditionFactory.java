@@ -12,7 +12,7 @@ public class FilterPreconditionFactory {
 	 * @param id the id of the condition
 	 * @return the abstractSimpleCondition wrapped in a FilterPreondition
 	 */
-	public static FilterPrecondition CreateFilterPreconditionFromAbstractSimpleCondition(AbstractSimpleCondition abstractSimpleCondition, String id)
+	public static FilterPrecondition createFilterPreconditionFromAbstractSimpleCondition(AbstractSimpleCondition abstractSimpleCondition, String id)
 	{
 		SimpleCondition simpleCondition = new SimpleCondition("null", 0, abstractSimpleCondition);
 		

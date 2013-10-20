@@ -56,14 +56,14 @@ public class OccuranceCondition extends ConditionBase {
 	 * 
 	 * @return the corresponding Asbru-condition
 	 */
-	public FilterPrecondition Convert()
+	public FilterPrecondition convert()
 	{
 		// at the moment just self in implemented, but plan-pointer can be implemented on demand
 		Self self = new Self();
 		
 		AnyPlanPointer pointer = new AnyPlanPointer(self);
-		PlanStateTransition planStateTransition = new PlanStateTransition(pointer, ConditionConverter.Convert(stateType), 
-				ConditionConverter.Convert(directionType), ConditionConverter.Convert(instanceType), instanceNumber);
+		PlanStateTransition planStateTransition = new PlanStateTransition(pointer, ConditionConverter.convert(stateType), 
+				ConditionConverter.convert(directionType), ConditionConverter.convert(instanceType), instanceNumber);
 	
 		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 		
@@ -72,7 +72,7 @@ public class OccuranceCondition extends ConditionBase {
 			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
 		
-		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new HasOccured(planStateTransition, asbruComments), id);
+		return FilterPreconditionFactory.createFilterPreconditionFromAbstractSimpleCondition(new HasOccured(planStateTransition, asbruComments), id);
 	}
 	
 	// state type of the condition

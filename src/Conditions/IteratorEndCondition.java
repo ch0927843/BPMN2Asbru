@@ -35,7 +35,7 @@ public class IteratorEndCondition extends ConditionBase {
 	 * 
 	 * @return the corresponding Asbru-condition
 	 */
-	public FilterPrecondition Convert()
+	public FilterPrecondition convert()
 	{
 		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 		
@@ -44,7 +44,7 @@ public class IteratorEndCondition extends ConditionBase {
 			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
 		
-		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new IsAtEnd(iterator, asbruComments), id);
+		return FilterPreconditionFactory.createFilterPreconditionFromAbstractSimpleCondition(new IsAtEnd(iterator, asbruComments), id);
 	}
 	
 	// name of iterator

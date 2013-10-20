@@ -22,13 +22,13 @@ public abstract class ConditionBase implements IConvertable {
 		this.id = id;
 	}
 
-	public abstract FilterPrecondition Convert();
+	public abstract FilterPrecondition convert();
 	
 	/**
 	 * adds a comment to the condition
 	 * @param comment
 	 */
-	public void AddComment(String comment)
+	public void addComment(String comment)
 	{
 		comment = comment.replaceAll("<", "&lt;");
 		comment = comment.replaceAll(">", "&gt;");
@@ -38,7 +38,7 @@ public abstract class ConditionBase implements IConvertable {
 	/**
 	 * removes the last comment of the list
 	 */
-	public void RemoveComment()
+	public void removeComment()
 	{
 		if (!comments.isEmpty())
 		{
@@ -50,7 +50,7 @@ public abstract class ConditionBase implements IConvertable {
 	 * sets the id for the condition
 	 * @param id ID
 	 */
-	public void SetID(String id)
+	public void setID(String id)
 	{
 		this.id = id;
 	}

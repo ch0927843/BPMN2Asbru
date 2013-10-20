@@ -40,9 +40,9 @@ public class NotCondition extends ConditionBase {
 	 * 
 	 * @return the corresponding Asbru-condition
 	 */
-	public FilterPrecondition Convert()
+	public FilterPrecondition convert()
 	{
-		FilterPrecondition filterPrecondition = condition.Convert();
+		FilterPrecondition filterPrecondition = condition.convert();
 		
 		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 		for(String comment: comments)
@@ -50,13 +50,13 @@ public class NotCondition extends ConditionBase {
 			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
 		
-		ITemporalPattern temporalPatterns = filterPrecondition.GetPattern();
+		ITemporalPattern temporalPatterns = filterPrecondition.getPattern();
 		
 		if (temporalPatterns instanceof SimpleCondition)
 		{
-			AbstractSimpleCondition abstractCondition = ((SimpleCondition)temporalPatterns).GetCondition();
+			AbstractSimpleCondition abstractCondition = ((SimpleCondition)temporalPatterns).getCondition();
 			
-			return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new SimpleConditionNot(abstractCondition, asbruComments), id);
+			return FilterPreconditionFactory.createFilterPreconditionFromAbstractSimpleCondition(new SimpleConditionNot(abstractCondition, asbruComments), id);
 		}
 		
 		else

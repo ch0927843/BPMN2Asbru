@@ -94,9 +94,9 @@ public class ComparisonCondition extends ConditionBase {
 	 * 
 	 * @return the corresponding Asbru-condition
 	 */
-	public FilterPrecondition Convert()
+	public FilterPrecondition convert()
 	{
-		ComparisonType comparisonType = ConditionConverter.Convert(matchCode);
+		ComparisonType comparisonType = ConditionConverter.convert(matchCode);
 		LeftHandSide left;
 		RightHandSide right;
 		AsbruExpression expLeft;
@@ -144,7 +144,7 @@ public class ComparisonCondition extends ConditionBase {
 			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
 			
-		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new Comparison(comparisonType, left, right, asbruComments), id);
+		return FilterPreconditionFactory.createFilterPreconditionFromAbstractSimpleCondition(new Comparison(comparisonType, left, right, asbruComments), id);
 	}
 	
 	// field to compare

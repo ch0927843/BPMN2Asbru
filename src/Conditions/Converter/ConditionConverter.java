@@ -28,16 +28,16 @@ public final class ConditionConverter {
 	 * @param condition condition to convert (into Asbru-language)
 	 * @return converted condition IN Asbru-language
 	 */
-	public static FilterPrecondition Convert(ConditionBase condition)
+	public static FilterPrecondition convert(ConditionBase condition)
 	{
-		return condition.Convert();
+		return condition.convert();
 	}
 	
 	/**
 	 * @param conditions list of conditions to convert (into Asbru-language)
 	 * @return list of conditions IN Asbru-language
 	 */
-	public static Collection<FilterPrecondition> Convert(Collection<ConditionBase> conditions)
+	public static Collection<FilterPrecondition> convert(Collection<ConditionBase> conditions)
 	{
 		Collection<FilterPrecondition> asbruConditions = new ArrayList<FilterPrecondition>();
 		
@@ -45,7 +45,7 @@ public final class ConditionConverter {
 		{
 			if (condition != null)
 			{
-				asbruConditions.add(condition.Convert());
+				asbruConditions.add(condition.convert());
 			}
 		}
 		
@@ -56,7 +56,7 @@ public final class ConditionConverter {
 	 * @param matchCode matchCode for comparisons
 	 * @return matchCode IN Asbru-language
 	 */
-	public static ComparisonType Convert(MatchCode matchCode)
+	public static ComparisonType convert(MatchCode matchCode)
 	{
 		switch(matchCode)
 		{
@@ -81,7 +81,7 @@ public final class ConditionConverter {
 	 * @param type logic operator type to convert (into Asbru-language)
 	 * @return logic operator type IN Asbru-language
 	 */
-	public static Type Convert(LogicOperatorType type)
+	public static Type convert(LogicOperatorType type)
 	{
 		switch(type)
 		{
@@ -100,7 +100,7 @@ public final class ConditionConverter {
 	 * @param type state type to convert (into Asbru-language)
 	 * @return state type IN Asbru-language
 	 */
-	public static State Convert(StateType type)
+	public static State convert(StateType type)
 	{
 		switch(type)
 		{
@@ -131,7 +131,7 @@ public final class ConditionConverter {
 	 * @param type direction type to convert (into Asbru-language)
 	 * @return direction type IN Asbru-language
 	 */
-	public static Direction Convert(DirectionType type)
+	public static Direction convert(DirectionType type)
 	{
 		switch(type)
 		{
@@ -148,7 +148,7 @@ public final class ConditionConverter {
 	 * @param type instnace type to convert (into Asbru-language)
 	 * @return instance type IN Asbru-language
 	 */
-	public static InstanceType Convert(InstanceTyp type)
+	public static InstanceType convert(InstanceTyp type)
 	{
 		switch(type)
 		{

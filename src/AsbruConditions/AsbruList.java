@@ -34,7 +34,7 @@ public class AsbruList implements IListOrSetRefChild {
 	 * adds an expression to the list of expressions
 	 * @param expression expression to add in list
 	 */
-	public void Add(AsbruExpression expression)
+	public void add(AsbruExpression expression)
 	{
 		expressions.add(expression);
 	}

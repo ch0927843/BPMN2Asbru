@@ -34,7 +34,7 @@ public class ConditionWrapper
 
 	public ConditionWrapper()
 	{
-		this("C:\\Program Files\\GATE_Developer_7.0", null, null);
+		this("C:\\Program Files\\GATE_Developer_7.1", null, null);
 	}
 	
 	/**
@@ -47,15 +47,22 @@ public class ConditionWrapper
 	{
 		if (configFileName != null && !configFileName.isEmpty())
 		{
-			ParseConfigFile(configFileName);
+			parseConfigFile(configFileName);
 		}
 		
-		if (!CheckFileExistence(gateAppFileName))
+		if (!checkFileExistence(gateAppFileName))
 		{
 			gateAppFileName = "";
 		}
 		
-		CreateNewGateInstance(gateHomeDir, gateAppFileName);
+		if (checkFileExistence(gateHomeDir))
+		{
+			createNewGateInstance(gateHomeDir, gateAppFileName);
+		}
+		else
+		{
+			createNewGateInstance("C:\\Program Files\\GATE_Developer_7.1", gateAppFileName);
+		}
 	}
 	
 	/**
@@ -63,7 +70,7 @@ public class ConditionWrapper
 	 * @param gateHomeDir home directory of installed gate
 	 * @param gateAppFileName file name of a gate application
 	 */
-	public void CreateNewGateInstance(String gateHomeDir, String gateAppFileName)
+	public void createNewGateInstance(String gateHomeDir, String gateAppFileName)
 	{
 		gateController = new GateController(gateHomeDir, metaMapConfiguration, gateAppFileName);
 	}
@@ -71,9 +78,9 @@ public class ConditionWrapper
 	/**
 	 * inits the gate system
 	 */
-	public void InitGateComponents()
+	public void initGateComponents()
 	{
-		gateController.InitGateComponents();
+		gateController.initGateComponents();
 	}
 	
 	// start point of parser logic, returns true on success
@@ -85,7 +92,7 @@ public class ConditionWrapper
 	 * @param outputFileName output file name
 	 * @return returns true on sucess
 	 */
-	public boolean Translate(String inputFileName, String outputFileName)
+	public boolean translate(String inputFileName, String outputFileName)
 	{
 		// list of conditions
 		Collection<ConditionBase> conditions = new ArrayList<ConditionBase>();
@@ -94,12 +101,12 @@ public class ConditionWrapper
 		
 		// call for finding condition phrases in cpg (input) and processing them by annotating them with gate
 		// and translating these annotated documents into logic conditions
-		conditions = gateController.FindAndProcessConditionExpressionStatements(inputFileName);
+		conditions = gateController.findAndProcessConditionExpressionStatements(inputFileName);
 		// call for converting the found logic conditions into asbru conditions
-		asbruConditions = ConvertConditions(conditions);
+		asbruConditions = convertConditions(conditions);
 		
 		// call for writing the asbru conditions into a file (valid xml)
-		return WriteAsbruConditionsToFile(asbruConditions, outputFileName);
+		return writeAsbruConditionsToFile(asbruConditions, outputFileName);
 	}
 	
 	/**
@@ -107,20 +114,20 @@ public class ConditionWrapper
 	 * 
 	 * @param metaMapConfiguration metamap configuration
 	 */
-	public void SetMetaMapConfiguration(MetaMapConfiguration metaMapConfiguration)
+	public void setMetaMapConfiguration(MetaMapConfiguration metaMapConfiguration)
 	{
 		this.metaMapConfiguration = metaMapConfiguration;
-		gateController.SetMetaMapConfiguration(metaMapConfiguration);
-		InitGateComponents();
+		gateController.setMetaMapConfiguration(metaMapConfiguration);
+		initGateComponents();
 	}
 	
 	/**
 	 * parses the configuration file and writes the configuration into a container (the MetaMapConfiguration)
 	 * @param configFileName
 	 */
-	public void ParseConfigFile(String configFileName)
+	public void parseConfigFile(String configFileName)
 	{
-		if (CheckFileExistence(configFileName))
+		if (checkFileExistence(configFileName))
 		{
 			metaMapConfiguration = new MetaMapConfiguration();
 			
@@ -140,14 +147,14 @@ public class ConditionWrapper
 					parameter = strLine.substring(0, strLine.indexOf(":"));
 					value = strLine.substring(strLine.indexOf(":") + 1, strLine.length());
 					
-					SetMetaMapConfigurationOption(parameter, value);
+					setMetaMapConfigurationOption(parameter, value);
 				}
 					
 				in.close();
 				
 				if (gateController != null)
 				{
-					gateController.SetMetaMapConfiguration(metaMapConfiguration);	
+					gateController.setMetaMapConfiguration(metaMapConfiguration);	
 				}
 			}
 			catch (FileNotFoundException e)
@@ -171,13 +178,13 @@ public class ConditionWrapper
 	 * sets the gate application file in the gateController
 	 * @param gateAppFile gate application file
 	 */
-	public void SetGateApplicationFile(String gateAppFile)
+	public void setGateApplicationFile(String gateAppFile)
 	{
-		if (CheckFileExistence(gateAppFile))
+		if (checkFileExistence(gateAppFile))
 		{
 			if (gateController != null)
 			{
-				gateController.SetGateApplicationFile(gateAppFile);
+				gateController.setGateApplicationFile(gateAppFile);
 			}
 			else
 			{
@@ -196,11 +203,11 @@ public class ConditionWrapper
 	 * @param conditions classes containing conditions
 	 * @return classes containing the input conditions (parameter) modelled in asbru
 	 */
-	private Collection<FilterPrecondition> ConvertConditions(Collection<ConditionBase> conditions)
+	private Collection<FilterPrecondition> convertConditions(Collection<ConditionBase> conditions)
 	{
 		Collection<FilterPrecondition> asbruConditions = new ArrayList<FilterPrecondition>();
 		
-		asbruConditions = ConditionConverter.Convert(conditions);
+		asbruConditions = ConditionConverter.convert(conditions);
 		
 		return asbruConditions;
 	}
@@ -212,7 +219,7 @@ public class ConditionWrapper
 	 * @param fileName the file name
 	 * @return true on sucess
 	 */
-	private boolean WriteAsbruConditionsToFile(Collection<FilterPrecondition> asbruConditions, String fileName)
+	private boolean writeAsbruConditionsToFile(Collection<FilterPrecondition> asbruConditions, String fileName)
 	{
 		int i = 1;
 		
@@ -297,41 +304,41 @@ public class ConditionWrapper
 	 * @param parameter string of configuration file containing some sort of configuration option for metamap
 	 * @param value string of configuration file containing some sort of configuration value for metamp
 	 */
-	private void SetMetaMapConfigurationOption(String parameter, String value)
+	private void setMetaMapConfigurationOption(String parameter, String value)
 	{
 		if(parameter.equals("host"))
 		{
-			metaMapConfiguration.SetHost(value);
+			metaMapConfiguration.setHost(value);
 		}
 		else if(parameter.equals("port"))
 		{
-			metaMapConfiguration.SetPort(Integer.parseInt(value));
+			metaMapConfiguration.setPort(Integer.parseInt(value));
 		}
 		else if(parameter.equals("annotateNegEx"))
 		{
 			if (value.equals("false"))
 			{
-				metaMapConfiguration.SetAnnotateNegEx(false);	
+				metaMapConfiguration.setAnnotateNegEx(false);	
 			}
 			else
 			{
-				metaMapConfiguration.SetAnnotateNegEx(true);
+				metaMapConfiguration.setAnnotateNegEx(true);
 			}
 		}
 		else if(parameter.equals("annotatePhrases"))
 		{
 			if (value.equals("false"))
 			{
-				metaMapConfiguration.SetAnnotatePhrases(false);	
+				metaMapConfiguration.setAnnotatePhrases(false);	
 			}
 			else
 			{
-				metaMapConfiguration.SetAnnotatePhrases(true);
+				metaMapConfiguration.setAnnotatePhrases(true);
 			}
 		}
 		else if(parameter.equals("inputASName"))
 		{
-			metaMapConfiguration.SetInputASName(value);
+			metaMapConfiguration.setInputASName(value);
 		}
 		else if(parameter.equals("inputASTypes"))
 		{
@@ -346,64 +353,64 @@ public class ConditionWrapper
 				value = value.substring(idx + 1, value.length());
 			}
 				
-			metaMapConfiguration.SetInputASTypes(types);
+			metaMapConfiguration.setInputASTypes(types);
 		}
 		else if(parameter.equals("inputASTypeFeature"))
 		{
-			metaMapConfiguration.SetInputASTypeFeature(value);
+			metaMapConfiguration.setInputASTypeFeature(value);
 		}
 		else if(parameter.equals("metaMapOptions"))
 		{
-			metaMapConfiguration.SetMetaMapOptions(value);
+			metaMapConfiguration.setMetaMapOptions(value);
 		}
 		else if(parameter.equals("outputASName"))
 		{
-			metaMapConfiguration.SetOutputASName(value);
+			metaMapConfiguration.setOutputASName(value);
 		}
 		else if(parameter.equals("outputASType"))
 		{
-			metaMapConfiguration.SetOutputASType(value);
+			metaMapConfiguration.setOutputASType(value);
 		}
 		else if(parameter.equals("outputMode"))
 		{
 			if (value.equals(OutputMode.AllCandidates.toString()))
 			{
-				metaMapConfiguration.SetOutputMode(OutputMode.AllCandidates);
+				metaMapConfiguration.setOutputMode(OutputMode.AllCandidates);
 			}
 			else if (value.equals(OutputMode.AllCandidatesAndMappings.toString()))
 			{
-				metaMapConfiguration.SetOutputMode(OutputMode.AllCandidatesAndMappings);
+				metaMapConfiguration.setOutputMode(OutputMode.AllCandidatesAndMappings);
 			}
 			else if (value.equals(OutputMode.AllMappings.toString()))
 			{
-				metaMapConfiguration.SetOutputMode(OutputMode.AllMappings);
+				metaMapConfiguration.setOutputMode(OutputMode.AllMappings);
 			}
 			else if (value.equals(OutputMode.HighestMappingLowestCUI.toString()))
 			{
-				metaMapConfiguration.SetOutputMode(OutputMode.HighestMappingLowestCUI);
+				metaMapConfiguration.setOutputMode(OutputMode.HighestMappingLowestCUI);
 			}
 			else if (value.equals(OutputMode.HighestMappingMostSources.toString()))
 			{
-				metaMapConfiguration.SetOutputMode(OutputMode.HighestMappingMostSources);
+				metaMapConfiguration.setOutputMode(OutputMode.HighestMappingMostSources);
 			}
 			else if (value.equals(OutputMode.HighestMappingOnly.toString()))
 			{
-				metaMapConfiguration.SetOutputMode(OutputMode.HighestMappingOnly);
+				metaMapConfiguration.setOutputMode(OutputMode.HighestMappingOnly);
 			}
 		}
 		else if(parameter.equals("taggerMode"))
 		{
 			if (value.equals(TaggerMode.AllOccurrences.toString()))
 			{
-				metaMapConfiguration.SetTaggerMode(TaggerMode.AllOccurrences);
+				metaMapConfiguration.setTaggerMode(TaggerMode.AllOccurrences);
 			}
 			else if (value.equals(TaggerMode.CoReference.toString()))
 			{
-				metaMapConfiguration.SetTaggerMode(TaggerMode.CoReference);
+				metaMapConfiguration.setTaggerMode(TaggerMode.CoReference);
 			}
 			else if (value.equals(TaggerMode.FirstOccurrenceOnly.toString()))
 			{
-				metaMapConfiguration.SetTaggerMode(TaggerMode.FirstOccurrenceOnly);
+				metaMapConfiguration.setTaggerMode(TaggerMode.FirstOccurrenceOnly);
 			}
 		}
 	}
@@ -414,7 +421,7 @@ public class ConditionWrapper
 	 * @param fileName: file-name for existence check
 	 * @return true on existence or false
 	 */
-	private boolean CheckFileExistence(String fileName)
+	private boolean checkFileExistence(String fileName)
 	{
 		File f = new File(fileName);
 		

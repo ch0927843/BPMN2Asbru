@@ -95,7 +95,7 @@ public class FilterPrecondition {
 	 *  
 	 * @return pattern that contains the actual condition
 	 */
-	public ITemporalPattern GetPattern()
+	public ITemporalPattern getPattern()
 	{
 		return pattern;
 	}

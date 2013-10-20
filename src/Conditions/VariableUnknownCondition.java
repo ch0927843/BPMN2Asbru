@@ -33,7 +33,7 @@ public class VariableUnknownCondition extends ConditionBase {
 	 * 
 	 * @return the corresponding Asbru-condition
 	 */
-	public FilterPrecondition Convert()
+	public FilterPrecondition convert()
 	{
 		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 		
@@ -42,7 +42,7 @@ public class VariableUnknownCondition extends ConditionBase {
 			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
 		
-		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new IsUnknownVariable(name, asbruComments), id);
+		return FilterPreconditionFactory.createFilterPreconditionFromAbstractSimpleCondition(new IsUnknownVariable(name, asbruComments), id);
 	}
 	
 	// name of the variable to check

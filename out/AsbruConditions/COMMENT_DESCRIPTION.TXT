@@ -1,0 +1,23 @@
+author of this package: Christian Hinterer
+
+description: in this package all implemented classes are corresponding to the different elements defined
+in the asgard/asbru dtd
+
+at the current implementation not all child-elements and/or attributes are used;
+for example many elements and the corresponding classes of this package can include comments,
+but the implemented conditions of the package "Conditions" only offer comments for the basic "asbru-conditions",
+which are:
+- CombinedCondition
+- ComparisonCondition
+- ContainsCondition
+- IteratorEndCondition
+- IteratorStartCondition
+- NotCondition
+- OccuranceCondition
+- RangeCondition
+- VariableKnownCondition
+- VariableUnknownCondition
+
+note:
+as a result of java not offering multiple inheritance and due to the fact that many classes need a base class for offering "asbru comments",
+i had to use interfaces to create some inheritance structures, even if true inheritance would have been best practice in these cases.

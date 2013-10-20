@@ -37,7 +37,7 @@ public class ConditionTranslator
 	 */
 	public ConditionTranslator()
 	{
-		InitStatistics();
+		initStatistics();
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class ConditionTranslator
 	 * @param id ID to identify the conditions
 	 * @return returns an object containing some sort of logic condition
 	 */
-	public ConditionBase Translate(Document document, String id)
+	public ConditionBase translate(Document document, String id)
 	{
 		this.document = document;
 		this.docContent = document.getContent();
@@ -78,23 +78,23 @@ public class ConditionTranslator
 	
 					if (innerCondition == null) // on the most inner brace the innerCondition is null
 					{
-						actualCondition = TranslateConditionCombination(logicBrace.getStartNode().getOffset(), logicBrace.getEndNode().getOffset());
+						actualCondition = translateConditionCombination(logicBrace.getStartNode().getOffset(), logicBrace.getEndNode().getOffset());
 					}
 					else // otherwise the actual condition of the actual brace depth is combined with the depper (more inner) found conditions
 					{
 						long currentStartOffset = logicBrace.getStartNode().getOffset();
 						long currentEndOffset = innerConditionStartOffset - 5;
 						
-						ConditionBase conditionLeft = TranslateConditionCombination(currentStartOffset, currentEndOffset);
+						ConditionBase conditionLeft = translateConditionCombination(currentStartOffset, currentEndOffset);
 						
 						AnnotationSet operator = allMarkupsAS.get("logicOperator", currentEndOffset, innerConditionStartOffset);
-						LogicOperatorType logicOperatorType = GetLogicOperatorFromString(docContent.getContent(operator.firstNode().getOffset(), operator.lastNode().getOffset()).toString());
+						LogicOperatorType logicOperatorType = getLogicOperatorFromString(docContent.getContent(operator.firstNode().getOffset(), operator.lastNode().getOffset()).toString());
 	
 						actualCondition = new CombinedCondition(conditionLeft, logicOperatorType, "");
-						((CombinedCondition) actualCondition).AddCondition(innerCondition);
+						((CombinedCondition) actualCondition).addCondition(innerCondition);
 						constraintCombination++;
 						
-						actualCondition.AddComment(docContent.getContent(logicBrace.getStartNode().getOffset(), logicBrace.getEndNode().getOffset()).toString());
+						actualCondition.addComment(docContent.getContent(logicBrace.getStartNode().getOffset(), logicBrace.getEndNode().getOffset()).toString());
 					}
 					
 					innerCondition = actualCondition;
@@ -106,29 +106,29 @@ public class ConditionTranslator
 			
 			if (innerCondition != null) // if the document contains any brace structure, the conditions found in braces are combined with the conditions outside of the most outer brace
 			{
-				ConditionBase conditionLeft = TranslateConditionCombination(0, innerConditionStartOffset - 5);
+				ConditionBase conditionLeft = translateConditionCombination(0, innerConditionStartOffset - 5);
 				AnnotationSet operator = allMarkupsAS.get("logicOperator", innerConditionStartOffset - 5, innerConditionStartOffset);
-				LogicOperatorType logicOperatorType = GetLogicOperatorFromString(docContent.getContent(operator.firstNode().getOffset(), operator.lastNode().getOffset()).toString());
+				LogicOperatorType logicOperatorType = getLogicOperatorFromString(docContent.getContent(operator.firstNode().getOffset(), operator.lastNode().getOffset()).toString());
 	
 				actualCondition = new CombinedCondition(conditionLeft, logicOperatorType, "");
-				((CombinedCondition) actualCondition).AddCondition(innerCondition);
+				((CombinedCondition) actualCondition).addCondition(innerCondition);
 				constraintCombination++;
 				
-				actualCondition.AddComment(stringContent);
+				actualCondition.addComment(stringContent);
 			}
 			else // if the document does not contain any "logic" braces...
 			{
 				if (allMarkupsAS.get("colon").isEmpty()) //...and no conditions seperated by colons...
 				{
-					actualCondition = TranslateConditionCombination(0, stringContent.length()); //...the method to search logic operators is called
+					actualCondition = translateConditionCombination(0, stringContent.length()); //...the method to search logic operators is called
 				}
 				else //...but colons are included...
 				{
-					actualCondition = TranslateConditionOtherThanLogicCombination(0, stringContent.length()); //...the method to distinguish between all other (except logic combined) conditions are called
+					actualCondition = translateConditionOtherThanLogicCombination(0, stringContent.length()); //...the method to distinguish between all other (except logic combined) conditions are called
 				}
 			}
 			
-			actualCondition.SetID(id);
+			actualCondition.setID(id);
 			
 			return actualCondition;
 		}
@@ -138,7 +138,7 @@ public class ConditionTranslator
 			System.out.println("An invalid offset was used while translating!");
 			
 			actualCondition = new VariableUnknownCondition("DUMMY", id);
-			actualCondition.AddComment("error on translating (invalid offset)" + e.toString());
+			actualCondition.addComment("error on translating (invalid offset)" + e.toString());
 			
 			return actualCondition;
 		}
@@ -147,7 +147,7 @@ public class ConditionTranslator
 	/**
 	 * increments the count ot the brace structure depth
 	 */
-	public void IncrementLogicBraceLayerCount()
+	public void incrementLogicBraceLayerCount()
 	{
 		logicBraceLayerCount++;
 	}
@@ -155,7 +155,7 @@ public class ConditionTranslator
 	/**
 	 * resets the count of the brace structure depth
 	 */
-	public void ResetLogicBraceLayerCount()
+	public void resetLogicBraceLayerCount()
 	{
 		logicBraceLayerCount = 0;
 	}
@@ -163,7 +163,7 @@ public class ConditionTranslator
 	/**
 	 * prints a statistic of the found conditions
 	 */
-	public void PrintStatistics()
+	public void printStatistics()
 	{
 		allConditions = comparison + isMemberOf + isWithinRange + constraintCombination + simpleConditionNot;
 		
@@ -189,7 +189,7 @@ public class ConditionTranslator
 	 * @return condition object for the condition part that was translated in this method
 	 * @throws InvalidOffsetException
 	 */
-	private ConditionBase TranslateConditionCombination(long startOffset, long endOffset) throws InvalidOffsetException
+	private ConditionBase translateConditionCombination(long startOffset, long endOffset) throws InvalidOffsetException
 	{
 		AnnotationSet allMarkupsAS = document.getAnnotations().get(startOffset, endOffset);
 		AnnotationSet logicOperatorAS = allMarkupsAS.get("logicOperator");
@@ -206,40 +206,40 @@ public class ConditionTranslator
 		{
 			Annotation logicOperator = sortedLogicAnnotationsIterator.next();
 
-			logicOperatorType = GetLogicOperatorFromString(docContent.getContent(logicOperator.getStartNode().getOffset(), logicOperator.getEndNode().getOffset()).toString());
+			logicOperatorType = getLogicOperatorFromString(docContent.getContent(logicOperator.getStartNode().getOffset(), logicOperator.getEndNode().getOffset()).toString());
 			
-			ConditionBase conditionLeft = TranslateConditionCombination(startOffset, logicOperator.getStartNode().getOffset() - 1); // translate condition left of the found logic operator
-			ConditionBase conditionRight = TranslateConditionCombination(logicOperator.getEndNode().getOffset() + 1, endOffset);  //translate condition right of the found logic operator
+			ConditionBase conditionLeft = translateConditionCombination(startOffset, logicOperator.getStartNode().getOffset() - 1); // translate condition left of the found logic operator
+			ConditionBase conditionRight = translateConditionCombination(logicOperator.getEndNode().getOffset() + 1, endOffset);  //translate condition right of the found logic operator
 			
 			if (conditionRight instanceof CombinedCondition) // if the right condition is already a combined one...
 			{
-				if (logicOperatorType.equals(((CombinedCondition) conditionRight).GetLogicOperatorType())) //...the operator is checked and if it is the same logic operator...
+				if (logicOperatorType.equals(((CombinedCondition) conditionRight).getLogicOperatorType())) //...the operator is checked and if it is the same logic operator...
 				{
-					((CombinedCondition) conditionRight).AddCondition(conditionLeft); //...the condition is added
+					((CombinedCondition) conditionRight).addCondition(conditionLeft); //...the condition is added
 					resultCondition = conditionRight;
-					resultCondition.RemoveComment();
+					resultCondition.removeComment();
 				}
 				else //...otherwise...
 				{
 					resultCondition = new CombinedCondition(conditionLeft, logicOperatorType, ""); //...a new condition combination is created with the "new" operator
-					((CombinedCondition) resultCondition).AddCondition(conditionRight);
+					((CombinedCondition) resultCondition).addCondition(conditionRight);
 					constraintCombination++;
 				}
 			}
 			else
 			{
 				resultCondition = new CombinedCondition(conditionLeft, logicOperatorType, "");
-				((CombinedCondition) resultCondition).AddCondition(conditionRight);
+				((CombinedCondition) resultCondition).addCondition(conditionRight);
 				constraintCombination++;
 			}
 			
-			resultCondition.AddComment(docContent.getContent(startOffset, endOffset).toString());
+			resultCondition.addComment(docContent.getContent(startOffset, endOffset).toString());
 			
 			return resultCondition;
 		}
 		else // not a logic operator
 		{
-			return TranslateConditionOtherThanLogicCombination(startOffset, endOffset); //call the method to distinguish all other conditions
+			return translateConditionOtherThanLogicCombination(startOffset, endOffset); //call the method to distinguish all other conditions
 		}
 	}
 	
@@ -252,7 +252,7 @@ public class ConditionTranslator
 	 * @return condition object for the condition part that was translated in this method
 	 * @throws InvalidOffsetException
 	 */
-	private ConditionBase TranslateConditionOtherThanLogicCombination(long startOffset, long endOffset) throws InvalidOffsetException
+	private ConditionBase translateConditionOtherThanLogicCombination(long startOffset, long endOffset) throws InvalidOffsetException
 	{
 		AnnotationSet allMarkupsAS = document.getAnnotations().get(startOffset, endOffset);
 		ConditionBase result = null;
@@ -260,41 +260,41 @@ public class ConditionTranslator
 		
 		if (!allMarkupsAS.get("colon").isEmpty()) //if the condition contains colons
 		{
-			result = TranslateColonList(startOffset, endOffset);
+			result = translateColonList(startOffset, endOffset);
 		}
 		else
 		{
-			annotationType = GetFirstCondition(allMarkupsAS);
+			annotationType = getFirstCondition(allMarkupsAS);
 			if (annotationType.equals("reference"))
 			{
-				result = TranslateReferenceCondition(startOffset, endOffset);
+				result = translateReferenceCondition(startOffset, endOffset);
 			}
 			else if (annotationType.equals("lingualLogicOperator"))
 			{
-				result = TranslateLinugalLogicTerm(startOffset, endOffset); 
+				result = translateLinugalLogicTerm(startOffset, endOffset); 
 			}
 			else if (annotationType.equals("negation"))
 			{
-				result = TranslateNegation(startOffset, endOffset);	
+				result = translateNegation(startOffset, endOffset);	
 			}
 			else
 			{
 				if (!allMarkupsAS.get("comparisonOperator").isEmpty()) //if the condition contains comparison operators
 				{
-					result = TranslateComparison(startOffset, endOffset);				
+					result = translateComparison(startOffset, endOffset);				
 				}
 				else if (!allMarkupsAS.get("range").isEmpty() && !allMarkupsAS.get("Number").isEmpty()) //if the condition contains a range
 				{
-					result = TranslateRange(startOffset, endOffset);
+					result = translateRange(startOffset, endOffset);
 				}
 				else
 				{
-					result = TranslateMedicalConcept(startOffset, endOffset);	
+					result = translateMedicalConcept(startOffset, endOffset);	
 				}
 			}
 		}
 		
-		result.AddComment(docContent.getContent(startOffset, endOffset).toString());
+		result.addComment(docContent.getContent(startOffset, endOffset).toString());
 				
 		return result;
 	}
@@ -305,7 +305,7 @@ public class ConditionTranslator
 	 * @param allMarkupsAS AnnotationSet with all markups
 	 * @return type of condition with first occurance
 	 */
-	private String GetFirstCondition(AnnotationSet allMarkupsAS)
+	private String getFirstCondition(AnnotationSet allMarkupsAS)
 	{
 		String result = "";
 		
@@ -384,7 +384,7 @@ public class ConditionTranslator
 	 * @return condition object for the condition part that was translated in this method
 	 * @throws InvalidOffsetException
 	 */
-	private ConditionBase TranslateColonList(long startOffset, long endOffset) throws InvalidOffsetException
+	private ConditionBase translateColonList(long startOffset, long endOffset) throws InvalidOffsetException
 	{
 		ConditionBase result = null;
 		AnnotationSet allMarkupsAS = document.getAnnotations();
@@ -407,7 +407,7 @@ public class ConditionTranslator
 				Annotation colonPart = sortedColonIterator.next();
 				conditionEndOffset = colonPart.getStartNode().getOffset();
 				
-				list.add(TranslateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset)); //add the condition seperated by the colon to the list of conditions
+				list.add(translateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset)); //add the condition seperated by the colon to the list of conditions
 				
 				conditionStartOffset = colonPart.getEndNode().getOffset() + 1;
 			}
@@ -421,22 +421,22 @@ public class ConditionTranslator
 				// if the operator is in the middle of the phrase (more conditions)
 				if (operator.getStartNode().getOffset() > conditionStartOffset + 2)
 				{
-					list.add(TranslateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset));
+					list.add(translateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset));
 					
 					result = new CombinedCondition(list, LogicOperatorType.AND, ""); // create a combined condition including the colon seperated conditions
 				}
 				else // if the operator comes after the colon, it finishes an enumeration
 				{
-					LogicOperatorType logicOperatorType = GetLogicOperatorFromString(docContent.getContent(operator.getStartNode().getOffset(), operator.getEndNode().getOffset()).toString().toUpperCase());
+					LogicOperatorType logicOperatorType = getLogicOperatorFromString(docContent.getContent(operator.getStartNode().getOffset(), operator.getEndNode().getOffset()).toString().toUpperCase());
 				
-					list.add(TranslateConditionOtherThanLogicCombination(operator.getEndNode().getOffset() + 1, conditionEndOffset));
+					list.add(translateConditionOtherThanLogicCombination(operator.getEndNode().getOffset() + 1, conditionEndOffset));
 				
 					result = new CombinedCondition(list, logicOperatorType, ""); // create a combined condition including the colon seperated conditions
 				}
 			}
 			else
 			{
-				list.add(TranslateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset));
+				list.add(translateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset));
 				result = new CombinedCondition(list, LogicOperatorType.OR, "");
 			}
 			constraintCombination++;
@@ -468,14 +468,14 @@ public class ConditionTranslator
 					{
 						Annotation colonPart = sortedColonIterator.next();
 						colonPartEndOffset = colonPart.getStartNode().getOffset();
-						list.add(TranslateMetaMapConcept(colonPartStartOffset, colonPartEndOffset));
+						list.add(translateMetaMapConcept(colonPartStartOffset, colonPartEndOffset));
 						colonPartStartOffset = colonPart.getEndNode().getOffset() + 1;
 					}
 					colonPartEndOffset = braceEndOffset;
 					
-					list.add(TranslateMetaMapConcept(colonPartStartOffset, colonPartEndOffset));
+					list.add(translateMetaMapConcept(colonPartStartOffset, colonPartEndOffset));
 					
-					value = TranslateMetaMapConcept(startOffset, braceStartOffset - 2);
+					value = translateMetaMapConcept(startOffset, braceStartOffset - 2);
 									
 					result = new ContainsCondition<String>(value, list, "", "", "");
 					isMemberOf++;
@@ -484,13 +484,13 @@ public class ConditionTranslator
 				{
 					ArrayList<ConditionBase> list = new ArrayList<ConditionBase>();
 					
-					list.add(TranslateConditionOtherThanLogicCombination(startOffset, colonPartStartOffset - 1));
+					list.add(translateConditionOtherThanLogicCombination(startOffset, colonPartStartOffset - 1));
 					
 					while (sortedColonIterator.hasNext())
 					{
 						Annotation colonPart = sortedColonIterator.next();
 						colonPartEndOffset = colonPart.getStartNode().getOffset();
-						list.add(TranslateConditionOtherThanLogicCombination(colonPartStartOffset, colonPartEndOffset));
+						list.add(translateConditionOtherThanLogicCombination(colonPartStartOffset, colonPartEndOffset));
 						colonPartStartOffset = colonPart.getEndNode().getOffset() + 1;
 					}
 					
@@ -499,16 +499,16 @@ public class ConditionTranslator
 					if (allMarkupsAS.get("lingualLogicOperator", colonPartStartOffset, colonPartEndOffset).iterator().hasNext())
 					{
 						Annotation operator = allMarkupsAS.get("lingualLogicOperator", colonPartStartOffset, colonPartEndOffset).iterator().next();
-						LogicOperatorType logicOperatorType = GetLogicOperatorFromString(docContent.getContent(operator.getStartNode().getOffset(), operator.getEndNode().getOffset()).toString().toUpperCase());
+						LogicOperatorType logicOperatorType = getLogicOperatorFromString(docContent.getContent(operator.getStartNode().getOffset(), operator.getEndNode().getOffset()).toString().toUpperCase());
 						
-						list.add(TranslateConditionOtherThanLogicCombination(operator.getEndNode().getOffset() + 1, colonPartEndOffset));
+						list.add(translateConditionOtherThanLogicCombination(operator.getEndNode().getOffset() + 1, colonPartEndOffset));
 						
 						//a combied condition with the found operator is built
 						result = new CombinedCondition(list, logicOperatorType, "");
 					}
 					else
 					{
-						list.add(TranslateConditionOtherThanLogicCombination(colonPartStartOffset, colonPartEndOffset));
+						list.add(translateConditionOtherThanLogicCombination(colonPartStartOffset, colonPartEndOffset));
 						result = new CombinedCondition(list, LogicOperatorType.OR, "");
 					}
 					constraintCombination++;
@@ -530,7 +530,7 @@ public class ConditionTranslator
 					Annotation colonPart = sortedColonIterator.next();
 					conditionEndOffset = colonPart.getStartNode().getOffset();
 					
-					list.add(TranslateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset)); //add the condition seperated by the colon to the list of conditions
+					list.add(translateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset)); //add the condition seperated by the colon to the list of conditions
 					
 					conditionStartOffset = colonPart.getEndNode().getOffset() + 1;
 				}
@@ -544,22 +544,22 @@ public class ConditionTranslator
 					// if the operator is in the middle of the phrase (more conditions)
 					if (operator.getStartNode().getOffset() > conditionStartOffset + 2)
 					{
-						list.add(TranslateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset));
+						list.add(translateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset));
 						
 						result = new CombinedCondition(list, LogicOperatorType.AND, ""); // create a combined condition including the colon seperated conditions
 					}
 					else // if the operator comes after the colon, it finishes an enumeration
 					{
-						LogicOperatorType logicOperatorType = GetLogicOperatorFromString(docContent.getContent(operator.getStartNode().getOffset(), operator.getEndNode().getOffset()).toString().toUpperCase());
+						LogicOperatorType logicOperatorType = getLogicOperatorFromString(docContent.getContent(operator.getStartNode().getOffset(), operator.getEndNode().getOffset()).toString().toUpperCase());
 					
-						list.add(TranslateConditionOtherThanLogicCombination(operator.getEndNode().getOffset() + 1, conditionEndOffset));
+						list.add(translateConditionOtherThanLogicCombination(operator.getEndNode().getOffset() + 1, conditionEndOffset));
 					
 						result = new CombinedCondition(list, logicOperatorType, ""); // create a combined condition including the colon seperated conditions
 					}
 				}
 				else
 				{
-					list.add(TranslateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset));
+					list.add(translateConditionOtherThanLogicCombination(conditionStartOffset, conditionEndOffset));
 					result = new CombinedCondition(list, LogicOperatorType.OR, "");
 				}
 				constraintCombination++;
@@ -578,7 +578,7 @@ public class ConditionTranslator
 	 * @return condition object for the condition part that was translated in this method
 	 * @throws InvalidOffsetException
 	 */
-	private ConditionBase TranslateLinugalLogicTerm(long startOffset, long endOffset) throws InvalidOffsetException
+	private ConditionBase translateLinugalLogicTerm(long startOffset, long endOffset) throws InvalidOffsetException
 	{
 		ConditionBase result = null;
 		AnnotationSet allMarkupsAS = document.getAnnotations();
@@ -589,7 +589,7 @@ public class ConditionTranslator
 		
 		long lingualStartOffset = linguatLogicOperator.getStartNode().getOffset();
 		long lingualEndOffset = linguatLogicOperator.getEndNode().getOffset();
-		LogicOperatorType logicOperatorType = GetLogicOperatorFromString(docContent.getContent(linguatLogicOperator.getStartNode().getOffset(), linguatLogicOperator.getEndNode().getOffset()).toString().toUpperCase());
+		LogicOperatorType logicOperatorType = getLogicOperatorFromString(docContent.getContent(linguatLogicOperator.getStartNode().getOffset(), linguatLogicOperator.getEndNode().getOffset()).toString().toUpperCase());
 		ArrayList<ConditionBase> conditions = new ArrayList<ConditionBase>();
 		
 		if (!informationBraceAS.isEmpty()) // if the condition is in a brace
@@ -603,29 +603,29 @@ public class ConditionTranslator
 				
 				if (startOffset < informationBrace.getStartNode().getOffset() - 2)
 				{
-					leftSide = TranslateMetaMapConcept(startOffset, informationBrace.getStartNode().getOffset() - 2);
+					leftSide = translateMetaMapConcept(startOffset, informationBrace.getStartNode().getOffset() - 2);
 				}
 				if (informationBrace.getEndNode().getOffset() + 2 < endOffset)
 				{
-					rightSide = TranslateMetaMapConcept(informationBrace.getEndNode().getOffset() + 2, endOffset);	
+					rightSide = translateMetaMapConcept(informationBrace.getEndNode().getOffset() + 2, endOffset);	
 				}
 				
 				//concatinate the phrase before the brace with each of the phrases (split through the linguistic logic word) in the brace and with the phrase after the brace
-				conditions.add(new ComparisonCondition(leftSide + " " + TranslateMetaMapConcept(informationBrace.getStartNode().getOffset(), lingualStartOffset - 1) + " " + rightSide, MatchCode.equal, "true", ""));
-				conditions.add(new ComparisonCondition(leftSide + " " + TranslateMetaMapConcept(lingualStartOffset + 1, informationBrace.getEndNode().getOffset()) + " " + rightSide, MatchCode.equal, "true", ""));
+				conditions.add(new ComparisonCondition(leftSide + " " + translateMetaMapConcept(informationBrace.getStartNode().getOffset(), lingualStartOffset - 1) + " " + rightSide, MatchCode.equal, "true", ""));
+				conditions.add(new ComparisonCondition(leftSide + " " + translateMetaMapConcept(lingualStartOffset + 1, informationBrace.getEndNode().getOffset()) + " " + rightSide, MatchCode.equal, "true", ""));
 				comparison++;
 				comparison++;
 			}
 			else
 			{
-				conditions.add(TranslateConditionOtherThanLogicCombination(startOffset, lingualStartOffset - 1));
-				conditions.add(TranslateConditionOtherThanLogicCombination(lingualEndOffset + 1, endOffset));
+				conditions.add(translateConditionOtherThanLogicCombination(startOffset, lingualStartOffset - 1));
+				conditions.add(translateConditionOtherThanLogicCombination(lingualEndOffset + 1, endOffset));
 			}
 		}
 		else
 		{
-			conditions.add(TranslateConditionOtherThanLogicCombination(startOffset, lingualStartOffset - 1));
-			conditions.add(TranslateConditionOtherThanLogicCombination(lingualEndOffset + 1, endOffset));
+			conditions.add(translateConditionOtherThanLogicCombination(startOffset, lingualStartOffset - 1));
+			conditions.add(translateConditionOtherThanLogicCombination(lingualEndOffset + 1, endOffset));
 		}
 		
 		result = new CombinedCondition(conditions, logicOperatorType, "");
@@ -642,7 +642,7 @@ public class ConditionTranslator
 	 * @return condition object for the condition part that was translated in this method
 	 * @throws InvalidOffsetException
 	 */
-	private ConditionBase TranslateComparison(long startOffset, long endOffset) throws InvalidOffsetException
+	private ConditionBase translateComparison(long startOffset, long endOffset) throws InvalidOffsetException
 	{
 		ConditionBase result = null;
 		AnnotationSet allMarkupsAS = document.getAnnotations();
@@ -676,10 +676,10 @@ public class ConditionTranslator
 				unitEndOffset = operatorStartOffset;
 			}
 			
-			String field = TranslateMetaMapConcept(fieldStartOffset, fieldEndOffset);
-			String unit = TranslateMetaMapConcept(unitStartOffset, unitEndOffset);
+			String field = translateMetaMapConcept(fieldStartOffset, fieldEndOffset);
+			String unit = translateMetaMapConcept(unitStartOffset, unitEndOffset);
 			
-			result = new ComparisonCondition(field, GetMatchCodeFromString(docContent.getContent(operatorStartOffset, operatorEndOffset).toString()), Float.valueOf(docContent.getContent(numberStartOffset, numberEndOffset).toString()), unit, "", "");
+			result = new ComparisonCondition(field, getMatchCodeFromString(docContent.getContent(operatorStartOffset, operatorEndOffset).toString()), Float.valueOf(docContent.getContent(numberStartOffset, numberEndOffset).toString()), unit, "", "");
 		}
 		else //if the comparison is between two fields (no number involved)
 		{
@@ -688,10 +688,10 @@ public class ConditionTranslator
 			long field2StartOffset = operatorStartOffset + 1;
 			long field2EndOffset = endOffset;
 			
-			String field1 = TranslateMetaMapConcept(field1StartOffset, field1EndOffset);
-			String field2 = TranslateMetaMapConcept(field2StartOffset, field2EndOffset);
+			String field1 = translateMetaMapConcept(field1StartOffset, field1EndOffset);
+			String field2 = translateMetaMapConcept(field2StartOffset, field2EndOffset);
 			
-			result = new ComparisonCondition(field1, GetMatchCodeFromString(docContent.getContent(operatorStartOffset, operatorEndOffset).toString()), field2, "");
+			result = new ComparisonCondition(field1, getMatchCodeFromString(docContent.getContent(operatorStartOffset, operatorEndOffset).toString()), field2, "");
 		}
 		
 		comparison++;
@@ -707,7 +707,7 @@ public class ConditionTranslator
 	 * @throws NumberFormatException
 	 * @throws InvalidOffsetException
 	 */
-	private ConditionBase TranslateRange(long startOffset, long endOffset) throws NumberFormatException, InvalidOffsetException
+	private ConditionBase translateRange(long startOffset, long endOffset) throws NumberFormatException, InvalidOffsetException
 	{
 		ConditionBase result = null;
 		String variable = "";
@@ -728,7 +728,7 @@ public class ConditionTranslator
 			Annotation number = numbersAS.iterator().next();
 			lowerBound = Float.valueOf(docContent.getContent(number.getStartNode().getOffset(), number.getEndNode().getOffset()).toString());
 			
-			variable = TranslateMetaMapConcept(startOffset, number.getStartNode().getOffset() - 1); //variable the range is for
+			variable = translateMetaMapConcept(startOffset, number.getStartNode().getOffset() - 1); //variable the range is for
 		}
 		
 		numbersAS = allMarkupsAS.get("Number", rangeEndOffset + 1, endOffset);
@@ -741,7 +741,7 @@ public class ConditionTranslator
 			
 			if (unitStartOffset < endOffset)
 			{
-				unit = TranslateMetaMapConcept(unitStartOffset, endOffset); //unit of the range values
+				unit = translateMetaMapConcept(unitStartOffset, endOffset); //unit of the range values
 			}
 			else
 			{
@@ -763,7 +763,7 @@ public class ConditionTranslator
 	 * @return condition object for the condition part that was translated in this method
 	 * @throws InvalidOffsetException
 	 */
-	private ConditionBase TranslateNegation(long startOffset, long endOffset) throws InvalidOffsetException
+	private ConditionBase translateNegation(long startOffset, long endOffset) throws InvalidOffsetException
 	{
 		ConditionBase result = null;
 		AnnotationSet allMarkupsAS = document.getAnnotations();
@@ -772,7 +772,7 @@ public class ConditionTranslator
 		Annotation negation = negationAS.iterator().next();
 		
 		//create a negation
-		result = new NotCondition(TranslateConditionOtherThanLogicCombination(negation.getEndNode().getOffset() + 1, endOffset), "");
+		result = new NotCondition(translateConditionOtherThanLogicCombination(negation.getEndNode().getOffset() + 1, endOffset), "");
 		simpleConditionNot++;
 
 		return result;
@@ -786,7 +786,7 @@ public class ConditionTranslator
 	 * @return condition object for the condition part that was translated in this method
 	 * @throws InvalidOffsetException
 	 */
-	private ConditionBase TranslateReferenceCondition(long startOffset, long endOffset) throws InvalidOffsetException
+	private ConditionBase translateReferenceCondition(long startOffset, long endOffset) throws InvalidOffsetException
 	{
 		ConditionBase result = null;
 		ArrayList<ConditionBase> conditions = new ArrayList<ConditionBase>();
@@ -809,20 +809,20 @@ public class ConditionTranslator
 			{
 				if (startReferenceOffset != -1)
 				{
-					conditions.add(TranslateConditionOtherThanLogicCombination(startReferenceOffset, reference.getStartNode().getOffset() - 1));
+					conditions.add(translateConditionOtherThanLogicCombination(startReferenceOffset, reference.getStartNode().getOffset() - 1));
 				}
 			
 				startReferenceOffset = reference.getEndNode().getOffset() + 1;
 			}
 		}
 		
-		conditions.add(TranslateConditionOtherThanLogicCombination(startReferenceOffset, endOffset));
+		conditions.add(translateConditionOtherThanLogicCombination(startReferenceOffset, endOffset));
 		
 		if (conditions.size() == 1)
 		{
 			//...if it is just one return it
 			result = conditions.get(0);
-			result.RemoveComment();
+			result.removeComment();
 		}
 		else
 		{
@@ -842,9 +842,9 @@ public class ConditionTranslator
 	 * @return condition object for the condition part that was translated in this method
 	 * @throws InvalidOffsetException
 	 */
-	private ConditionBase TranslateMedicalConcept(long startOffset, long endOffset) throws InvalidOffsetException
+	private ConditionBase translateMedicalConcept(long startOffset, long endOffset) throws InvalidOffsetException
 	{
-		String concept = TranslateMetaMapConcept(startOffset, endOffset);
+		String concept = translateMetaMapConcept(startOffset, endOffset);
 		
 		comparison++;
 		return new ComparisonCondition(concept, MatchCode.equal, "true", "");
@@ -859,7 +859,7 @@ public class ConditionTranslator
 	 * @return condition object for the condition part that was translated in this method
 	 * @throws InvalidOffsetException
 	 */
-	private String TranslateMetaMapConcept(long startOffset, long endOffset) throws InvalidOffsetException
+	private String translateMetaMapConcept(long startOffset, long endOffset) throws InvalidOffsetException
 	{
 		String field = "";
 		AnnotationSet allMarkupsAS = document.getAnnotations();
@@ -903,7 +903,7 @@ public class ConditionTranslator
 	 * @param operator operator as String
 	 * @return the LogicOperatorType for a condition combination
 	 */
-	private LogicOperatorType GetLogicOperatorFromString(String operator)
+	private LogicOperatorType getLogicOperatorFromString(String operator)
 	{
 		//operator = operator.toUpperCase(); // only if lingual logic operations are not used
 		
@@ -929,7 +929,7 @@ public class ConditionTranslator
 	 * @param matchCode match code as string
 	 * @return the match code for a comparison (condition)
 	 */
-	private MatchCode GetMatchCodeFromString(String matchCode)
+	private MatchCode getMatchCodeFromString(String matchCode)
 	{
 		if (matchCode.equals("==") || matchCode.equals("=") || matchCode.equals("equal"))
 		{
@@ -964,7 +964,7 @@ public class ConditionTranslator
 	/**
 	 * clears the statistics
 	 */
-	private void InitStatistics()
+	private void initStatistics()
 	{
 		allConditions = 0;
 		comparison = 0;

@@ -52,7 +52,7 @@ public class ContainsCondition<T> extends ConditionBase {
 	 * 
 	 * @return the corresponding Asbru-condition
 	 */
-	public FilterPrecondition Convert()
+	public FilterPrecondition convert()
 	{
 		AsbruExpression expression;
 		AsbruList asbruList = new AsbruList();
@@ -66,7 +66,7 @@ public class ContainsCondition<T> extends ConditionBase {
 			{
 				NumericalConstant numConst = new NumericalConstant(Float.parseFloat(entry.toString()), unit, scale);
 				AsbruExpression exp = new AsbruExpression(numConst);
-				asbruList.Add(exp);
+				asbruList.add(exp);
 			}
 		}
 		else if (value instanceof String)
@@ -78,7 +78,7 @@ public class ContainsCondition<T> extends ConditionBase {
 			{
 				StringConstant stringConst = new StringConstant(entry.toString());
 				AsbruExpression exp = new AsbruExpression(stringConst);
-				asbruList.Add(exp);
+				asbruList.add(exp);
 			}
 		}
 		else
@@ -95,7 +95,7 @@ public class ContainsCondition<T> extends ConditionBase {
 			asbruComments.add(new AnyComment(new Comment(comment)));
 		}
 		
-		return FilterPreconditionFactory.CreateFilterPreconditionFromAbstractSimpleCondition(new IsMemberOf(element, listOrSetRef, asbruComments), id);
+		return FilterPreconditionFactory.createFilterPreconditionFromAbstractSimpleCondition(new IsMemberOf(element, listOrSetRef, asbruComments), id);
 
 	}
 	

@@ -5,7 +5,7 @@ author: Christian Hinterer
 date: May 2013
 
 external libraries:
-	- Gate JAVA API: Gate Version 7.0 Build 4195; no licence required 
+	- Gate JAVA API: Gate Version 7.1; no licence required 
 		(downloaded at http://gate.ac.uk/download/)
 	- MetaMap JAVA API: MetaMap Version 2012; registration required -> i got an account of my supervisor Mag. Dr.rer.soc.oec. Katharina Kaiser
 		(downloaded at http://www.nlm.nih.gov/research/umls/) -> the exact link requires login
@@ -28,29 +28,16 @@ how to start the program:
 
 name of the executable program file: BPMN2Asbru.jar
 
-command line parameters (all parameters are optional since everthing can be configured at runtime):
-	1. name of the input file (the input file has to be in valid xml)
-	2. name of the file that contains a gate application, that is used to process the input file
-	3. name of the file that includes the MetaMap configuration
-	4. name of the output file
-	5. gate home directory
-note: you either can use one of the following scenarios:
-	1. no command line parameters
-	2. command line parameter 1
-	3. command line parameters 1 and 2
-	4. command line parameters 1, 2 and 3
-	5. command line parameters 1, 2, 3 and 4
-	6. command line parameters 1, 2, 3, 4 and 5
+list of command line parameters (all parameters except of the input file are optional); examples are in brackets:
+	-input:filename [-input:inputfilename.xml] explanation: filename of the file with the content to be processed
+	-output:filename [-output:outputfilename] explanation: filename of the file that is created with the programm output
+	-mmconf:filname [-mmconf:MetaMapConfig.cfg] explanation: filename of the file that contains configurations (options) for MetaMap (see the last section of this file "configuration files and settings")
+	-gateapp:filename [-gateapp:gateGUIexport.gapp] explanation: you can hand over your specific already with GateDeveloper created "corpus pipeline" instead of using that one that is created in the code by me
+	-gatehome:directoryname [-gatehome:C:\gate] explanation: if you do not use this argument to specify the installation folder of your gate, C:\Program Files\GATE_Developer_7.1 is used
 
 configuration files and settings:
-	despite using the standard MetaMap configuration, you have 2 possibilities to hand over your own configuration
-		1. command line parameter number 3
-		2. using the menue at runtime to choose a configuration file
-			note: a configuration (MetaMapConfig.cfg) file and a template (MetaMap.Config_regExp.txt -> regular expression), 
-				respectively a description are given in the data folder of the project (../BPMN2Asbru/data/MetaMap.Config_regExp.txt) 
-				and (../BPMN2Asbru/data/MetaMapConfig.cfg) for more details read
-				http://gate.ac.uk/sale/tao/splitch16.html#x21-40900016.1.2
+	a configuration (MetaMapConfig.cfg) file and a template (MetaMap.Config_regExp.txt -> regular expression), 
+	respectively a description are given in the data folder of the project (../BPMN2Asbru/data/MetaMap.Config_regExp.txt) 
+	and (../BPMN2Asbru/data/MetaMapConfig.cfg) for more details read
+	http://gate.ac.uk/sale/tao/splitch16.html#x21-40900016.1.2
 
-
-
-(../BPMN2Asbru/Data/MetaMap.Config_regExp.txt) and (../BPMN2Asbru/data/MetaMapConfig.cfg)

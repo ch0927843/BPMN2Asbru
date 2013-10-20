@@ -59,19 +59,19 @@ public class CombinedCondition extends ConditionBase {
 	 * 
 	 * @return the corresponding Asbru-condition
 	 */
-	public FilterPrecondition Convert()
+	public FilterPrecondition convert()
 	{
 		ArrayList<ITemporalPattern> temporalPatterns = new ArrayList<ITemporalPattern>(); 
 		
 		for(ConditionBase condition: conditions)
 		{
-			FilterPrecondition filterPrecondition = condition.Convert();
-			ITemporalPattern temporalPattern = filterPrecondition.GetPattern();
+			FilterPrecondition filterPrecondition = condition.convert();
+			ITemporalPattern temporalPattern = filterPrecondition.getPattern();
 
 			temporalPatterns.add(temporalPattern);
 		}
 		
-		Type asbruType = ConditionConverter.Convert(type);
+		Type asbruType = ConditionConverter.convert(type);
 		ArrayList<AnyComment> asbruComments = new ArrayList<AnyComment>();
 		
 		for(String comment: comments)
@@ -90,7 +90,7 @@ public class CombinedCondition extends ConditionBase {
 	 * adds a condition to the list of conditions that are combined
 	 * @param condition condition to add
 	 */
-	public void AddCondition(ConditionBase condition)
+	public void addCondition(ConditionBase condition)
 	{
 		conditions.add(condition);
 	}
@@ -100,7 +100,7 @@ public class CombinedCondition extends ConditionBase {
 	 * 
 	 * @return LogicOperatorType
 	 */
-	public LogicOperatorType GetLogicOperatorType()
+	public LogicOperatorType getLogicOperatorType()
 	{
 		return type;
 	}

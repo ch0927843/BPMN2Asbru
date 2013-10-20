@@ -35,7 +35,7 @@ public class MetaMapConfiguration {
 	 * This method configures an instance of a metamap-processing-ressource with the configuration-options defined by a user
 	 * @param metaMap metamap-processing-ressource
 	 */
-	public void Configure(gate.metamap.MetaMapPR metaMap)
+	public void configure(gate.metamap.MetaMapPR metaMap)
 	{
 		try 
 		{
@@ -97,7 +97,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return host
 	 */
-	public String GetHost()
+	public String getHost()
 	{
 		return host;
 	}
@@ -106,7 +106,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param host
 	 */
-	public void SetHost(String host)
+	public void setHost(String host)
 	{
 		this.host = host;
 	}
@@ -115,7 +115,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return port
 	 */
-	public int GetPort()
+	public int getPort()
 	{
 		return port;
 	}
@@ -124,7 +124,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param port
 	 */
-	public void SetPort(int port)
+	public void setPort(int port)
 	{
 		this.port = port;
 	}
@@ -133,7 +133,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return annotateNegEx
 	 */
-	public boolean GetAnnotateNegEx()
+	public boolean getAnnotateNegEx()
 	{
 		return annotateNegEx;
 	}
@@ -142,7 +142,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param annotateNegEx
 	 */
-	public void SetAnnotateNegEx(boolean annotateNegEx)
+	public void setAnnotateNegEx(boolean annotateNegEx)
 	{
 		this.annotateNegEx = annotateNegEx;
 	}
@@ -151,7 +151,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return annotatePhrases
 	 */
-	public boolean GetAnnotatePhrases()
+	public boolean getAnnotatePhrases()
 	{
 		return annotatePhrases;
 	}
@@ -160,7 +160,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param annotatePhrases
 	 */
-	public void SetAnnotatePhrases(boolean annotatePhrases)
+	public void setAnnotatePhrases(boolean annotatePhrases)
 	{
 		this.annotatePhrases = annotatePhrases;
 	}
@@ -169,7 +169,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return inputASName
 	 */
-	public String GetInputASName()
+	public String getInputASName()
 	{
 		return inputASName;
 	}
@@ -178,7 +178,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param inputASName
 	 */
-	public void SetInputASName(String inputASName)
+	public void setInputASName(String inputASName)
 	{
 		this.inputASName = inputASName;
 	}
@@ -187,7 +187,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return inputASTypes
 	 */
-	public ArrayList<String> GetInputASTypes()
+	public ArrayList<String> getInputASTypes()
 	{
 		return inputASTypes;
 	}
@@ -196,7 +196,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param inputASTypes
 	 */
-	public void SetInputASTypes(ArrayList<String> inputASTypes)
+	public void setInputASTypes(ArrayList<String> inputASTypes)
 	{
 		this.inputASTypes = inputASTypes;
 	}
@@ -205,7 +205,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param inputASType
 	 */
-	public void AddInputASType(String inputASType)
+	public void addInputASType(String inputASType)
 	{
 		this.inputASTypes.add(inputASType);
 	}
@@ -215,7 +215,7 @@ public class MetaMapConfiguration {
 	 * @param inputASType
 	 * @return sucess
 	 */
-	public boolean RemoveInputASType(String inputASType)
+	public boolean removeInputASType(String inputASType)
 	{
 		return this.inputASTypes.remove(inputASType);
 	}
@@ -224,7 +224,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return inputASTypeFeature
 	 */
-	public String GetInputASTypeFeature()
+	public String getInputASTypeFeature()
 	{
 		return inputASTypeFeature;
 	}
@@ -233,7 +233,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param inputASTypeFeature
 	 */
-	public void SetInputASTypeFeature(String inputASTypeFeature)
+	public void setInputASTypeFeature(String inputASTypeFeature)
 	{
 		this.inputASTypeFeature = inputASTypeFeature;
 	}
@@ -242,7 +242,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return metaMapOptions
 	 */
-	public String GetMetaMapOptions()
+	public String getMetaMapOptions()
 	{
 		return metaMapOptions;
 	}
@@ -251,7 +251,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param metaMapOptions
 	 */
-	public void SetMetaMapOptions(String metaMapOptions)
+	public void setMetaMapOptions(String metaMapOptions)
 	{
 		this.metaMapOptions = metaMapOptions;
 	}
@@ -260,7 +260,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return outputASName
 	 */
-	public String GetOutputASName()
+	public String getOutputASName()
 	{
 		return outputASName;
 	}
@@ -269,7 +269,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param outputASName
 	 */
-	public void SetOutputASName(String outputASName)
+	public void setOutputASName(String outputASName)
 	{
 		this.outputASName = outputASName;
 	}
@@ -278,7 +278,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return outputASType
 	 */
-	public String GetOutputASType()
+	public String getOutputASType()
 	{
 		return outputASType;
 	}
@@ -287,7 +287,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param outputASType
 	 */
-	public void SetOutputASType(String outputASType)
+	public void setOutputASType(String outputASType)
 	{
 		this.outputASType = outputASType;
 	}
@@ -296,7 +296,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return outputMode
 	 */
-	public OutputMode GetOutputMode()
+	public OutputMode getOutputMode()
 	{
 		return outputMode;
 	}
@@ -305,7 +305,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param outputMode
 	 */
-	public void SetOutputMode(OutputMode outputMode)
+	public void setOutputMode(OutputMode outputMode)
 	{
 		this.outputMode = outputMode;
 	}
@@ -314,7 +314,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @return taggerMode
 	 */
-	public TaggerMode GetTaggerMode()
+	public TaggerMode getTaggerMode()
 	{
 		return taggerMode;
 	}
@@ -323,7 +323,7 @@ public class MetaMapConfiguration {
 	 * 
 	 * @param taggerMode
 	 */
-	public void SetTaggerMode(TaggerMode taggerMode)
+	public void setTaggerMode(TaggerMode taggerMode)
 	{
 		this.taggerMode = taggerMode;
 	}

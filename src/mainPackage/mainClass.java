@@ -1,10 +1,11 @@
 package mainPackage;
 
 import java.io.File;
-import java.util.Scanner;
+//import java.util.Scanner;
 import java.util.logging.*;
 
-import org.apache.log4j.BasicConfigurator;
+//import org.apache.log4j.BasicConfigurator;
+
 
 /**
  * console application to test the Condition-Wrapper 
@@ -22,43 +23,33 @@ public class mainClass
 	 */
 	public static void main(String[] args) 
 	{
-		BasicConfigurator.configure();
+		//BasicConfigurator.configure();
 		log.log(new LogRecord(Level.INFO, "programm started"));
 		
-		int command = -1;
+		//int command = -1;
 		
-		if (args.length > 0)
+		for (int i = 0; i < args.length; i++)
 		{
-			if (CheckFileExistence(args[0]))
+			processCommandLineArgument(args[i]);
+		}
+
+		if (!inputFileName.equals("") && inputFileName != null && !inputFileName.isEmpty())
+		{
+			//creating new instance of the conditionWrapper
+			ConditionWrapper conditionWrapper = new ConditionWrapper(gateHomeDir, configFileName, gateAppFileName);
+			
+			if (!conditionWrapper.translate(inputFileName, outputFileName))
 			{
-				inputFileName = args[0];
-			}
-			else
-			{
-				System.out.println("inputFile defined by commandline argument 'one' does not exist!");
+				System.out.println("Error! Please read the log!");
 			}
 		}
-		if (args.length > 1)
+		else
 		{
-			gateAppFileName = args[1];
-		}
-		if (args.length > 2)
-		{
-			configFileName = args[2];
-		}
-		if (args.length > 3)
-		{
-			outputFileName = args[3];
-		}
-		if (args.length > 4)
-		{
-			gateHomeDir = args[4];
+			System.out.println("inputFileName must not be null or empty");
 		}
 		
-		// creating new instance of the conditionWrapper
-		ConditionWrapper conditionWrapper = new ConditionWrapper(gateHomeDir, configFileName, gateAppFileName);
 		
-		while (command != 8)
+		/*while (command != 2)
 		{
 			printMenue();
 			
@@ -67,17 +58,17 @@ public class mainClass
 			
 			// distinguish the user input
 			switch (command) 
-			{
+			{		
 				case 1:
 					System.out.print("Enter input file: ");
-					inputFileName = ReadFileNameFromConsole(FileNameType.inputFile);
+					inputFileName = readFileNameFromConsole(FileNameType.inputFile);
 					break;
 				case 2:
 					if (!inputFileName.isEmpty())
 					{
-						if (CheckFileExistence(inputFileName) && !inputFileName.equals(""))
+						if (checkFileExistence(inputFileName) && !inputFileName.equals(""))
 						{
-							if (!conditionWrapper.Translate(inputFileName, outputFileName))
+							if (!conditionWrapper.translate(inputFileName, outputFileName))
 							{
 								System.out.println("Error! Please read the log!");
 							}
@@ -94,31 +85,31 @@ public class mainClass
 					break;
 				case 3:
 					System.out.print("Enter gate application file: ");
-					gateAppFileName = ReadFileNameFromConsole(FileNameType.gateAppFile);
+					gateAppFileName = readFileNameFromConsole(FileNameType.gateAppFile);
 					if (gateAppFileName != null && !gateAppFileName.equals(""))
 					{
-						conditionWrapper.SetGateApplicationFile(gateAppFileName);
+						conditionWrapper.setGateApplicationFile(gateAppFileName);
 					}
 					break;
 				case 4:
 					System.out.print("Enter configuration file: ");
-					configFileName = ReadFileNameFromConsole(FileNameType.configFile);
+					configFileName = readFileNameFromConsole(FileNameType.configFile);
 					if (configFileName != null && !configFileName.equals(""))
 					{
-						conditionWrapper.ParseConfigFile(configFileName);
+						conditionWrapper.parseConfigFile(configFileName);
 					}
 					break;
 				case 5:
 					System.out.print("Enter output file: ");
-					outputFileName = ReadFileNameFromConsole(FileNameType.outputFile);
+					outputFileName = readFileNameFromConsole(FileNameType.outputFile);
 					break;
 				case 6:
 					System.out.print("Enter gate home directory: ");
-					gateHomeDir = ReadFileNameFromConsole(FileNameType.outputFile); //dirty fix: same behavior like output file
-					conditionWrapper.CreateNewGateInstance(gateHomeDir, gateAppFileName);
+					gateHomeDir = readFileNameFromConsole(FileNameType.outputFile); //dirty fix: same behavior like output file
+					conditionWrapper.createNewGateInstance(gateHomeDir, gateAppFileName);
 					break;
 				case 7:
-					conditionWrapper.InitGateComponents();
+					conditionWrapper.initGateComponents();
 					break;
 				case 8:
 					log.log(new LogRecord(Level.INFO, "programm terminated"));
@@ -128,13 +119,13 @@ public class mainClass
 				default:
 					System.out.println("Invalid command!");
 			}
-		}
+		}*/
 	}
 	
 	/**
 	 * prints a menue to give options to the user
 	 */
-	private static void printMenue()
+	/*private static void printMenue()
 	{
 		// testing purposes...
 		try {
@@ -156,7 +147,10 @@ public class mainClass
 		System.out.println("Re-initialize gate.............7");
 		System.out.println("Quit...........................8");
 		System.out.print("Choice........................:");
-	}
+		System.out.println("process new input file.......1");
+		System.out.println("Quit.........................2");
+		System.out.print("Choice......................:");
+	}*/
 
 	/**
 	 * reads a string from the console, that contains a file name
@@ -164,7 +158,7 @@ public class mainClass
 	 * @param fileNameType input file | output file | configuration file
 	 * @return returns the string (file name) read from console
 	 */
-	private static String ReadFileNameFromConsole(FileNameType fileNameType)
+	/*private static String readFileNameFromConsole(FileNameType fileNameType)
 	{
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
@@ -172,7 +166,7 @@ public class mainClass
 		
 		if (fileNameType == FileNameType.inputFile)
 		{
-			if(CheckFileExistence(fileName)) 
+			if(checkFileExistence(fileName)) 
 			{ 
 				return fileName;  
 			}
@@ -188,7 +182,7 @@ public class mainClass
 		}
 		else if (fileNameType == FileNameType.configFile)
 		{
-			if(CheckFileExistence(fileName)) 
+			if(checkFileExistence(fileName)) 
 			{ 
 				return fileName;  
 			}
@@ -200,7 +194,7 @@ public class mainClass
 		}
 		else if (fileNameType == FileNameType.gateAppFile)
 		{
-			if(CheckFileExistence(fileName)) 
+			if(checkFileExistence(fileName)) 
 			{ 
 				return fileName;  
 			}
@@ -212,6 +206,69 @@ public class mainClass
 		}
 		
 		return "";
+	}*/
+	
+	/**
+	 * 
+	 * @param commandLineargument command line argument
+	 */
+	private static void processCommandLineArgument(String commandLineargument)
+	{
+		String[] arg = commandLineargument.split(":", 2);
+		
+		if (arg.length == 2)
+		{
+			String command = arg[0].toString().substring(1, arg[0].toString().length());
+			String argument = arg[1].toString();
+			
+			if (!command.equals("") && command != null && !command.isEmpty() && command.equals("output"))
+			{
+				if (!argument.equals("") && argument != null && !argument.isEmpty())
+				{
+					outputFileName = argument;
+					return;
+				}
+			}
+			
+			if (!argument.equals("") && argument != null && !argument.isEmpty() && checkFileExistence(argument))
+			{
+				if (!command.equals("") && command != null && !command.isEmpty())
+				{
+					if (command.equals("input"))
+					{
+						inputFileName = argument;
+					}
+					else if (command.equals("mmconf"))
+					{
+						configFileName = argument;
+					}
+					else if (command.equals("gateapp"))
+					{
+						gateAppFileName = argument;
+					}
+					else if (command.equals("gatehome"))
+					{
+						gateHomeDir = argument;
+					}
+					else
+					{
+						System.out.println("command does not exist");
+					}
+				}
+				else
+				{
+					System.out.println(command + " must not be null or empty");
+				}
+			}
+			else
+			{
+				System.out.println(argument + " does not exist");
+			}
+		}
+		else
+		{
+			System.out.println("wrong argument: " + commandLineargument);
+		}
 	}
 	
 	/**
@@ -219,7 +276,7 @@ public class mainClass
 	 * @param fileName: file name for existence check
 	 * @return true on existence or false if not existing
 	 */
-	private static boolean CheckFileExistence(String fileName)
+	private static boolean checkFileExistence(String fileName)
 	{
 		File f = new File(fileName);
 		
