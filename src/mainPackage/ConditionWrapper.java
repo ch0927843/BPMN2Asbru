@@ -34,7 +34,7 @@ public class ConditionWrapper
 
 	public ConditionWrapper()
 	{
-		this("C:\\Program Files\\GATE_Developer_7.1", null, null);
+		this("C:/Program Files/GATE_Developer_7.1", null, null);
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class ConditionWrapper
 		}
 		else
 		{
-			createNewGateInstance("C:\\Program Files\\GATE_Developer_7.1", gateAppFileName);
+			createNewGateInstance("C:/Program Files/GATE_Developer_7.1", gateAppFileName);
 		}
 	}
 	

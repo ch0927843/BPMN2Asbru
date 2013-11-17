@@ -49,7 +49,7 @@ public class GateController
 	// unnecessary (not used) at current implementation
 	public GateController()
 	{
-		this("C:\\Program Files\\GATE_Developer_7.1", null, null);
+		this("C:/Program Files/GATE_Developer_7.1", null, null);
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class GateController
 		}
 		else
 		{
-			System.setProperty("gate.home", "C:\\Program Files\\GATE_Developer_7.1");
+			System.setProperty("gate.home", "C:/Program Files/GATE_Developer_7.1");
 		}
 		
 		this.gateAppFile = gateAppFile;
@@ -525,7 +525,7 @@ public class GateController
 				// create PR for Gezetteer
 				DefaultGazetteer gazetteer = new DefaultGazetteer();
 				// assign my gazetteer lists
-			 	gazetteer.setListsURL(new File(".\\gate_resources\\gazetteer\\lists.def").toURI().toURL());
+			 	gazetteer.setListsURL(new File("./gate_resources/gazetteer/lists.def").toURI().toURL());
 			 	pr = (ProcessingResource)gazetteer.init();
 			 	// add the PR to the pipeline controller
 			 	gateController.add(pr);
@@ -534,7 +534,7 @@ public class GateController
 			 	pr = (ProcessingResource)Factory.createResource("gate.creole.ANNIETransducer", params);
 			 	ANNIETransducer transducer = (ANNIETransducer)pr;
 			 	// assign my jape grammer
-			 	transducer.setGrammarURL(new File(".\\gate_resources\\transducer\\main.jape").toURI().toURL());
+			 	transducer.setGrammarURL(new File("./gate_resources/transducer/main.jape").toURI().toURL());
 			 	pr = (ProcessingResource)transducer.init();
 			 	// add the PR to the pipeline controller
 			 	gateController.add(pr);
